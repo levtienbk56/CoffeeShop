@@ -1,0 +1,15 @@
+There is a coffee shop named YuckyCofffee, where you can buy many kinds of coffee including: Espresso, Cappucino, DarkRoast, 
+BlackEye, Americano (Some other kinds may be added later). Each type of coffee is sold with a different price. 
+
+In addtition to coffee, customers can ask for several condiments like: Milk, Chocolate, Cream, Sugar, Ice 
+(Some others may be added later). With some kinds of additional condiments customers have to pay some extra money
+(Milk, Chocolate, Cream, each has different price), some are free (Sugar, Ice).
+
+As a customer, you can order to put any kind of condiments into your coffee as long as you pay for them.
+For example, you call a cup of Espesso plus Milk, Cream, Ice, so you have to pay for the Espresso and Milk and Cream, Ice is free.
+ 
+The shop is very famous and growing very fast, there are thousands of coffee lovers comming to enjoy YuckyCofffee's super
+delicious coffee every day.
+
+In order to make the shop's business more effective, the shop owner thinks they need a software that helps customers to order 
+coffee automatically and helps the shop's staff to calculate the price of coffee and additional condiments quickly.
