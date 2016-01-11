@@ -51,7 +51,7 @@
                                 <li><a href="#">My Profile</a></li>
                             </ul>
                         </li>
-                        <li class=""><a href="#">Logout</a></li>
+                        <li class=""><a href="logout">Logout</a></li>
                     </ul>
                 </div>
             </div>

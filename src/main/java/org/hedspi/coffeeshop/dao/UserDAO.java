@@ -5,4 +5,5 @@ import org.hedspi.coffeeshop.model.User;
 public interface UserDAO {
 	void insert(User user);
 	void delete(User user);
+	User getUser(String username);
 }

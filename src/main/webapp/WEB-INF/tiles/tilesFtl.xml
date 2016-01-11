@@ -21,9 +21,26 @@
 	</definition>
 	
 	<definition name="LoginPage" extends="baseLayout">
-		<put-attribute name="title" value="" />
+		<put-attribute name="title" value="login page" />
 		<put-attribute name="header" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/custom/login.ftl"
+			type="freemarker"  />
+		<put-attribute name="footer" value=""/>
+	</definition>
+	
+	
+	<definition name="Error403Page" extends="baseLayout">
+		<put-attribute name="title" value="error 403" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/custom/error403.ftl"
+			type="freemarker"  />
+		<put-attribute name="footer" value=""/>
+	</definition>
+	
+	<definition name="AdminPage" extends="baseLayout">
+		<put-attribute name="title" value="management page" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/custom/admin.ftl"
 			type="freemarker"  />
 		<put-attribute name="footer" value=""/>
 	</definition>
