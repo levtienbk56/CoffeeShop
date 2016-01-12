@@ -20,6 +20,12 @@
 			type="freemarker" />
 	</definition>
 	
+	<definition name="OrderPage" extends="baseLayout">
+		<put-attribute name="title" value="Order Page" />
+		<put-attribute name="body" value="/WEB-INF/views/custom/order.ftl"
+			type="freemarker" />
+	</definition>
+	
 	<definition name="LoginPage" extends="baseLayout">
 		<put-attribute name="title" value="login page" />
 		<put-attribute name="header" value="" />
@@ -39,7 +45,8 @@
 	
 	<definition name="AdminPage" extends="baseLayout">
 		<put-attribute name="title" value="management page" />
-		<put-attribute name="header" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/static/header.ftl"
+			type="freemarker" />
 		<put-attribute name="body" value="/WEB-INF/views/custom/admin.ftl"
 			type="freemarker"  />
 		<put-attribute name="footer" value=""/>

@@ -13,6 +13,6 @@ public interface CondimentDAO {
 
 	double selectPrice(int id);
 	
-	List<Condiment> selectCondimentAll();
+	List<Condiment> selectAll();
 
 }

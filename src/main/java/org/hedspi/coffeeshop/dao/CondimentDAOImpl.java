@@ -41,7 +41,7 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 		return 0;
 	}
 
-	public List<Condiment> selectCondimentAll() {
+	public List<Condiment> selectAll() {
 		String sql = "Select * from condiment";
 
 		Object[] params = new Object[] {};
