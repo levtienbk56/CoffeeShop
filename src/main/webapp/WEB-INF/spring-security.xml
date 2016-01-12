@@ -8,9 +8,9 @@
 
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/"
-			access="hasAnyRole('ROLE_SELLER', 'ROLE_ADMIN')" />
+			access="hasRole('ROLE_SELLER')" />
 		<intercept-url pattern="/index"
-			access="hasAnyRole('ROLE_SELLER', 'ROLE_ADMIN')" />
+			access="hasRole('ROLE_SELLER')" />
 		<intercept-url pattern="/login" access="isAnonymous()" />
 
 		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
