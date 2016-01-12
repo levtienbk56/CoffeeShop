@@ -21,4 +21,6 @@
 		<@tiles.insertAttribute name="footer" />
 	
 </body>
+  	<script type="text/javascript" src="resources/js/order.js" ></script>
+
 </html>

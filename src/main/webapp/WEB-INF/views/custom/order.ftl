@@ -1,17 +1,3 @@
-
-<script>
-    $(document).on('click', '#btn_remove_cup', function(){
-	      var str = $(this).parent('p').parent('td').parent('tr');
-	      str.hide();
-	});
-
-	function addCupFunction(){
-		var str="<tr><td >	choose coffee	</td>	<td><div class='checkbox'><input type='checkbox' name='coffee-size' value='big'>Big Size?</div></td>	<td >choose condiment</td>	<td><input type='number' class='form-control' id='coffee-quantity' min='1' value='1'></td><td>0VND</td> <td>  <p><button id='btn_remove_cup' type='button' class='btn btn-danger'><span class='glyphicon glyphicon-remove' > </span>Remove</button>   </p></td>	</tr>";	
-		$("#table_order tr#add_new").before(str);
-	};
-	
-</script>
-
 <div class="container">
     <div class="row">
 		<div class="col-sm-12 col-md-11 col-md-offset-1">
@@ -30,7 +16,7 @@
 					<tr>
 						<td >
 							<#list model["listCoffee"] as coffee> 
-								   <input type='checkbox' name='coffee-name'><text>${coffee.name}</text><br>
+								   <button id="btn_coffee" name='coffee-name'><text color='red'>${coffee.name}</text></button><br>
 							 </#list>
 						</td>
 						<td>
@@ -39,7 +25,7 @@
 							</div>
 						</td>
 						<td >
-							<#list model["listCondiment"] as condiment> 
+							<#list model['listCondiment'] as condiment> 
 								   <input type='checkbox' name='coffee-condiment'><text>${condiment.name}</text><br>
 							 </#list>
 						</td>
@@ -58,7 +44,7 @@
 					</tr>
 					
                     <tr id="add_new">
-    					<td colspan="6">
+    					<td colspan="6" align='center'>
                             <button type="button" style="background-color:#fff;" onClick="addCupFunction()">
     							<img src="http://www2.psd100.com/ppp/2013/12/1301/Add-the-green-button-1214031005.png_s.jpg" width="40" height="40" /> Add a Cup
 							</button>
