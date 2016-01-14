@@ -11,13 +11,18 @@
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   	<script type="text/javascript" src="resources/js/custom.js" ></script>
 	<meta charset=UTF-8">
-	
+	<style>
+		div.row{
+			margin-top:25px;
+			margin-bottom:20px;
+		}
+</style>
 </head>
 <body>
 		<@tiles.insertAttribute name="header" />
-		
-		<@tiles.insertAttribute name="body" />
-		
+		<div class="body">
+			<@tiles.insertAttribute name="body" />
+		</div>
 		<@tiles.insertAttribute name="footer" />
 	
 </body>
