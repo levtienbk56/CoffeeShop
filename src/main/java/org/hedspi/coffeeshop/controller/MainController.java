@@ -3,6 +3,8 @@ package org.hedspi.coffeeshop.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tiles.request.Request;
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.CondimentDAO;
@@ -14,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -41,6 +45,13 @@ public class MainController {
 			System.out.println(cof.getName());
 		}
 		return "OrderPage"; // definition in tilesFtl.xml
+	}
+	
+	@RequestMapping(value={"/"}, method = RequestMethod.POST)
+	public @ResponseBody String checkout(@RequestBody String user, HttpServletRequest request){
+		System.out.println("Ajax: " + user);
+		return "check out success";
+		
 	}
 
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
