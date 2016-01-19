@@ -205,9 +205,6 @@ function updatePriceFunction(cupID) {
 	updateTotalPriceFunction();
 }
 
-/*
- *  calcute total price
- */
 function updateTotalPriceFunction() {
 	var totalPrice = parseFloat(0);
 	for (key in listCup) {
@@ -219,25 +216,6 @@ function updateTotalPriceFunction() {
 
 	// update on html page
 	$("td#total_price h3 strong").text(totalPrice.toFixed(2));
-	
-	// update refund
-	updateRefundFunction();
-}
-
-/*
- * calcute money must to refund to customer
- */
-function updateRefundFunction() {
-	var pay = parseFloat($("td#customer_pay input").val());
-	var total = parseFloat(ORDER.totalPrice);
-	var refund = parseFloat(0);
-
-	console.log("pay: " + pay + ", total: " + total);
-
-	if (pay > total) {
-		refund = pay - total;
-	}
-	$("td#customer_refund h4 strong").text(refund.toFixed(2));
 }
 
 /*
