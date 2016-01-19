@@ -1,6 +1,8 @@
 package org.hedspi.coffeeshop.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.hedspi.coffeeshop.dao.CondimentDAO;
 import org.hedspi.coffeeshop.dao.UserDAO;
 import org.hedspi.coffeeshop.model.Coffee;
 import org.hedspi.coffeeshop.model.Condiment;
+import org.hedspi.coffeeshop.model.Order;
 import org.hedspi.coffeeshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,11 +35,11 @@ public class MainController {
 
 	@RequestMapping(value = { "/order", "/" }, method = RequestMethod.GET)
 	public String index(@ModelAttribute("model") ModelMap model) {
-		List<Coffee>  	listCoffee		= coffeedao.selectAll();
-		List<Condiment> listCondiment 	= condimentdao.selectAll();
+		List<Coffee> listCoffee = coffeedao.selectAll();
+		List<Condiment> listCondiment = condimentdao.selectAll();
 		model.addAttribute("listCondiment", listCondiment);
 		model.addAttribute("listCoffee", listCoffee);
-		
+
 		// checkout
 		for (Condiment con : listCondiment) {
 			System.out.println(con.getName());
@@ -46,12 +49,13 @@ public class MainController {
 		}
 		return "OrderPage"; // definition in tilesFtl.xml
 	}
-	
-	@RequestMapping(value={"/"}, method = RequestMethod.POST)
-	public @ResponseBody String checkout(@RequestBody String user, HttpServletRequest request){
-		System.out.println("Ajax: " + user);
-		return "check out success";
-		
+
+	@RequestMapping(value = { "/" }, method = RequestMethod.POST)
+	public @ResponseBody Order checkout(@RequestBody User acc) {
+		System.out.println("Ajax: " + acc.getUsername() + acc.getPassword() + acc.getRole());
+		Order order = new Order(1, new Timestamp(Calendar.getInstance().getTimeInMillis()), 15.2);
+		return order;
+
 	}
 
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)

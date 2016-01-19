@@ -87,7 +87,7 @@
 							</button>
 						</td>
 						<td>
-							<button type="button" class="btn btn-success" onClick="checkoutFunction()">
+							<button type="button" class="btn btn-success" onClick="checkoutFunction2()">
 								Checkout <span class="glyphicon glyphicon-play"></span>
 							</button>
 						</td>
