@@ -50,14 +50,30 @@ public class MainController {
 		return "OrderPage"; // definition in tilesFtl.xml
 	}
 
+//	@RequestMapping(value = { "/" }, method = RequestMethod.POST)
+//	public @ResponseBody Order checkout(@RequestBody User acc) {
+//		System.out.println("Ajax: " + acc.getUsername() + acc.getPassword() + acc.getRole());
+//		
+//		//TODO: create order, insert data (cup, order) into DB
+//		
+//		// return order back to web
+//		Order order = new Order(1, new Timestamp(Calendar.getInstance().getTimeInMillis()), 15.2);
+//		return order;
+//
+//	}
+
 	@RequestMapping(value = { "/" }, method = RequestMethod.POST)
 	public @ResponseBody Order checkout(@RequestBody User acc) {
 		System.out.println("Ajax: " + acc.getUsername() + acc.getPassword() + acc.getRole());
+		
+		//TODO: create order, insert data (cup, order) into DB
+		
+		// return order back to web
 		Order order = new Order(1, new Timestamp(Calendar.getInstance().getTimeInMillis()), 15.2);
 		return order;
 
 	}
-
+	
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public String loginPage() {
 		return "LoginPage"; // definition in tilesFtl.xml

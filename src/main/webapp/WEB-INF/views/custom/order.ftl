@@ -68,24 +68,27 @@
 					</tr>
 
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><h3>Total</h3></td>
-						<td class="text-right" id='total_price'><h3>
+						<td colspan="4" class="text-right"><h3><strong>Total</strong></h3></td>
+						<td class="text-right" id='total_price'>
+							<h3><strong>0$</strong>	</h3>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-right"><h4>customer pay</h4></td>
+						<td class="text-right" id='customer_pay'>
+							<input type="number" class="form-control" min="0" step="0.01" onChange="updateRefundFunction()"></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="text-right"><h4>Refund</h4></td>
+						<td class="text-right" id='customer_refund'><h4>
 								<strong>0$</strong>
-							</h3></td>
+							</h4></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td></td>
 						<td></td>
-						<td>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-shopping-cart"></span> Continue
-								Shopping
-							</button>
-						</td>
+						<td></td>
 						<td>
 							<button type="button" class="btn btn-success" onClick="checkoutFunction2()">
 								Checkout <span class="glyphicon glyphicon-play"></span>
