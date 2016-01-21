@@ -114,11 +114,7 @@
 					  	<button class="dropbtn">Coffees</button>
 					  	<div class="dropdown-content">
 					  		<#list model["listCoffee"] as coffee>
-<<<<<<< HEAD
-					    		<a class="coffee-name" href="#"  onClick="updateCoffeeNameFunction($(this))">
-=======
 					    		<a class="coffee-name" onClick="onSelectCoffeeNameFunction($(this))">
->>>>>>> 02c6aff... Controller save order's data
 					    			<text class='name'>${coffee.name}</text>
 					    			<text class='id' style="display:none;">${coffee.id} </text>
 					    			<text class='price' style="display:none;">${coffee.price} </text>

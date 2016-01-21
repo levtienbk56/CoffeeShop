@@ -22,22 +22,11 @@ function Condiment(id, name, price) {
 
 function Cup(id) {
 	this.id = id;
-<<<<<<< HEAD
-	this.coffee = new Coffee("", "", 0);
-	this.size = 1;
-=======
 	this.coffee = new Coffee("0", "", 0);
 	this.cupSize = 1;
->>>>>>> 02c6aff... Controller save order's data
 	this.quantity = 1;
-	this.condiments = [];
 	this.price = 0;
-<<<<<<< HEAD
-=======
 	this.condiments = {};
-	// var cdm = new Condiment("0", "", 0);
-	// this.condiments[cdm.id] = cdm;
->>>>>>> 02c6aff... Controller save order's data
 }
 
 /*
@@ -126,38 +115,6 @@ function onSelectSizeFunction(element) {
 /*
  * user update condiment
  */
-<<<<<<< HEAD
-$(document).on(
-		'click',
-		'input[name=coffee-condiment]',
-		function() {
-			// ID of current cup
-			var cupID = $(this).parent('td').parent('tr').attr('name');
-
-			var condiments = [];
-
-			// TODO: get value from html, update value in object
-			$("tr[name=" + cupID + "] input[name=coffee-condiment]:checked")
-					.each(
-							function() {
-								var div = $(this).next();
-								var id = div.children('.id').text();
-								var name = div.children('.name').text();
-								var price = div.children('.price').text();
-								var condiment = new Condiment(id, name, price);
-								console.log('condiment: ' + "(" + id + ","
-										+ name + "," + price + ")");
-
-								condiments[id] = condiment;
-							});
-
-			// update value in object
-			listCup[cupID].condiments = condiments;
-
-			// update price
-			updatePriceFunction(cupID);
-		});
-=======
 function onSelectCondimentFunction(element) {
 	// ID of current cup
 	var cupID = element.parent('td').parent('tr').attr('name');
@@ -184,7 +141,6 @@ function onSelectCondimentFunction(element) {
 	// update price
 	updatePriceFunction(cupID);
 };
->>>>>>> 02c6aff... Controller save order's data
 
 /*
  * user update quantity
@@ -247,8 +203,6 @@ function updateTotalPriceFunction() {
 
 	// update on html page
 	$("td#total_price h3 strong").text(totalPrice.toFixed(2));
-<<<<<<< HEAD
-=======
 
 	// update refund
 	updateRefundFunction();
@@ -286,20 +240,11 @@ function disableCheckoutButton(flag) {
 }
 function newOrderFunction() {
 	location.reload();
->>>>>>> 02c6aff... Controller save order's data
-}
 
 /*
  * test ajax
  */
 function checkoutFunction() {
-<<<<<<< HEAD
-	var txt = "tien";
-	$.post("", {
-		name : encodeURIComponent(txt)
-	}, function(result) {
-		alert(result);
-=======
 	// disable checkout button
 	disableCheckoutButton(true);
 	getListCupSize();
@@ -323,7 +268,6 @@ function checkoutFunction() {
 		done : function(e) {
 			console.log("DONE " + e);
 		}
->>>>>>> 02c6aff... Controller save order's data
 	});
 }
 
