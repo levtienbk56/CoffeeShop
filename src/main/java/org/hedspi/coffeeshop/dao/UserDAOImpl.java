@@ -5,6 +5,8 @@ import javax.sql.DataSource;
 import org.hedspi.coffeeshop.mapper.UserMapper;
 import org.hedspi.coffeeshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +20,16 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 		this.setDataSource(dataSource);
 	}
 
-	public void insert(User user) {
-		// TODO Auto-generated method stub
+	public int insert(User user) {
+		String sql = "INSERT INTO users(username,password,enabled,role) VALUES(?,?,?,?)";
+		Object[] params = new Object[] { user.getUsername(), user.getPassword(), user.isEnabled(), user.getRole() };
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (CannotGetJdbcConnectionException e) {
+			return -1;
+		} catch (DuplicateKeyException e) {
+			return 0;
+		}
 
 	}
 

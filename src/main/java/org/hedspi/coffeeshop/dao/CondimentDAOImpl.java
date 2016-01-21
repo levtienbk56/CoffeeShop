@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 import org.hedspi.coffeeshop.mapper.CondimentMapper;
 import org.hedspi.coffeeshop.model.Condiment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +22,16 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 		this.setDataSource(dataSource);
 	}
 
-	public void insert(Condiment condiment) {
-		String sql = "INSERT INTO condiment(name, price) VALUE(?,?)";
+	public int insert(Condiment condiment) {
+		String sql = "INSERT INTO condiments(name, price) VALUES(?,?)";
 		Object[] params = new Object[] { condiment.getName(), condiment.getPrice() };
-		this.getJdbcTemplate().update(sql, params);
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (CannotGetJdbcConnectionException e) {
+			return -1;
+		} catch (DuplicateKeyException e) {
+			return 0;
+		}
 	}
 
 	public void update(Condiment condiment) {
@@ -42,7 +50,7 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public List<Condiment> selectAll() {
-		String sql = "Select * from condiment";
+		String sql = "SELECT * FROM condiments";
 
 		Object[] params = new Object[] {};
 		CondimentMapper mapper = new CondimentMapper();

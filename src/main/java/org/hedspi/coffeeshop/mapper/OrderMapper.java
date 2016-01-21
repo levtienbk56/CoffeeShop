@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.RowMapper;
 public class OrderMapper implements RowMapper<Order> {
 
 	public Order mapRow(ResultSet rs, int arg1) throws SQLException {
-		// TODO Auto-generated method stub
-		return new Order(rs.getInt("id"), rs.getTimestamp("timestamp"), rs.getDouble("price"));
+		return new Order(rs.getInt("id"), rs.getString("username"), rs.getTimestamp("purchase_time"), rs.getDouble("total"));
 	}
 }

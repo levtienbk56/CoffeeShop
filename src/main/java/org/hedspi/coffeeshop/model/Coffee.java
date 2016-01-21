@@ -3,18 +3,16 @@ package org.hedspi.coffeeshop.model;
 public class Coffee {
 	private int id;
 	private String name;
-	private String spec;
 	private double price;
 
 	public Coffee() {
 
 	}
 
-	public Coffee(int id, String name, String spec, double price) {
+	public Coffee(int id, String name, double price) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.spec = spec;
 		this.price = price;
 	}
 
@@ -34,14 +32,6 @@ public class Coffee {
 		this.name = name;
 	}
 
-	public String getSpec() {
-		return spec;
-	}
-
-	public void setSpec(String spec) {
-		this.spec = spec;
-	}
-
 	public double getPrice() {
 		return price;
 	}
@@ -51,7 +41,7 @@ public class Coffee {
 	}
 	
 	public String toString(){
-		return id + " "+ name +  " "+spec + " "+ price;
+		return "coffee(" + id + ","+ name + ","+ price + ")";
 		
 	}
 

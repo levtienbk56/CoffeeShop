@@ -3,7 +3,7 @@ package org.hedspi.coffeeshop.model;
 public class Condiment {
 	private int id;
 	private String name;
-	private double price;
+	private double price = 0;
 	
 	public Condiment(){
 		

@@ -4,19 +4,29 @@ public class Cup {
 	private int id;
 	private int coffeeId;
 	private int orderId;
+<<<<<<< HEAD
 	private boolean bigSize; // NORNAL, BIG
+=======
+	private String size = "NORMAL"; // NORNAL(default), BIG
+	private String condiments;
+>>>>>>> 02c6aff... Controller save order's data
 	private double price;
-	
-	public Cup(){
-		
+
+	public Cup() {
+
 	}
 
+<<<<<<< HEAD
 	public Cup(int id, int coffeeId, int orderId, boolean bigSize, double price) {
 		super();
+=======
+	public Cup(int id, int coffeeId, int orderId, String size, String condiments, double price) {
+>>>>>>> 02c6aff... Controller save order's data
 		this.id = id;
 		this.coffeeId = coffeeId;
 		this.orderId = orderId;
-		this.bigSize = bigSize;
+		this.size = size;
+		this.condiments = condiments;
 		this.price = price;
 	}
 
@@ -44,12 +54,21 @@ public class Cup {
 		this.orderId = orderId;
 	}
 
-	public boolean isBigSize() {
-		return bigSize;
+	public String getSize() {
+		return size;
 	}
 
-	public void setBigSize(boolean bigSize) {
-		this.bigSize = bigSize;
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	
+	public String getCondiments() {
+		return condiments;
+	}
+
+	public void setCondiments(String condiments) {
+		this.condiments = condiments;
 	}
 
 	public double getPrice() {
@@ -60,4 +79,5 @@ public class Cup {
 		this.price = price;
 	}
 	
+
 }

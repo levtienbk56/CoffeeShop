@@ -8,19 +8,17 @@
 
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/"
-			access="hasRole('ROLE_SELLER')" />
-		<intercept-url pattern="/order"
-			access="hasRole('ROLE_SELLER')" />
+			access="hasRole('SELLER')" />
 		<intercept-url pattern="/login" access="isAnonymous()" />
 
-		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin" access="hasRole('ADMIN')" />
 		<intercept-url pattern="/other/**" access="isAuthenticated()" />
 
 		<access-denied-handler error-page="/403" />
 
 		<form-login login-page='/login' login-processing-url="/j_spring_security_check"
 			authentication-success-handler-ref="customSuccessHandler"
-			default-target-url="/order" authentication-failure-url="/login"
+			default-target-url="/" authentication-failure-url="/login"
 			username-parameter="username" password-parameter="password" />
 
 		<logout logout-url="/logout" logout-success-url="/login"
@@ -32,14 +30,14 @@
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="user1" password="12345" authorities="ROLE_SELLER" />
-				<user name="admin1" password="12345" authorities=" ROLE_ADMIN" />
+				<user name="user" password="12345" authorities="SELLER" />
+				<user name="admin" password="12345" authorities="ADMIN" />
 			</user-service>
 		</authentication-provider>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="postgresDataSource"
 				users-by-username-query="select username,password,enabled from users where username=?"
-				authorities-by-username-query="select username, role from user_roles where username =?  " />
+				authorities-by-username-query="select username,role from users where username =?  " />
 		</authentication-provider>
 	</authentication-manager>
 

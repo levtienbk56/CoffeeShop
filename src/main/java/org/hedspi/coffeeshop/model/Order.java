@@ -4,18 +4,25 @@ import java.sql.Timestamp;
 
 public class Order {
 	private int id;
-	private Timestamp timestamp;
-	private Double price;
-	
-	public Order(){
-		
+	private String username;
+	private Timestamp purchaseTime;
+	private Double total;
+
+	public Order() {
+
 	}
 
-	public Order(int id, Timestamp timestamp, Double price) {
-		super();
+	public Order(int id, String username, Timestamp timestamp, Double price) {
 		this.id = id;
-		this.timestamp = timestamp;
-		this.price = price;
+		this.username = username;
+		this.purchaseTime = timestamp;
+		this.total = price;
+	}
+
+	public Order(String username, Timestamp timestamp, Double price) {
+		this.username = username;
+		this.purchaseTime = timestamp;
+		this.total = price;
 	}
 
 	public int getId() {
@@ -26,22 +33,28 @@ public class Order {
 		this.id = id;
 	}
 
-	public Timestamp getTimestamp() {
-		return timestamp;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public Double getPrice() {
-		return price;
+	public Timestamp getPurchaseTime() {
+		return purchaseTime;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setPurchaseTime(Timestamp purchaseTime) {
+		this.purchaseTime = purchaseTime;
 	}
-	
-	
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
 
 }

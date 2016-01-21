@@ -5,7 +5,7 @@ import java.util.List;
 import org.hedspi.coffeeshop.model.Condiment;
 
 public interface CondimentDAO {
-	void insert(Condiment condiment);
+	int insert(Condiment condiment);
 
 	void update(Condiment condiment);
 

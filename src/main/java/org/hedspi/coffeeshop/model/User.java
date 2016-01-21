@@ -3,16 +3,17 @@ package org.hedspi.coffeeshop.model;
 public class User {
 	private String username;
 	private String password;
+	private boolean enabled = true;
 	private String role;
 
 	public User() {
 
 	}
 
-	public User(String username, String password, String role) {
-		super();
+	public User(String username, String password, boolean enabled, String role) {
 		this.username = username;
 		this.password = password;
+		this.enabled = enabled;
 		this.role = role;
 	}
 
@@ -44,8 +45,16 @@ public class User {
 		this.role = role;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public String toString() {
-		return "(" + username + "," + role + ")";
+		return "user(" + username + "," + password + "," + enabled + "," + role + ")";
 
 	}
 }

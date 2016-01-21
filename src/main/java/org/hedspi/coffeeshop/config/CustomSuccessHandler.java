@@ -57,14 +57,14 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
  
     private boolean isSeller(String role) {
-        if (role.equals("ROLE_SELLER")) {
+        if (role.equals("SELLER")) {
             return true;
         }
         return false;
     }
  
     private boolean isAdmin(String role) {
-        if (role.equals("ROLE_ADMIN")) {
+        if (role.equals("ADMIN")) {
             return true;
         }
         return false;

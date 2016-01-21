@@ -22,11 +22,22 @@ function Condiment(id, name, price) {
 
 function Cup(id) {
 	this.id = id;
+<<<<<<< HEAD
 	this.coffee = new Coffee("", "", 0);
 	this.size = 1;
+=======
+	this.coffee = new Coffee("0", "", 0);
+	this.cupSize = 1;
+>>>>>>> 02c6aff... Controller save order's data
 	this.quantity = 1;
 	this.condiments = [];
 	this.price = 0;
+<<<<<<< HEAD
+=======
+	this.condiments = {};
+	// var cdm = new Condiment("0", "", 0);
+	// this.condiments[cdm.id] = cdm;
+>>>>>>> 02c6aff... Controller save order's data
 }
 
 /*
@@ -65,7 +76,7 @@ function addCupFunction() {
  * when click a dropdown select coffee name name,id,price of selected coffee
  * will show on above <text> then create Coffee object, save into current cup
  */
-function updateCoffeeNameFunction(element) {
+function onSelectCoffeeNameFunction(element) {
 	// get value
 	var name = element.children('.name').text();
 	var price = element.children('.price').text();
@@ -92,31 +103,30 @@ function updateCoffeeNameFunction(element) {
 /*
  * user update size
  */
-$(document).on(
-		'click',
-		'input[name=coffee-size]',
-		function() {
-			// ID of current cup
-			var cupID = $(this).parent('td').parent('tr').attr("name");
+function onSelectSizeFunction(element) {
+	// ID of current cup
+	var cupID = element.parent('td').parent('tr').attr("name");
 
-			// update value size in object
-			var size = $(
-					"tr[name=" + cupID + "] input[name=coffee-size]:checked")
-					.val();
-			console.log("size: " + size);
-			if (size == 'big') {
-				listCup[cupID].size = 1.5;
-			} else {
-				listCup[cupID].size = 1;
-			}
+	// update value size in object
+	var size = $("tr[name=" + cupID + "] input[name=coffee-size]:checked")
+			.val();
+	console.log("size: " + size);
+	if (size == 'big') {
+		listCup[cupID].cupSize = 1.5;
+		console.log("size: " + listCup[cupID].cupSize);
+	} else {
+		listCup[cupID].cupSize = 1;
+		console.log("size: " + listCup[cupID].cupSize);
+	}
 
-			// update price
-			updatePriceFunction(cupID);
-		});
+	// update price
+	updatePriceFunction(cupID);
+};
 
 /*
  * user update condiment
  */
+<<<<<<< HEAD
 $(document).on(
 		'click',
 		'input[name=coffee-condiment]',
@@ -147,31 +157,52 @@ $(document).on(
 			// update price
 			updatePriceFunction(cupID);
 		});
+=======
+function onSelectCondimentFunction(element) {
+	// ID of current cup
+	var cupID = element.parent('td').parent('tr').attr('name');
+
+	var condiments = {};
+
+	// TODO: get value from html, update value in object
+	$("tr[name=" + cupID + "] input[name=coffee-condiment]:checked").each(
+			function() {
+				var div = $(this).next();
+				var id = div.children('.id').text();
+				var name = div.children('.name').text();
+				var price = div.children('.price').text();
+				var condiment = new Condiment(id, name, price);
+				console.log('condiment: ' + "(" + id + "," + name + "," + price
+						+ ")");
+
+				condiments[id] = condiment;
+			});
+
+	// update value in object
+	listCup[cupID].condiments = condiments;
+
+	// update price
+	updatePriceFunction(cupID);
+};
+>>>>>>> 02c6aff... Controller save order's data
 
 /*
  * user update quantity
  */
-$(document)
-		.on(
-				'change',
-				'input[name=coffee-quantity]',
-				function() {
+function onSelectQuantityFunction(element) {
+	var cupID = element.parent('td').parent('tr').attr("name");
 
-					var cupID = $(this).parent('td').parent('tr').attr("name");
+	// update value in object
+	var quantity = element.val();
+	console.log("quantity: " + quantity);
+	listCup[cupID].quantity = quantity;
 
-					// update value in object
-					var quantity = $(
-							'tr[name=' + cupID
-									+ '] input[name=coffee-quantity]').val();
-					console.log("quantity: " + quantity);
-					listCup[cupID].quantity = quantity;
-
-					// update price
-					updatePriceFunction(cupID);
-				});
+	// update price
+	updatePriceFunction(cupID);
+};
 
 /*
- * this function reload price when each action select menu
+ * this function reload price when each action select
  */
 function updatePriceFunction(cupID) {
 	var key;
@@ -179,7 +210,7 @@ function updatePriceFunction(cupID) {
 
 	// get value from object
 	var coffee = listCup[cupID].coffee;
-	var size = listCup[cupID].size;
+	var size = listCup[cupID].cupSize;
 
 	// get condiment value
 	var condiments = listCup[cupID].condiments;
@@ -216,17 +247,83 @@ function updateTotalPriceFunction() {
 
 	// update on html page
 	$("td#total_price h3 strong").text(totalPrice.toFixed(2));
+<<<<<<< HEAD
+=======
+
+	// update refund
+	updateRefundFunction();
+}
+
+/*
+ * calcute money must to refund to customer
+ */
+function updateRefundFunction() {
+	var pay = parseFloat($("td#customer_pay input").val());
+	var total = parseFloat(ORDER.totalPrice);
+	var refund = parseFloat(0);
+
+	console.log("pay: " + pay + ", total: " + total);
+
+	if (pay > total) {
+		refund = pay - total;
+	}
+	$("td#customer_refund h4 strong").text(refund.toFixed(2));
+}
+
+function getListCupSize() {
+	var i;
+	var count = parseInt(0);
+	for (i in listCup) {
+		count += parseInt(1);
+	}
+
+	console.log("list size: " + count);
+	return count;
+}
+
+function disableCheckoutButton(flag) {
+	$("#btn-checkout").prop("disabled", flag);
+}
+function newOrderFunction() {
+	location.reload();
+>>>>>>> 02c6aff... Controller save order's data
 }
 
 /*
  * test ajax
  */
 function checkoutFunction() {
+<<<<<<< HEAD
 	var txt = "tien";
 	$.post("", {
 		name : encodeURIComponent(txt)
 	}, function(result) {
 		alert(result);
+=======
+	// disable checkout button
+	disableCheckoutButton(true);
+	getListCupSize();
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "",
+		data : JSON.stringify(listCup),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			alert("Order success!");
+			console.log("SUCCESS, data: " + "(" + data.id + ","
+					+ data.timestamp + "," + data.price + ")");
+			// location.reload();
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+>>>>>>> 02c6aff... Controller save order's data
 	});
 }
 

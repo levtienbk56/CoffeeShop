@@ -114,7 +114,11 @@
 					  	<button class="dropbtn">Coffees</button>
 					  	<div class="dropdown-content">
 					  		<#list model["listCoffee"] as coffee>
+<<<<<<< HEAD
 					    		<a class="coffee-name" href="#"  onClick="updateCoffeeNameFunction($(this))">
+=======
+					    		<a class="coffee-name" onClick="onSelectCoffeeNameFunction($(this))">
+>>>>>>> 02c6aff... Controller save order's data
 					    			<text class='name'>${coffee.name}</text>
 					    			<text class='id' style="display:none;">${coffee.id} </text>
 					    			<text class='price' style="display:none;">${coffee.price} </text>
@@ -124,11 +128,11 @@
 					</div>
 				</td>
 				<td>
-						<input type='checkbox' name='coffee-size' value='big'>Big Size?
+						<input type='checkbox' name='coffee-size' value='big' onClick="onSelectSizeFunction($(this))">Big Size?
 				</td>
 				<td >
 					<#list model['listCondiment'] as condiment> 
-						   <input type='checkbox' name='coffee-condiment' value=${condiment.price}>
+						   <input type='checkbox' name='coffee-condiment' value=${condiment.price} onClick="onSelectCondimentFunction($(this))">
 						   <b>
 						   		<text type='hide' class='id'>${condiment.id}</text>.<text class='name'>${condiment.name}</text> (<text class='price'>${condiment.price}</text>$)<br>
 						   	</b>
@@ -136,7 +140,7 @@
 					 </#list>
 				</td>
 				<td>
-					<input type="number" name='coffee-quantity'  class="form-control" min="1" value='1' style="width:50%;">
+					<input type="number" name='coffee-quantity'  class="form-control" min="1" value='1' style="width:50%;" onClick="onSelectQuantityFunction($(this))">
 				</td>
 				<td>
 					<text name="cup-price">0</text>$

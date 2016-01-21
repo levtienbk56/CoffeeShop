@@ -5,9 +5,8 @@ import java.util.List;
 import org.hedspi.coffeeshop.model.Coffee;
 
 public interface CoffeeDAO {
-	void insertCoffee(String name, double price, String spec);
+	int insertCoffee(Coffee coffee);
 	void deleteCoffee(int id);
 	List<Coffee> selectAll();
 	Coffee selectCoffee(int id);
-	double selectPrice(int id);
 }

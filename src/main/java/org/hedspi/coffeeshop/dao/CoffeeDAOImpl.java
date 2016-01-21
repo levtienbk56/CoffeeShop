@@ -1,13 +1,14 @@
 package org.hedspi.coffeeshop.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.hedspi.coffeeshop.mapper.CoffeeMapper;
 import org.hedspi.coffeeshop.model.Coffee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,18 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 
 	}
 
-	public void insertCoffee(String name, double price, String spec) {
-		// TODO Auto-generated method stub
+	public int insertCoffee(Coffee coffee) {
+		String sql = "INSERT INTO coffees(name,price) VALUES(?,?)";
+		Object[] params = new Object[] { coffee.getName(), coffee.getPrice() };
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (CannotGetJdbcConnectionException e) {
+			e.printStackTrace();
+			return -1;
+		} catch (DuplicateKeyException e) {
+			e.printStackTrace();
+			return 0;
+		}
 
 	}
 
@@ -33,23 +44,22 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 	}
 
 	public List<Coffee> selectAll() {
-		String sql = "SELECT * FROM coffee";
+		String sql = "SELECT * FROM coffees";
 		CoffeeMapper mapper = new CoffeeMapper();
-		return this.getJdbcTemplate().query(sql, mapper);
+		try {
+			return this.getJdbcTemplate().query(sql, mapper);
+		} catch (CannotGetJdbcConnectionException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public Coffee selectCoffee(int id) {
-		Coffee c = new Coffee();
+		String sql = "SELECT * FROM coffees WHERE id=?";
+		Object[] params = new Object[] {id};
+		CoffeeMapper rowMapper = new CoffeeMapper();
+		Coffee c = this.getJdbcTemplate().queryForObject(sql, params, rowMapper);
 		return c;
-	}
-
-	public double selectPrice(int id) {
-		String sql = "Select price from coffee where id=?";
-
-		Object[] params = new Object[] { id };
-
-		double price = this.getJdbcTemplate().queryForObject(sql, params, Double.class);
-		return price;
 	}
 
 }
