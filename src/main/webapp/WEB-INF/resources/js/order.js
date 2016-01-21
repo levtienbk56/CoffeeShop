@@ -1,12 +1,11 @@
 var rowCount = 0;
-
 var ORDER = {
 	totalPrice : 0
 }
 /*
  * object list Cup
  */
-var listCup = [];
+var listCup = {};
 
 function Coffee(id, name, price) {
 	this.id = id;
@@ -43,6 +42,13 @@ function removeCupFunction(element) {
 	str.hide();
 	// update total price
 	updateTotalPriceFunction();
+
+	// checkout button stage
+	if (parseFloat(getListCupSize()) > 0) {
+		disableCheckoutButton(false);
+	} else {
+		disableCheckoutButton(true);
+	}
 };
 
 /*
@@ -56,9 +62,12 @@ function addCupFunction() {
 	// append html as a cup
 	$("#table_order tr#add_new").before(str);
 	$("div#row_to_insert table tbody tr").attr("name", "cup0");
+	
 	// create cup object
 	var cup = new Cup(cupID);
 	listCup[cupID] = cup;
+
+	disableCheckoutButton(false);
 }
 
 /*
@@ -121,7 +130,6 @@ function onSelectCondimentFunction(element) {
 
 	var condiments = {};
 
-	// TODO: get value from html, update value in object
 	$("tr[name=" + cupID + "] input[name=coffee-condiment]:checked").each(
 			function() {
 				var div = $(this).next();
@@ -140,7 +148,7 @@ function onSelectCondimentFunction(element) {
 
 	// update price
 	updatePriceFunction(cupID);
-};
+}
 
 /*
  * user update quantity
@@ -240,6 +248,7 @@ function disableCheckoutButton(flag) {
 }
 function newOrderFunction() {
 	location.reload();
+}
 
 /*
  * test ajax
@@ -261,35 +270,6 @@ function checkoutFunction() {
 			console.log("SUCCESS, data: " + "(" + data.id + ","
 					+ data.timestamp + "," + data.price + ")");
 			// location.reload();
-		},
-		error : function(e) {
-			console.log("ERROR " + e);
-		},
-		done : function(e) {
-			console.log("DONE " + e);
-		}
-	});
-}
-
-/*
- * ajax function, send order to controller
- */
-function checkoutFunction2() {
-	var acc = {};
-	acc["username"] = "Tienlv";
-	acc["password"] = "1234";
-	acc["role"] = "ADMIN";
-
-	$.ajax({
-		type : "POST",
-		contentType : "application/json",
-		url : "",
-		data : JSON.stringify(acc),
-		dataType : 'json',
-		timeout : 100000,
-		success : function(data) {
-			console.log("SUCCESS, data: " + "(" + data.id + ","
-					+ data.timestamp + "," + data.price + ")");
 		},
 		error : function(e) {
 			console.log("ERROR " + e);

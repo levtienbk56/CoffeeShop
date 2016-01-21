@@ -43,7 +43,7 @@
     <div class="row">
 		<div class="col-sm-12 col-md-11 col-md-offset-1">
 			<div>
-				<button type="button" class="btn btn-primary">
+				<button type="button" class="btn btn-primary" onClick="newOrderFunction()">
 					New Order <span class="glyphicon glyphicon-plus"></span>
 				</button>			
 			</div>
@@ -87,7 +87,7 @@
 							</button>
 						</td>
 						<td>
-							<button type="button" class="btn btn-success" onClick="checkoutFunction2()">
+							<button id="btn-checkout" type="button" class="btn btn-success" onClick="checkoutFunction()" disabled="true">
 								Checkout <span class="glyphicon glyphicon-play"></span>
 							</button>
 						</td>
@@ -136,7 +136,7 @@
 					 </#list>
 				</td>
 				<td>
-					<input type="number" name='coffee-quantity'  class="form-control" min="1" value='1' style="width:50%;" onClick="onSelectQuantityFunction($(this))">
+					<input type="number" name="coffee-quantity"  class="form-control" min="1" value="1" style="width:50%;" onClick="onSelectQuantityFunction($(this))">
 				</td>
 				<td>
 					<text name="cup-price">0</text>$
