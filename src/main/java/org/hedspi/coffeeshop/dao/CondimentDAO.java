@@ -11,7 +11,7 @@ public interface CondimentDAO {
 
 	double delete(int id);
 
-	double selectPrice(int id);
+	Condiment select(int id);
 	
 	List<Condiment> selectAll();
 

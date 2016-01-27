@@ -57,4 +57,15 @@ public class Order {
 		this.total = total;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof Order)) {
+			return false;
+		}
+
+		Order that = (Order) other;
+		return (this.id == that.id) && this.username.equals(that.username)
+				&& this.purchaseTime.equals(that.purchaseTime) && (this.total == that.total);
+	}
+
 }

@@ -37,7 +37,7 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	}
 
 	public int insertWithReturnId(Order order) {
-		String sql = "INSERT INTO orders(username,purchase_time,total) VALUES(?,?,?) RETURNING id";
+		String sql = "INSERT INTO orders(username,purchase_time,total) VALUES(?,?,?) RETURNING order_id";
 
 		Object[] params = new Object[] { order.getUsername(), order.getPurchaseTime(), order.getTotal() };
 		try {
@@ -50,7 +50,7 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	}
 
 	public int updatePrice(int id, double price) {
-		String sql = "UPDATE orders SET total=? WHERE id=?";
+		String sql = "UPDATE orders SET total=? WHERE order_id=?";
 		Object[] params = new Object[] { price, id };
 		try {
 			return this.getJdbcTemplate().update(sql, params);

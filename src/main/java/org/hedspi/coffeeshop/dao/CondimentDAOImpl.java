@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.hedspi.coffeeshop.mapper.CoffeeMapper;
 import org.hedspi.coffeeshop.mapper.CondimentMapper;
+import org.hedspi.coffeeshop.model.Coffee;
 import org.hedspi.coffeeshop.model.Condiment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -44,9 +46,12 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 		return 0;
 	}
 
-	public double selectPrice(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Condiment select(int id) {
+		String sql = "SELECT * FROM condiments WHERE condiment_id=?";
+		Object[] params = new Object[] {id};
+		CondimentMapper rowMapper = new CondimentMapper();
+		Condiment c = this.getJdbcTemplate().queryForObject(sql, params, rowMapper);
+		return c;
 	}
 
 	public List<Condiment> selectAll() {

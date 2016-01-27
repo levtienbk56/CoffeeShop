@@ -22,7 +22,7 @@ function Condiment(id, name, price) {
 function Cup(id) {
 	this.id = id;
 	this.coffee = new Coffee("0", "", 0);
-	this.cupSize = 1;
+	this.cupSize = "NORMAL";
 	this.quantity = 1;
 	this.price = 0;
 	this.condiments = {};
@@ -44,7 +44,7 @@ function removeCupFunction(element) {
 	updateTotalPriceFunction();
 
 	// checkout button stage
-	if (parseFloat(getListCupSize()) > 0) {
+	if (parseFloat(getListCupLength()) > 0) {
 		disableCheckoutButton(false);
 	} else {
 		disableCheckoutButton(true);
@@ -110,10 +110,10 @@ function onSelectSizeFunction(element) {
 			.val();
 	console.log("size: " + size);
 	if (size == 'big') {
-		listCup[cupID].cupSize = 1.5;
+		listCup[cupID].cupSize = "BIG";
 		console.log("size: " + listCup[cupID].cupSize);
 	} else {
-		listCup[cupID].cupSize = 1;
+		listCup[cupID].cupSize = "NORMAL";
 		console.log("size: " + listCup[cupID].cupSize);
 	}
 
@@ -175,6 +175,8 @@ function updatePriceFunction(cupID) {
 	// get value from object
 	var coffee = listCup[cupID].coffee;
 	var size = listCup[cupID].cupSize;
+	var sizeInt = 1;
+	if(size == 'BIG') sizeInt = 1.2;
 
 	// get condiment value
 	var condiments = listCup[cupID].condiments;
@@ -186,7 +188,7 @@ function updatePriceFunction(cupID) {
 
 	var quantity = listCup[cupID].quantity;
 
-	cupPrice += (parseFloat(coffee.price) * parseFloat(size) + condimentPrice)
+	cupPrice += (parseFloat(coffee.price) * parseFloat(sizeInt) + condimentPrice)
 			* parseFloat(quantity);
 	console.log('cupPrice ' + cupID + " :" + cupPrice);
 
@@ -232,14 +234,14 @@ function updateRefundFunction() {
 	$("td#customer_refund h4 strong").text(refund.toFixed(2));
 }
 
-function getListCupSize() {
+function getListCupLength() {
 	var i;
 	var count = parseInt(0);
 	for (i in listCup) {
 		count += parseInt(1);
 	}
 
-	console.log("list size: " + count);
+	console.log("list length: " + count);
 	return count;
 }
 
@@ -255,21 +257,18 @@ function newOrderFunction() {
  */
 function checkoutFunction() {
 	// disable checkout button
-	disableCheckoutButton(true);
-	getListCupSize();
+	disableCheckoutButton(true);	getListCupLength();
 
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
-		url : "",
+		url : "order",
 		data : JSON.stringify(listCup),
 		dataType : 'json',
 		timeout : 100000,
 		success : function(data) {
-			alert("Order success!");
-			console.log("SUCCESS, data: " + "(" + data.id + ","
-					+ data.timestamp + "," + data.price + ")");
-			// location.reload();
+			alert("Order success! total=" + data.total);
+			//location.reload();
 		},
 		error : function(e) {
 			console.log("ERROR " + e);

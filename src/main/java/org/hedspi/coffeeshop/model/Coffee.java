@@ -39,10 +39,21 @@ public class Coffee {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	public String toString(){
-		return "coffee(" + id + ","+ name + ","+ price + ")";
-		
+
+	public String toString() {
+		return "coffee(" + id + "," + name + "," + price + ")";
+
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof Coffee)) {
+			return false;
+		}
+
+		Coffee that = (Coffee) other;
+		return (this.id == that.id) && this.name.equals(that.name) && (this.price == that.price);
+
 	}
 
 }

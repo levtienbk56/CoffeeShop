@@ -15,6 +15,7 @@
 		<postgres.version>9.4-1201-jdbc41</postgres.version>
 		<spring.version>4.2.2.RELEASE</spring.version>
 		<jackson.version>2.4.1</jackson.version>
+		<security.version>3.2.5.RELEASE</security.version>
 	</properties>
 
 	<dependencies>
@@ -84,7 +85,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>3.2.5.RELEASE</version>
+			<version>${security.version}</version>
 		</dependency>
 
 

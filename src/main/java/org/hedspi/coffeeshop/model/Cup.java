@@ -53,7 +53,6 @@ public class Cup {
 		this.size = size;
 	}
 
-	
 	public String getCondiments() {
 		return condiments;
 	}
@@ -69,6 +68,16 @@ public class Cup {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof Cup)) {
+			return false;
+		}
+
+		Cup that = (Cup) other;
+		return (this.id == that.id) && (this.coffeeId == that.coffeeId) && (this.orderId == that.orderId)
+				&& this.size.equals(that.size) && this.condiments.equals(that.coffeeId) && (this.price == that.price);
+	}
 
 }

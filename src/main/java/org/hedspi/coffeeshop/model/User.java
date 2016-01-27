@@ -57,4 +57,15 @@ public class User {
 		return "user(" + username + "," + password + "," + enabled + "," + role + ")";
 
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof User)) {
+			return false;
+		}
+
+		User that = (User) other;
+		return this.username.equals(that.username) && this.password.equals(that.password)
+				&& (this.enabled == that.enabled) && this.role.equals(that.role);
+	}
 }

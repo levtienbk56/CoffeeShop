@@ -1,5 +1,6 @@
 package org.hedspi.coffeeshop.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CupWrapper {
@@ -7,7 +8,7 @@ public class CupWrapper {
 	private Coffee coffee;
 	private String cupSize;
 	private int quantity;
-	private Map<String, Condiment> condiments;
+	private Map<String, Condiment> condiments = new HashMap<String, Condiment>();
 	private double price;
 
 	public CupWrapper() {

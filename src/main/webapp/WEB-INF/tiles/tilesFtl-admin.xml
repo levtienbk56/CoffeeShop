@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="AdminPage"
+		template="/WEB-INF/layouts/admin_layout.ftl" templateType="freemarker">
+		<put-attribute name="title" value="admin page" />
+		<put-attribute name="page-wrapper"
+			value="/WEB-INF/views/custom/admin/index.ftl" type="freemarker" />
+
+	</definition>
+
+	<definition name="ItemsPage" extends="AdminPage">
+		<put-attribute name="title" value="items product manager page" />
+		<put-attribute name="page-wrapper"
+			value="/WEB-INF/views/custom/admin/item-manage.ftl" type="freemarker" />
+	</definition>
+	
+	<definition name="UsersPage" extends="AdminPage">
+		<put-attribute name="title" value="user manager page" />
+		<put-attribute name="page-wrapper"
+			value="/WEB-INF/views/custom/admin/user-manage.ftl" type="freemarker" />
+	</definition>
+	
+
+</tiles-definitions>

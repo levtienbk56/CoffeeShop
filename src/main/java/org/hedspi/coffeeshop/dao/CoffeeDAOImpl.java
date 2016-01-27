@@ -55,7 +55,7 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 	}
 
 	public Coffee selectCoffee(int id) {
-		String sql = "SELECT * FROM coffees WHERE id=?";
+		String sql = "SELECT * FROM coffees WHERE coffee_id=?";
 		Object[] params = new Object[] {id};
 		CoffeeMapper rowMapper = new CoffeeMapper();
 		Coffee c = this.getJdbcTemplate().queryForObject(sql, params, rowMapper);
