@@ -1,3 +1,9 @@
+function User(username, password, enabled, role){
+	this.username = username;
+	this.password = password;
+	this.enabled = enabled;
+	this.role = role;
+}
 function removeUser(username){
 	var r = confirm("Are you sure to remove user: " + username);
 	if(r ==  true){
@@ -9,7 +15,7 @@ function removeUser(username){
 			dataType : 'json',
 			timeout : 100000,
 			success : function(data) {
-				alert("Order success!");
+				alert("success!");
 			},
 			error : function(e) {
 				console.log("ERROR " + e);

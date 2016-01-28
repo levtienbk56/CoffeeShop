@@ -38,8 +38,16 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 
 	}
 
-	public void delete(User user) {
-		// TODO Auto-generated method stub
+	public int delete(String username) {
+		String sql = "DELETE FROM users WHERE username=?";
+		Object[] params = new Object[] { username };
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (CannotGetJdbcConnectionException e) {
+			return -1;
+		} catch (DuplicateKeyException e) {
+			return 0;
+		}
 
 	}
 

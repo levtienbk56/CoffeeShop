@@ -39,8 +39,9 @@ public class AdminController {
 
 	@RequestMapping(value = "/remove-user", method = RequestMethod.POST)
 	public @ResponseBody User removeUser(@RequestBody String username) {
-		System.out.println(username);
-		User user = new User();
+		System.out.println("request remove user=" + username);
+		userdao.delete(username);
+		User user = new User(username,"",false,"");
 		return user;
 	}
 
