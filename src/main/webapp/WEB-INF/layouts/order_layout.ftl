@@ -1,11 +1,12 @@
 <#ftl encoding='UTF-8'>
+<!DOCTYPE html>
 <html>
 <head>
 	<title><@tiles.insertAttribute name="title" /></title>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="resources/css/header.css">
-	<link rel="stylesheet" href="resources/css/footer.css">
-	<link rel="stylesheet" href="resources/css/login.css">
+	<link rel="stylesheet"  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet"  href="/CoffeeShop/resources/css/header.css">
+	<link rel="stylesheet"  href="/CoffeeShop/resources/css/footer.css">
+	
   	<meta charset=UTF-8">
 	<style>
 		div.row{
