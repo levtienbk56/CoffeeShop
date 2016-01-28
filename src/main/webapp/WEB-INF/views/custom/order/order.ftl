@@ -1,42 +1,39 @@
 <style>
 .dropbtn {
-    background-color: #4CAF50;
-    color: white;
+    color: black;
     padding: 16px;
     font-size: 16px;
-    border: none;
     cursor: pointer;
 }
 
 .dropdown {
-    position: relative;
+    position: inherit;
     display: inline-block;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: #A0522D;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 .dropdown-content a {
-    color: black;
+    color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+	background-color: #773d22;
+}
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-}
 </style>
 
 <div class="container">
@@ -106,14 +103,14 @@
 			<tr name="cup0">
 				<td align="center">
 					<div class="alert alert-success" style="width:100%;">
-						<text class='name' ><strong>Choose a Coffee</strong></text>
+						<text class='name' ><strong>(choose one below)</strong></text>
 						<text class='id' style="display:none;"></text>
 						<text class='price' style="display:none;"></text>
 					  	
 					</div>
 											
 					<div class="dropdown">
-					  	<button class="dropbtn">Coffees</button>
+					  	<button class="btn-default dropbtn"> <i class="fa fa-search"></i> Choose a Coffee</button>
 					  	<div class="dropdown-content">
 					  		<#list model["listCoffee"] as coffee>
 					    		<a class="coffee-name" onClick="onSelectCoffeeNameFunction($(this))">

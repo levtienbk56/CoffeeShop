@@ -1,4 +1,5 @@
 var rowCount = 0;
+var coffeeChosen = 0;
 var ORDER = {
 	totalPrice : 0
 }
@@ -66,7 +67,7 @@ function addCupFunction() {
 	// create cup object
 	var cup = new Cup(cupID);
 	listCup[cupID] = cup;
-
+	
 	disableCheckoutButton(false);
 }
 
@@ -256,6 +257,12 @@ function newOrderFunction() {
  * test ajax
  */
 function checkoutFunction() {
+	// check coffee selected?
+	if(!checkCoffeeSelected()){
+		alert('choose a coffee first');
+		return;
+	}
+	
 	// disable checkout button
 	disableCheckoutButton(true);	getListCupLength();
 
@@ -268,7 +275,7 @@ function checkoutFunction() {
 		timeout : 100000,
 		success : function(data) {
 			alert("Order success! total=" + data.total);
-			//location.reload();
+			location.reload();
 		},
 		error : function(e) {
 			console.log("ERROR " + e);
@@ -277,4 +284,13 @@ function checkoutFunction() {
 			console.log("DONE " + e);
 		}
 	});
+}
+
+function checkCoffeeSelected(){
+	var p = "0";
+	for (key in listCup) {
+		p = listCup[key].coffee.id;
+		if(p == "0") return false;
+	}
+	return true;
 }

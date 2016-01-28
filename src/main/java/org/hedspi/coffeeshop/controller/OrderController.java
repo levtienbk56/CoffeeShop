@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,11 +41,13 @@ public class OrderController {
 	CupDAO cupdao;
 
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	public String index(@ModelAttribute("model") ModelMap model) {
+	public String index(@ModelAttribute("model") ModelMap model, Model modell) {
 		List<Coffee> listCoffee = coffeedao.selectAll();
 		List<Condiment> listCondiment = condimentdao.selectAll();
 		model.addAttribute("listCondiment", listCondiment);
 		model.addAttribute("listCoffee", listCoffee);
+		
+		modell.addAttribute("username", MainController.getUserName());
 
 		return "OrderPage"; // definition in tilesFtl.xml
 	}
@@ -182,10 +185,7 @@ public class OrderController {
 	}
 
 	private void insertOrderIntoDataBase(OrderWrapper orderWrapper) {
-		SecurityContext sc = SecurityContextHolder.getContext();
-		Authentication authentication = sc.getAuthentication();
-
-		String username = authentication.getName();
+		String username = MainController.getUserName();
 		Timestamp timestamp = new Timestamp(new Date().getTime());
 		double total = orderWrapper.getTotal();
 

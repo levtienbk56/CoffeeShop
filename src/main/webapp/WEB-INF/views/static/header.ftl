@@ -9,14 +9,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Logo</a>
+                    <a class="active navbar-brand" href="#"><strong>Yucky </strong></a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#" class="">Home</a></li>
-                        
-                    </ul>
+                <div id="navbar" class="navbar-collapse collapse">                    
                     <ul class="nav navbar-nav pull-right">
+                    	<li>
+                    		<a href="#" class="">Welcome <#if (username??)><strong>${username}</strong></#if></a>
+                    	</li>
                         <li class=""><a href="logout">Logout</a></li>
                     </ul>
                 </div>

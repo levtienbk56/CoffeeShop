@@ -50,11 +50,11 @@ public class MainController {
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public String loginPage(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String msg, org.springframework.ui.Model model) {
-		if(error != null){
+		if (error != null) {
 			model.addAttribute("error", "Invalid username and password!");
 		}
-		if(msg != null){
-			model.addAttribute("msg", "logout successfully.");
+		if (msg != null) {
+			model.addAttribute("msg", "Logout successfully.");
 		}
 		return "LoginPage"; // definition in tilesFtl.xml
 	}
@@ -62,6 +62,13 @@ public class MainController {
 	@RequestMapping(value = { "/403" }, method = RequestMethod.GET)
 	public String error403() {
 		return "Error403Page"; // definition in tilesFtl.xml
+	}
+
+	public static String getUserName() {
+		SecurityContext sc = SecurityContextHolder.getContext();
+		Authentication authentication = sc.getAuthentication();
+
+		return authentication.getName();
 	}
 
 }
