@@ -27,8 +27,18 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+                
                 <li>
-                    <a href="/CoffeeShop/admin/items"><i class="fa fa-table fa-fw"></i> Manage Item Products</a>
+                    <a href="#"><i class="fa fa-table fa-fw"></i> Manage Item Products<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="/CoffeeShop/admin/items/coffees">Coffees</a>
+                        </li>
+                        <li>
+                            <a href="/CoffeeShop/admin/items/condiments">Condiment</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
                 </li>
                 
                 <li>

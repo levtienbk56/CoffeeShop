@@ -9,4 +9,5 @@ public interface UserDAO {
 	int delete(String username);
 	User selectUser(String username);
 	List<User> selectAll();
+	int update(User user);
 }

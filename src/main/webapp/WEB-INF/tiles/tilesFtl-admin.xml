@@ -11,18 +11,29 @@
 			value="/WEB-INF/views/custom/admin/index.ftl" type="freemarker" />
 
 	</definition>
-
-	<definition name="ItemsPage" extends="AdminPage">
-		<put-attribute name="title" value="items product manager page" />
-		<put-attribute name="page-wrapper"
-			value="/WEB-INF/views/custom/admin/item-manage.ftl" type="freemarker" />
+	
+	<definition name="tableTemplate" template="/WEB-INF/layouts/admin_table_layout.ftl" 
+	    templateType="freemarker">
+		<put-attribute name="title" value="" />
+		<put-attribute name="page-wrapper" value="" />
 	</definition>
 	
-	<definition name="UsersPage" extends="AdminPage">
+	<definition name="UsersPage" extends="tableTemplate">
 		<put-attribute name="title" value="user manager page" />
 		<put-attribute name="page-wrapper"
 			value="/WEB-INF/views/custom/admin/user-manage.ftl" type="freemarker" />
 	</definition>
 	
+	<definition name="ItemsCoffeesPage" extends="tableTemplate">
+		<put-attribute name="title" value="Coffee manager page" />
+		<put-attribute name="page-wrapper"
+			value="/WEB-INF/views/custom/admin/item-coffee-manage.ftl" type="freemarker" />
+	</definition>
+	
+	<definition name="ItemsCondimentsPage" extends="tableTemplate">
+		<put-attribute name="title" value="Coffee manager page" />
+		<put-attribute name="page-wrapper"
+			value="/WEB-INF/views/custom/admin/item-condiment-manage.ftl" type="freemarker" />
+	</definition>
 
 </tiles-definitions>
