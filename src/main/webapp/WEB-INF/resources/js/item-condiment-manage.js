@@ -12,7 +12,7 @@ function removeCondiment(arg){
 		$.ajax({
 			type : "POST",
 			url : "condiments/remove",
-			data : {coffeeId : id},
+			data : {condimentId : id},
 			timeout : 100000,
 			success : function(data) {
 				if(data.code == 1){

@@ -116,7 +116,7 @@
             <tbody>
               <tr>
               	<td class="td-name"><input type="text" class="form-control"></td>
-                <td class="td-price"><input type="text" class="form-control"></td>
+                <td class="td-price"><input type="number" min="0" step="0.01" class="form-control"></td>
               </tr>
             </tbody>
           </table>

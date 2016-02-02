@@ -35,7 +35,7 @@
 									        <button value="${condiment.id}" href="#modal-edit"  data-toggle="modal" class="btn btn-default" onClick="editCondiment($(this))">
 									        	<span class="glyphicon glyphicon-edit"></span> Edit
 									        </button>
-	                                    	<button value="${condiment.id}" type="button" class="btn btn-danger btn-sm btn-remove-user" onClick="removeCondiment($(this))">
+	                                    	<button value="${condiment.id}" type="button" class="btn btn-danger btn-sm btn-remove" onClick="removeCondiment($(this))">
 									          	<span class="glyphicon glyphicon-remove"></span> Remove 
 									        </button>
 	                                    </td>
@@ -97,7 +97,7 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
   
-   <!-- modal insert user -->
+   <!-- modal insert -->
 <div class="modal fade" id="modal-insert">
 <div class="modal-dialog">
       <div class="modal-content">
@@ -116,14 +116,14 @@
             <tbody>
               <tr>
               	<td class="td-name"><input type="text" class="form-control"></td>
-                <td class="td-price"><input type="text" class="form-control"></td>
+                <td class="td-price"><input type="number" min="0" step="0.01" class="form-control"></td>
               </tr>
             </tbody>
           </table>
 		</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick="insertUser()">Insert</button>
+          <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick="insertCondiment()">Insert</button>
         </div>
 				
       </div><!-- /.modal-content -->
