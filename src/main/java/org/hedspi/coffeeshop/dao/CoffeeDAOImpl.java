@@ -23,7 +23,7 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 
 	}
 
-	public int insertCoffee(Coffee coffee) {
+	public int insert(Coffee coffee) {
 		String sql = "INSERT INTO coffees(name,price) VALUES(?,?)";
 		Object[] params = new Object[] { coffee.getName(), coffee.getPrice() };
 		try {
@@ -38,9 +38,15 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 
 	}
 
-	public void deleteCoffee(int id) {
-		// TODO Auto-generated method stub
-
+	public int delete(int id) {
+		String sql = "DELETE FROM coffees WHERE coffee_id = ?";
+		Object[] params = new Object[] { id };
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} 
 	}
 
 	public List<Coffee> selectAll() {
@@ -60,6 +66,17 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 		CoffeeMapper rowMapper = new CoffeeMapper();
 		Coffee c = this.getJdbcTemplate().queryForObject(sql, params, rowMapper);
 		return c;
+	}
+
+	public int update(Coffee coffee) {
+		String sql = "UPDATE coffees SET name=?,price=? WHERE coffee_id=?";
+		Object[] params = new Object[] {coffee.getName(), coffee.getPrice(), coffee.getId()};
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} 
 	}
 
 }

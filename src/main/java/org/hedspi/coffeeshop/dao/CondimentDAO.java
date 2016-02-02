@@ -7,9 +7,9 @@ import org.hedspi.coffeeshop.model.Condiment;
 public interface CondimentDAO {
 	int insert(Condiment condiment);
 
-	void update(Condiment condiment);
+	int update(Condiment condiment);
 
-	double delete(int id);
+	int delete(int id);
 
 	Condiment select(int id);
 	

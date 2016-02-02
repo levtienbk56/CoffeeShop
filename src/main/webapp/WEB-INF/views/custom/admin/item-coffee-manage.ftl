@@ -29,8 +29,8 @@
 			                  	<#list model['listCoffee'] as coffee> 
 									<tr class="odd gradeX" id="tr-${coffee.id}">
 										<td class="td-id">${coffee.id}</td>
-	                                    <td class="td-username">${coffee.name}</td>
-	                                    <td class="td-password">${coffee.price}</td>
+	                                    <td class="td-name">${coffee.name}</td>
+	                                    <td class="td-price">${coffee.price}</td>
 	                                    <td>
 									        <button value="${coffee.id}" href="#modal-edit"  data-toggle="modal" class="btn btn-default" onClick="editCoffee($(this))">
 									        	<span class="glyphicon glyphicon-edit"></span> Edit
@@ -47,7 +47,7 @@
                     <!-- /.table-responsive -->
                     <div class="well">
                         <button href="#modal-insert"  data-toggle="modal" class="btn btn-success">
-				        	<span class="glyphicon glyphicon-plus"></span> New User
+				        	<span class="glyphicon glyphicon-plus"></span> New Coffee
 				        </button>
                     </div>
                 </div>
@@ -60,3 +60,75 @@
     <!-- /.row -->
 </div>
 <!-- /#page-wrapper -->
+
+
+<!-- modal edit menu -->
+<div class="modal fade" id="modal-edit">
+<div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+          <h3 class="modal-title">Edit Coffee</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped" id="modal-tbl-edit">
+            <thead id="tblHead">
+              <tr>
+              	<th>#</th>
+                <th>Coffee Name</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              	<td class="td-id"></td>
+                <td class="td-name"><input type="text" class="form-control"></td>
+                <td class="td-price text-center"><input type="number" class="form-control" step="0.01" min="0"></td>
+              </tr>
+            </tbody>
+          </table>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick="updateCoffee()">Save Changes</button>
+        </div>
+				
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+   <!-- modal insert user -->
+<div class="modal fade" id="modal-insert">
+<div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+          <h3 class="modal-title">New Coffee</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped" id="modal-tbl-insert">
+            <thead id="tblHead">
+              <tr>
+              	<th>Coffee Name</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              	<td class="td-name"><input type="text" class="form-control"></td>
+                <td class="td-price"><input type="text" class="form-control"></td>
+              </tr>
+            </tbody>
+          </table>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick="insertUser()">Insert</button>
+        </div>
+				
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+<script src="/CoffeeShop/resources/js/item-coffee-manage.js"></script>
+

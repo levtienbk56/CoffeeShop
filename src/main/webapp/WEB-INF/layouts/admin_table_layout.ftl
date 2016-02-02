@@ -1,4 +1,6 @@
 <#ftl encoding='UTF-8'>
+<!-- this layout for table format pages
+include: user-manage, item-manage -->
 
 <!DOCTYPE html>
 <html lang="en">
