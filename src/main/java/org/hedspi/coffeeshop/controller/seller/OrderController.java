@@ -1,10 +1,11 @@
-package org.hedspi.coffeeshop.controller;
+package org.hedspi.coffeeshop.controller.seller;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.hedspi.coffeeshop.controller.MainController;
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.CondimentDAO;
 import org.hedspi.coffeeshop.dao.CupDAO;
@@ -17,9 +18,6 @@ import org.hedspi.coffeeshop.model.Order;
 import org.hedspi.coffeeshop.model.OrderWrapper;
 import org.hedspi.coffeeshop.utils.NumberHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;

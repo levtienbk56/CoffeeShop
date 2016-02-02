@@ -1,8 +1,14 @@
 package org.hedspi.coffeeshop.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 
+import org.hedspi.coffeeshop.mapper.OrderMapper;
+import org.hedspi.coffeeshop.mapper.UserMapper;
 import org.hedspi.coffeeshop.model.Order;
+import org.hedspi.coffeeshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -58,6 +64,17 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 			return -1;
 		} catch (DuplicateKeyException e) {
 			return 0;
+		}
+	}
+
+	public List<Order> selectAll() {
+		String sql = "SELECT * FROM orders";
+		OrderMapper mapper = new OrderMapper();
+		try {
+			return this.getJdbcTemplate().query(sql, mapper);
+		} catch (CannotGetJdbcConnectionException e) {
+			e.printStackTrace();
+			return new ArrayList<Order>();
 		}
 	}
 
