@@ -1,5 +1,8 @@
 package org.hedspi.coffeeshop.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.hedspi.coffeeshop.model.Cup;
@@ -34,6 +37,13 @@ public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
 			return 0;
 		}
 
+	}
+
+	public List<Map<String, Object>> selectCoffeeCorrelate() {
+		String sql = "SELECT co.name as label, count(co.name) as data FROM coffees as co, cups as cu WHERE co.coffee_id = cu.coffee_id GROUP BY (co.name)";
+		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
+
+		return list;
 	}
 
 }

@@ -12,7 +12,7 @@ function removeUser(arg){
 	if(r ==  true){
 		$.ajax({
 			type : "POST",
-			url : "users/remove",
+			url : "orders/analysis/pie-chart",
 			data : {username:username},
 			timeout : 100000,
 			success : function(data) {

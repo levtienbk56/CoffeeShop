@@ -6,19 +6,26 @@
 <head>
     <title><@tiles.insertAttribute name="title" /></title>
     <!-- Bootstrap Core CSS -->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="/CoffeeShop/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	
 	<!-- MetisMenu CSS -->
     <link href="/CoffeeShop/resources/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    
     <!-- DataTables CSS -->
     <link href="/CoffeeShop/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+    
     <!-- DataTables Responsive CSS -->
     <link href="/CoffeeShop/resources/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    
     <!-- Timeline CSS -->
     <link href="/CoffeeShop/resources/dist/css/timeline.css" rel="stylesheet">
+    
     <!-- Custom CSS -->
     <link href="/CoffeeShop/resources/dist/css/sb-admin-2.css" rel="stylesheet">
+    
     <!-- Morris Charts CSS -->
     <link href="/CoffeeShop/resources/bower_components/morrisjs/morris.css" rel="stylesheet">
+    
     <!-- Custom Fonts -->
     <link href="/CoffeeShop/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	
@@ -42,9 +49,9 @@
     </div>
 </body>
 	<!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/CoffeeShop/resources/bower_components/jquery/dist/jquery.min.js"></script>
    	<!-- Bootstrap Core JavaScript -->
-  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/CoffeeShop/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/CoffeeShop/resources/bower_components/metisMenu/dist/metisMenu.min.js"></script>

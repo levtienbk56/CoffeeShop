@@ -22,10 +22,10 @@
                             <a href="/CoffeeShop/admin/orders/order-table">Order Table</a>
                         </li>
                         <li>
-                            <a href="/CoffeeShop/admin/orders/analysis">Analysis Flot Charts</a>
+                            <a href="/CoffeeShop/admin/orders/analysis">Analysis flot Charts</a>
                         </li>
                         <li>
-                            <a href="/CoffeeShop/admin/orders/rank">Rank Morris.js Charts</a>
+                            <a href="/CoffeeShop/admin/orders/rank">Rank flot Charts</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
