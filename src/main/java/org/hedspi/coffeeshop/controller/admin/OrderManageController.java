@@ -1,5 +1,9 @@
 package org.hedspi.coffeeshop.controller.admin;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +45,47 @@ public class OrderManageController {
 	public @ResponseBody List<Map<String, Object>> analyzePieChartData(@RequestParam("require") String require) {
 		List<Map<String, Object>> list = cupdao.selectCoffeeCorrelate();
 		System.out.println("required code: " + require);
-		
-		for(Map<String, Object> map: list){
+
+		for (Map<String, Object> map : list) {
 			System.out.println(map);
 		}
 		return list;
+	}
+
+	@RequestMapping(value = "/analysis/bar-chart", method = RequestMethod.POST)
+	public @ResponseBody List<Map<String, Object>> analyzeBarChartData(@RequestParam("year") String year,
+			@RequestParam("month") String month) throws ParseException {
+		System.out.println("year:" + year + ", month:" + month);
+		List<Map<String, Object>> list = orderDao.selectTotalDateCorrelate(Double.parseDouble(year),
+				Double.parseDouble(month));
+
+		for (Map<String, Object> map : list) {
+			Date date = (Date) map.get("label");
+			map.put("label", date.getTime());
+			System.out.println(map);
+		}
+		return list;
+	}
+
+	@RequestMapping(value = "/analysis/years", method = RequestMethod.POST)
+	public @ResponseBody List<Integer> getYears() {
+		List<Integer> list = orderDao.selectYears();
+
+		for (Integer i : list) {
+			System.out.println(i);
+		}
+		return list;
+	}
+
+	@RequestMapping(value = "/analysis/months", method = RequestMethod.POST)
+	public @ResponseBody List<Integer> getMonths(@RequestParam("year") String year) {
+		List<Integer> list = orderDao.selectMonths(Double.parseDouble(year));
+
+		for (Integer i : list) {
+			System.out.println(i);
+		}
+		return list;
+
 	}
 
 	@RequestMapping(value = "/rank", method = RequestMethod.GET)

@@ -2,13 +2,12 @@ package org.hedspi.coffeeshop.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.hedspi.coffeeshop.mapper.OrderMapper;
-import org.hedspi.coffeeshop.mapper.UserMapper;
 import org.hedspi.coffeeshop.model.Order;
-import org.hedspi.coffeeshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -76,6 +75,33 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 			e.printStackTrace();
 			return new ArrayList<Order>();
 		}
+	}
+
+	/**
+	 * select data for bar chart. data format:
+	 * data[{label:xxx,data:yyy}...{label:xxx,data:yyy}]
+	 */
+	public List<Map<String, Object>> selectTotalDateCorrelate(Double year, Double month) {
+		String sql = "SELECT date(purchase_time) AS label, sum(total) AS data FROM orders WHERE date_part('year', purchase_time)=? and date_part('month', purchase_time)=? GROUP BY label";
+		Object[] params = new Object[]{year, month};
+		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql, params);
+
+		return list;
+	}
+
+	public List<Integer> selectYears() {
+		String sql = "SELECT date_part('year', purchase_time) as myear FROM orders GROUP BY myear ORDER BY myear DESC";
+		List<Integer> list = this.getJdbcTemplate().queryForList(sql, Integer.class);
+
+		return list;
+	}
+
+	public List<Integer> selectMonths(Double year) {
+		String sql = "SELECT date_part('month', purchase_time)AS mmonth FROM orders WHERE date_part('year', purchase_time)=? GROUP BY mmonth ORDER BY mmonth ASC";
+		Object[] params = new Object[] { year };
+		List<Integer> list = this.getJdbcTemplate().queryForList(sql, params, Integer.class);
+
+		return list;
 	}
 
 }

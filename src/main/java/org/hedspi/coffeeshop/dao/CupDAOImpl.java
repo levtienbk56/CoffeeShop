@@ -39,6 +39,10 @@ public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
 
 	}
 
+	/**
+	 * select data for pie chart.
+	 * data format: data[{lable:xxx,data:yyy}...{lable:xxx,data:yyy}]
+	 */
 	public List<Map<String, Object>> selectCoffeeCorrelate() {
 		String sql = "SELECT co.name as label, count(co.name) as data FROM coffees as co, cups as cu WHERE co.coffee_id = cu.coffee_id GROUP BY (co.name)";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
