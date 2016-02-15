@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,11 +60,50 @@ public class OrderManageController {
 		List<Map<String, Object>> list = orderDao.selectTotalDateCorrelate(Double.parseDouble(year),
 				Double.parseDouble(month));
 
+		// convert date format[yyyy-mm-dd] to long NUMBER
 		for (Map<String, Object> map : list) {
 			Date date = (Date) map.get("label");
 			map.put("label", date.getTime());
 			System.out.println(map);
 		}
+
+		// insert empty date
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		int mdate = 1;
+
+		while (true) {
+			mdate++;
+			String dateInString = year + "-" + month + "-" + mdate;
+			try {
+				java.util.Date date = (java.util.Date) formatter.parse(dateInString);
+				System.out.println(date);
+				System.out.println(formatter.format(date));
+
+				// still in current month
+				if (date.getMonth() + 1 != Integer.parseInt(month)) {
+					break;
+				}
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("label", date.getTime());
+				map.put("data", 0);
+
+				// check exist date in map
+				boolean flag = false;
+				for (Map<String, Object> m : list) {
+					if (date.getTime() == (Long) m.get("label")) {
+						flag = true;
+						break;
+					}
+				}
+				if (!flag) {
+					list.add(map);
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+				break;
+			}
+		}
+
 		return list;
 	}
 

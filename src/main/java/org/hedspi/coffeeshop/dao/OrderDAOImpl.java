@@ -82,7 +82,7 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	 * data[{label:xxx,data:yyy}...{label:xxx,data:yyy}]
 	 */
 	public List<Map<String, Object>> selectTotalDateCorrelate(Double year, Double month) {
-		String sql = "SELECT date(purchase_time) AS label, sum(total) AS data FROM orders WHERE date_part('year', purchase_time)=? and date_part('month', purchase_time)=? GROUP BY label";
+		String sql = "SELECT date(purchase_time) AS label, sum(total) AS data FROM orders WHERE date_part('year', purchase_time)=? and date_part('month', purchase_time)=? GROUP BY label ORDER BY label ASC";
 		Object[] params = new Object[]{year, month};
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql, params);
 
