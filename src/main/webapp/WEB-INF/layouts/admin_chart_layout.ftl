@@ -52,6 +52,7 @@
     <script src="/CoffeeShop/resources/bower_components/flot/excanvas.min.js"></script>
     <script src="/CoffeeShop/resources/bower_components/flot/jquery.flot.js"></script>
     <script src="/CoffeeShop/resources/bower_components/flot/jquery.flot.pie.js"></script>
+    <script src="/CoffeeShop/resources/bower_components/flot/jquery.flot.stack.js"></script>
     <script src="/CoffeeShop/resources/bower_components/flot/jquery.flot.resize.js"></script>
     <script src="/CoffeeShop/resources/bower_components/flot/jquery.flot.time.js"></script>
     <script src="/CoffeeShop/resources/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>

@@ -1,5 +1,6 @@
 package org.hedspi.coffeeshop.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,22 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	 */
 	public List<Map<String, Object>> selectTotalDateCorrelate(Double year, Double month) {
 		String sql = "SELECT date(purchase_time) AS label, sum(total) AS data FROM orders WHERE date_part('year', purchase_time)=? and date_part('month', purchase_time)=? GROUP BY label ORDER BY label ASC";
-		Object[] params = new Object[]{year, month};
+		Object[] params = new Object[] { year, month };
+		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql, params);
+
+		return list;
+	}
+
+	/**
+	 * select data for STACK bar chart. data format:
+	 * data[{label:xxx,data:yyy}...{label:xxx,data:yyy}]
+	 */
+	public List<Map<String, Object>> selectTotalCoffeeCorrelation(Double year, Double month) {
+		String sql = "SELECT co.name as label, count(c.coffee_id) as data"
+				+ "FROM cups AS c,orders AS o, coffees AS co "
+				+ "WHERE c.order_id=o.order_id AND c.coffee_id=co.coffee_id AND date_part('year', o.purchase_time)=? AND date_part('month', o.purchase_time)=? "
+				+ "GROUP BY co.name " + "ORDER BY co.name";
+		Object[] params = new Object[] { year, month };
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql, params);
 
 		return list;
@@ -102,6 +118,17 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 		List<Integer> list = this.getJdbcTemplate().queryForList(sql, params, Integer.class);
 
 		return list;
+	}
+
+	public int selectNumberCupOfCoffeeByDate(String coffeeName, Date date) {
+		String sql = "select count(co.name) " + "from cups as c, coffees as co, orders as o"
+				+ " where c.coffee_id=co.coffee_id and c.order_id = o.order_id and co.name = ? and date(o.purchase_time)=?";
+		Object[] params = new Object[] { coffeeName, date };
+		Object obj = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
+		if (obj == null) {
+			return 0;
+		}
+		return (Integer) obj;
 	}
 
 }

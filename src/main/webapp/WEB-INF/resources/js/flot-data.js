@@ -70,69 +70,104 @@ function showFlotPieChart(data) {
 
 }
 
-// Flot Multiple Axes Line Chart
-$(function() {
-	var oilprices = [ [ 1167692400000, 61.05 ], [ 1167778800000, 58.32 ],
-			[ 1167865200000, 57.35 ], [ 1167951600000, 56.31 ],
-			[ 1220824800000, 106.34 ] ];
-	var exchangerates = [ [ 1167606000000, 0.7580 ], [ 1167692400000, 0.7580 ],
-			[ 1167778800000, 0.75470 ], [ 1167865200000, 0.75490 ],
-			[ 1220911200000, 0.40050 ] ];
+// flot stack bar
+function updateStackBarChart(year, month) {
 
-	function euroFormatter(v, axis) {
-		return v.toFixed(axis.tickDecimals) + "€";
-	}
-
-	function doPlot(position) {
-		$.plot($("#flot-line-chart-multi"), [ {
-			data : oilprices,
-			label : "Oil price ($)"
-		}, {
-			data : exchangerates,
-			label : "USD/EUR exchange rate",
-			yaxis : 2
-		} ], {
-			xaxes : [ {
-				mode : 'time'
-			} ],
-			yaxes : [ {
-				min : 0
-			}, {
-				// align if we are to the right
-				alignTicksWithAxis : position == "right" ? 1 : null,
-				position : position,
-				tickFormatter : euroFormatter
-			} ],
-			legend : {
-				position : 'sw'
+	var barOption = {
+		series : {
+			stack : true,
+			shadowSize : 0,
+			lines : {
+				show : false,
+				fill : true,
+				steps : false
 			},
-			grid : {
-				hoverable : true
-			// IMPORTANT! this is needed for tooltip to work
-			},
-			tooltip : true,
-			tooltipOpts : {
-				content : "%s for %x was %y",
-				xDateFormat : "%y-%0m-%0d",
-
-				onHover : function(flotItem, $tooltipEl) {
-					// console.log(flotItem, $tooltipEl);
-				}
+			bars : {
+				show : true,
+				align : "center",
+				barWidth : 0.7
 			}
+		},
+		xaxis : {
+			tickLength : 0,
+			color : "#474e54",
+			min : 0,
+			max : 31,
+			ticks : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+					17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 ],
+			font : {
+				size : 14,
+				weight : 300
+			// family: "OpenSans Light"
+			}
+		},
+		yaxis : {
+			min:0
+		}, 
+		grid : {
+			hoverable : true,
+			color : "#474e54",
+			backgroundColor : {
+				colors : [ "#fff", "#fff" ]
+			},
+			borderWidth : {
+				top : 0,
+				right : 0,
+				bottom : 2,
+				left : 2
+			}
+		},
+		tooltip : true,
+		tooltipOpts : {
+			content : "%y"
+		},
+	};
 
-		});
-	}
 
-	doPlot("left ");
+	$.ajax({
+		type : "POST",
+		url : "analysis/stack-bar-chart",
+		data : {
+			year : year,
+			month : month
+		},
+		timeout : 100000,
+		success : function(data) {
+			if (data != null) {
+				var i = 0, j = 0;
 
-	$("button").click(function() {
-		doPlot($(this).text());
+				var mydata = [];
+				for (i = 0; i < data.length; i++) {
+					var arr = [];
+					for (j = 0; j < data[i].data.length; j++) {
+						arr.push([j+1, data[i].data[j]]);
+					}
+					;
+					var map = {
+						'label' : data[i].label,
+						'data' : arr
+					};
+					mydata.push(map);
+					console.log(map.label + ':' + map.data);
+				}
+
+				$.plot("#flot-stack-bar-chart", mydata, barOption);
+			} else {
+				alert('cups empty');
+			}
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
 	});
-});
+}
 
 // Flot Bar Chart
 // input: year & month
-function updateBarChart() {
+function updateBarChart(year, month) {
 	var barOptions = {
 		series : {
 			bars : {
@@ -153,7 +188,7 @@ function updateBarChart() {
 		},
 		tooltip : true,
 		tooltipOpts : {
-			content : "x: %x, y: %y"
+			content : "%x: %y"
 		},
 		colors : [ "#0000FF" ]
 	};
@@ -164,18 +199,12 @@ function updateBarChart() {
 				[ 1355223600000, 3000 ], [ 1355306400000, 4000 ],
 				[ 1355487300000, 5000 ], [ 1355571900000, 6000 ] ]
 	};
-	
-	var year = $("#select_year option:selected").text();
-	var month = $("#select_month option:selected").text();
-	
-	if(year == "---" || month == "---") return;
-	console.log("year:" +year + ",month:" +month);
-	
+
 	$.ajax({
 		type : "POST",
 		url : "analysis/bar-chart",
 		data : {
-			year : year, 
+			year : year,
 			month : month
 		},
 		timeout : 100000,
@@ -249,10 +278,10 @@ function loadMonth(year) {
 					$("#select_month").append(
 							"<option>" + data[i] + "</option>");
 				}
-				
+
 				// if there month data
-				if(i>0){
-					
+				if (i > 0) {
+
 				}
 			}
 		},
@@ -269,9 +298,9 @@ function loadMonth(year) {
 $('select#select_year').on('change', function(e) {
 	var optionSelected = $("option:selected", this);
 	var valueSelected = this.value;
-	if(valueSelected != "---") {
+	if (valueSelected != "---") {
 		loadMonth(valueSelected);
-	}else{
+	} else {
 		$("#select_month").html("<option>---</option>");
 	}
 });
@@ -280,6 +309,13 @@ $('select#select_year').on('change', function(e) {
 // reload bar chart
 $('select#select_month').on('change', function(e) {
 	var optionSelected = $("option:selected", this);
-	var valueSelected = this.value;
-	if(valueSelected != "---") updateBarChart();
+	var month = this.value;
+
+	var year = $("#select_year option:selected").text();
+	console.log("year:" + year + ",month:" + month);
+
+	if (year != "---" && month != "---") {
+		updateBarChart(year, month);
+		updateStackBarChart(year, month);
+	}
 });

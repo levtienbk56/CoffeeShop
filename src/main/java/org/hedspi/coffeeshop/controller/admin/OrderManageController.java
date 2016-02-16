@@ -4,12 +4,15 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.CupDAO;
 import org.hedspi.coffeeshop.dao.OrderDAO;
+import org.hedspi.coffeeshop.model.Coffee;
 import org.hedspi.coffeeshop.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,8 @@ public class OrderManageController {
 	OrderDAO orderDao;
 	@Autowired
 	CupDAO cupdao;
+	@Autowired
+	CoffeeDAO coffeedao;
 
 	@RequestMapping(value = "/order-table", method = RequestMethod.GET)
 	public String viewOrderTable(@ModelAttribute("model") ModelMap model) {
@@ -45,7 +50,57 @@ public class OrderManageController {
 	@RequestMapping(value = "/analysis/pie-chart", method = RequestMethod.POST)
 	public @ResponseBody List<Map<String, Object>> analyzePieChartData(@RequestParam("require") String require) {
 		List<Map<String, Object>> list = cupdao.selectCoffeeCorrelate();
-		System.out.println("required code: " + require);
+		System.out.println("analyzePieChartData:\t" + "required code: " + require);
+
+		for (Map<String, Object> map : list) {
+			System.out.println(map);
+		}
+		return list;
+	}
+
+	@RequestMapping(value = "/analysis/stack-bar-chart", method = RequestMethod.POST)
+	public @ResponseBody List<Map<String, Object>> analyzeStackBarChartData(@RequestParam("year") String year,
+			@RequestParam("month") String month) throws ParseException {
+
+		System.out.println("analyzeStackBarChartData:\t" + "year:" + year + ", month:" + month);
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		List<Coffee> coffees = coffeedao.selectAll();
+
+		for (Coffee coffee : coffees) {
+
+			// each map is a coffee type
+			// map format: {label:xxx, data:yyy} | yyy is Array of Integer
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("label", coffee.getName());
+
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			int mdate = 1;
+
+			List<Integer> array = new ArrayList<Integer>();
+			while (true) {
+				mdate++;
+				String dateInString = year + "-" + month + "-" + mdate;
+
+				java.util.Date date = (java.util.Date) formatter.parse(dateInString);
+
+				// still in current month
+				if (date.getMonth() + 1 != Integer.parseInt(month)) {
+					break;
+				}
+
+				// count coffee by Name & date
+				Integer n = orderDao.selectNumberCupOfCoffeeByDate(coffee.getName(), new Date(date.getTime()));
+				array.add(n);
+
+			}
+
+			// add data into map
+			map.put("data", array);
+
+			// add coffee into list
+			list.add(map);
+		}
 
 		for (Map<String, Object> map : list) {
 			System.out.println(map);
@@ -56,7 +111,7 @@ public class OrderManageController {
 	@RequestMapping(value = "/analysis/bar-chart", method = RequestMethod.POST)
 	public @ResponseBody List<Map<String, Object>> analyzeBarChartData(@RequestParam("year") String year,
 			@RequestParam("month") String month) throws ParseException {
-		System.out.println("year:" + year + ", month:" + month);
+		System.out.println("analyzeBarChartData:\t" + "year:" + year + ", month:" + month);
 		List<Map<String, Object>> list = orderDao.selectTotalDateCorrelate(Double.parseDouble(year),
 				Double.parseDouble(month));
 
@@ -76,8 +131,6 @@ public class OrderManageController {
 			String dateInString = year + "-" + month + "-" + mdate;
 			try {
 				java.util.Date date = (java.util.Date) formatter.parse(dateInString);
-				System.out.println(date);
-				System.out.println(formatter.format(date));
 
 				// still in current month
 				if (date.getMonth() + 1 != Integer.parseInt(month)) {
