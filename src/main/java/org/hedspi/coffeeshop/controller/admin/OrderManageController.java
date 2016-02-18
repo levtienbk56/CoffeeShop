@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.CupDAO;
@@ -64,48 +65,58 @@ public class OrderManageController {
 
 		System.out.println("analyzeStackBarChartData:\t" + "year:" + year + ", month:" + month);
 
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		// format: [{'label' : label1, 'data' : [arrdata1]}, {...}, ...]
+		List<Map<String, Object>> listReturn = new ArrayList<Map<String, Object>>();
+		// format: [{'mname' : name1, 'mdate' : date1, 'mcup' : cupcount1 },
+		// {...}, ...]
+		List<Map<String, Object>> listData = orderDao.selectTotalCoffeeCorrelation(new Double(year), new Double(month));
 		List<Coffee> coffees = coffeedao.selectAll();
 
+		// each coffee
 		for (Coffee coffee : coffees) {
+			// is arrdata
+			// format: {'day1' : cupcount1, 'day2' : cupcount2, ... }
+			Map<Double, Object> mapDay = new TreeMap<Double, Object>();
 
-			// each map is a coffee type
-			// map format: {label:xxx, data:yyy} | yyy is Array of Integer
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("label", coffee.getName());
+			// get data by each date
+			for (Map<String, Object> map : listData) {
+				if (map.get("mname").equals(coffee.getName())) {
+					mapDay.put((Double) map.get("mdate"), map.get("mcup"));
+				}
+			}
 
+			// cause there is any day in month EMPTY data
+			// need to add ['day': 0]
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			int mdate = 1;
-
-			List<Integer> array = new ArrayList<Integer>();
+			double mday = 0;
 			while (true) {
-				mdate++;
-				String dateInString = year + "-" + month + "-" + mdate;
-
+				mday++;
+				String dateInString = year + "-" + month + "-" + mday;
 				java.util.Date date = (java.util.Date) formatter.parse(dateInString);
-
 				// still in current month
 				if (date.getMonth() + 1 != Integer.parseInt(month)) {
 					break;
 				}
 
-				// count coffee by Name & date
-				Integer n = orderDao.selectNumberCupOfCoffeeByDate(coffee.getName(), new Date(date.getTime()));
-				array.add(n);
-
+				// add ['day': 0] into MAP
+				if (!mapDay.containsKey(mday))
+					mapDay.put((double) mday, 0);
 			}
 
-			// add data into map
-			map.put("data", array);
+			// format: {'label' : label1, 'data' : [arrdata1]}
+			Map<String, Object> mapReturn = new HashMap<String, Object>();
+			mapReturn.put("label", coffee.getName());
+			mapReturn.put("data", mapDay);
 
-			// add coffee into list
-			list.add(map);
+			// add this map into list coffee
+			listReturn.add(mapReturn);
+
 		}
 
-		for (Map<String, Object> map : list) {
+		for (Map<String, Object> map : listReturn) {
 			System.out.println(map);
 		}
-		return list;
+		return listReturn;
 	}
 
 	@RequestMapping(value = "/analysis/bar-chart", method = RequestMethod.POST)
@@ -124,10 +135,10 @@ public class OrderManageController {
 
 		// insert empty date
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		int mdate = 1;
+		int mdate = 0;
 
 		while (true) {
-			mdate++;
+			++mdate;
 			String dateInString = year + "-" + month + "-" + mdate;
 			try {
 				java.util.Date date = (java.util.Date) formatter.parse(dateInString);

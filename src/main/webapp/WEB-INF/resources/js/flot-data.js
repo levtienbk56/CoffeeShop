@@ -72,7 +72,12 @@ function showFlotPieChart(data) {
 
 // flot stack bar
 function updateStackBarChart(year, month) {
-
+	/*
+	 * data: 
+	 * [{'label' : label1, 'data' : [[data1, tick_position1], [], ....]}
+	 * ,{'label' : label2, 'data' : [[data2, tick_position2], [], ....]}
+	 * ,{...}] 
+	 */
 	var barOption = {
 		series : {
 			stack : true,
@@ -94,7 +99,7 @@ function updateStackBarChart(year, month) {
 			min : 0,
 			max : 31,
 			ticks : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-					17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 ],
+					17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 ],
 			font : {
 				size : 14,
 				weight : 300
@@ -138,9 +143,11 @@ function updateStackBarChart(year, month) {
 
 				var mydata = [];
 				for (i = 0; i < data.length; i++) {
+					var key;
 					var arr = [];
-					for (j = 0; j < data[i].data.length; j++) {
-						arr.push([j+1, data[i].data[j]]);
+					var arr1 = data[i].data;
+					for (key in arr1) {
+						arr.push([key, arr1[key]]);
 					}
 					;
 					var map = {
@@ -177,18 +184,19 @@ function updateBarChart(year, month) {
 		},
 		xaxis : {
 			mode : "time",
-			timeformat : "%m/%d",
+			timeformat : "%d",
 			minTickSize : [ 1, "day" ]
 		},
 		grid : {
+			show: true,
 			hoverable : true
 		},
 		legend : {
-			show : false
+			show : true
 		},
 		tooltip : true,
 		tooltipOpts : {
-			content : "%x: %y"
+			content : "%y"
 		},
 		colors : [ "#0000FF" ]
 	};

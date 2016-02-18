@@ -22,7 +22,7 @@
                             <a href="/CoffeeShop/admin/orders/order-table">Order Table</a>
                         </li>
                         <li>
-                            <a href="/CoffeeShop/admin/orders/analysis">Analysis flot Charts</a>
+                            <a href="/CoffeeShop/admin/orders/analysis">Analysis Order Use flot Charts</a>
                         </li>
                         <li>
                             <a href="/CoffeeShop/admin/orders/rank">Rank flot Charts</a>

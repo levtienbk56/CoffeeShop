@@ -91,14 +91,16 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	}
 
 	/**
-	 * select data for STACK bar chart. data format:
-	 * data[{label:xxx,data:yyy}...{label:xxx,data:yyy}]
+	 * select data for STACK bar chart. 
+	 * number cup of Coffee, by each day, in a requested month/year
+	 * Format: {[name:xxx, mdate: yyy, mcup:zzz], [...]}
 	 */
 	public List<Map<String, Object>> selectTotalCoffeeCorrelation(Double year, Double month) {
-		String sql = "SELECT co.name as label, count(c.coffee_id) as data"
-				+ "FROM cups AS c,orders AS o, coffees AS co "
-				+ "WHERE c.order_id=o.order_id AND c.coffee_id=co.coffee_id AND date_part('year', o.purchase_time)=? AND date_part('month', o.purchase_time)=? "
-				+ "GROUP BY co.name " + "ORDER BY co.name";
+		String sql = "select co.name as mname, date_part('day', o.purchase_time) as mdate, count(co.name) as mcup "
+				+ "from orders as o, cups as c, coffees as co "
+				+ "where c.order_id = o.order_id and c.coffee_id = co.coffee_id and date_part('year', o.purchase_time)=? and date_part('month', o.purchase_time)=? "
+				+ "group by mname, mdate "
+				+ "order by mname, mdate";
 		Object[] params = new Object[] { year, month };
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql, params);
 

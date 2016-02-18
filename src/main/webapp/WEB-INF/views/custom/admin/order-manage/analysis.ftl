@@ -8,22 +8,29 @@
             </div>
             <!-- /.row -->
             <div class="row">
+            	<!-- /.col-lg-6 -->
+                <div class="col-lg-12">
+                	<div class="panel panel-default">
+	                	 <div class="row"> 
+		                    	<div class="col-lg-3">
+		                    		<label for="sel1">Select A Year:</label>
+		                        	<select class="form-control" id="select_year">
+								      </select>
+							      </div>
+						      <div class="col-lg-3">
+						      		<label for="sel1">Select A Month:</label>
+							      	<select class="form-control col-lg-3" id="select_month">
+							      	</select>
+						      </div>
+	                    </div>
+	                </div>
+                </div>
+            
                 <!-- /.col-lg-6 -->
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="row"> 
-                            	<div class="col-lg-3">
-                            		<label for="sel1">Select years:</label>
-	                            	<select class="form-control" id="select_year">
-								      </select>
-							      </div>
-						      <div class="col-lg-3">
-						      		<label for="sel1">Select month:</label>
-							      	<select class="form-control col-lg-3" id="select_month">
-							      	</select>
-						      </div>
-                            </div>
+                           	Total Sell In A Month 	
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -41,7 +48,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Stack Bar
+                            Number Cup Of Each Coffee Type By Day In A Month
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
