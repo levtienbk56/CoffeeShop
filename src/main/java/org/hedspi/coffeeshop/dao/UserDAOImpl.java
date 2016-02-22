@@ -48,7 +48,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 	}
 
 	public User selectUser(String username) {
-		String sql = "SELECT username,password,role FROM users WHERE username=?";
+		String sql = "SELECT username,password,enabled,role FROM users WHERE username=?";
 		Object[] params = new Object[] { username };
 		UserMapper mapper = new UserMapper();
 		User user = this.getJdbcTemplate().queryForObject(sql, params, mapper);

@@ -3,6 +3,7 @@ var coffeeChosen = 0;
 var ORDER = {
 	totalPrice : 0
 }
+
 /*
  * object list Cup
  */
@@ -253,7 +254,7 @@ function newOrderFunction() {
 	location.reload();
 }
 
-/*
+/* 
  * test ajax
  */
 function checkoutFunction() {

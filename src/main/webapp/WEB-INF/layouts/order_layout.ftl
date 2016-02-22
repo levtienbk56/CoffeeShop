@@ -27,4 +27,7 @@
   	<script type="text/javascript" src="resources/js/order.js" ></script>
   	<script type="text/javascript" src="resources/js/custom.js" ></script>
   	
+	<!-- change password -->
+	<script type="text/javascript" src="resources/js/shared/changePassword.js" ></script>
+  	
 </html>

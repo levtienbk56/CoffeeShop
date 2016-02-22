@@ -1,3 +1,6 @@
+<!-- modal change password-->
+<#include "/WEB-INF/views/custom/shared/modal/changePassword.ftl">
+
 <div class="navbar-wrapper" style="margin-bottom:56px">
     <div class="container-fluid">
         <nav class="navbar navbar-fixed-top">
@@ -13,9 +16,11 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">                    
                     <ul class="nav navbar-nav pull-right">
-                    	<li>
-                    		<a href="#" class="">Welcome <#if (username??)><strong>${username}</strong></#if></a>
-                    	</li>
+                    	<li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome <#if (username??)><strong>${username}</strong></#if><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#updatepw-modal"  data-toggle="modal">Change Password</a></li>
+                            </ul>
+                        </li>
                         <li class=""><a href="logout">Logout</a></li>
                     </ul>
                 </div>
@@ -23,3 +28,7 @@
         </nav>
     </div>
 </div>
+
+
+
+

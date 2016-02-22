@@ -45,9 +45,8 @@ include: user-manage, item-manage -->
         <@tiles.insertAttribute name="page-wrapper" />
 
     </div>
-    
-    
-    <!-- jQuery -->
+</body>
+	<!-- jQuery -->
     <script src="/CoffeeShop/resources/bower_components/jquery/dist/jquery.min.js"></script>
     
    	<!-- Bootstrap Core JavaScript -->
@@ -69,10 +68,11 @@ include: user-manage, item-manage -->
                 responsive: true
         });
     });
-</script>
-</body>
+	</script>	
 	
-    
+    <!-- change password -->
+	<script type="text/javascript" src="/CoffeeShop/resources/js/shared/changePassword.js" ></script>
+
 </html>
 
  

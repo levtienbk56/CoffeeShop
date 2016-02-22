@@ -1,20 +1,27 @@
 package org.hedspi.coffeeshop.controller;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.hedspi.coffeeshop.dao.UserDAO;
+import org.hedspi.coffeeshop.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
+	
+	@Autowired
+	UserDAO userdao;
 
 	@RequestMapping(value = "/")
 	public String home() {
@@ -58,12 +65,35 @@ public class MainController {
 		}
 		return "LoginPage"; // definition in tilesFtl.xml
 	}
+	
+	@RequestMapping(value = { "/change-pass" }, method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> changePass(@RequestParam("currentPass") String currentPass,
+			@RequestParam("newPass") String newPass) {
+		System.out.println("curpass: " + currentPass + ", newpass: " + newPass);
+		
+		User user = userdao.selectUser(MainController.getUserName());
+		Map<String, String> map = new HashMap<String, String>();
+		if(user == null){
+			map.put("result", "fail");
+			map.put("message", "Please sign in first!");
+		}else if(!user.getPassword().equals(currentPass)){
+			map.put("result", "fail");
+			map.put("message", "Wrong password!");
+		}else{
+			user.setPassword(newPass);
+			userdao.update(user);
+			map.put("result", "success");
+			map.put("message", "Password was changed");
+		}
+		return map;
+	}
 
 	@RequestMapping(value = { "/403" }, method = RequestMethod.GET)
 	public String error403() {
 		return "Error403Page"; // definition in tilesFtl.xml
 	}
 
+	// get current username
 	public static String getUserName() {
 		SecurityContext sc = SecurityContextHolder.getContext();
 		Authentication authentication = sc.getAuthentication();

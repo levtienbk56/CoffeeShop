@@ -63,8 +63,12 @@
     <!-- DataTables JavaScript -->
     <script src="/CoffeeShop/resources/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="/CoffeeShop/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    
     <!-- Custom Theme JavaScript -->
     <script src="/CoffeeShop/resources/dist/js/sb-admin-2.js"></script>
+    
+    <!-- change password -->
+	<script type="text/javascript" src="resources/js/shared/changePassword.js" ></script>
     
 </html>
 

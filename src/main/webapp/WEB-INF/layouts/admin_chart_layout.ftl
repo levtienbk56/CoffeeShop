@@ -61,6 +61,8 @@
     <!-- Custom Theme JavaScript -->
     <script src="/CoffeeShop/resources/dist/js/sb-admin-2.js"></script>
     
+    <!-- change password -->
+	<script type="text/javascript" src="resources/js/shared/changePassword.js" ></script>
 </html>
 
  
