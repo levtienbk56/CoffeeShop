@@ -62,7 +62,7 @@
     <script src="/CoffeeShop/resources/dist/js/sb-admin-2.js"></script>
     
     <!-- change password -->
-	<script type="text/javascript" src="resources/js/shared/changePassword.js" ></script>
+	<script type="text/javascript" src="/CoffeeShop/resources/js/shared/changePassword.js" ></script>
 </html>
 
  

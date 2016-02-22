@@ -1,6 +1,7 @@
 package org.hedspi.coffeeshop.dao;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -131,6 +132,15 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 			return 0;
 		}
 		return (Integer) obj;
+	}
+
+	public List<Order> selectByRange(Timestamp dfrom, Timestamp dto) {
+		String sql = "SELECT * FROM orders WHERE purchase_time > ? and purchase_time < ?";
+		Object[] params = new Object[]{dfrom, dto};
+		OrderMapper mapper = new OrderMapper();
+		
+		List<Order> list= this.getJdbcTemplate().query(sql, mapper, params);
+		return list;
 	}
 
 }

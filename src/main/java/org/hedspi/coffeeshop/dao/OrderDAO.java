@@ -1,6 +1,7 @@
 package org.hedspi.coffeeshop.dao;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ public interface OrderDAO {
 	int insertWithReturnId(Order order);
 	int updatePrice(int id, double price);
 	List<Order> selectAll();
+	List<Order> selectByRange(Timestamp dfrom, Timestamp dto);
 	List<Map<String, Object>> selectTotalDateCorrelate(Double year, Double month);
 	public List<Map<String, Object>> selectTotalCoffeeCorrelation(Double year, Double month);
 	List<Integer> selectYears();

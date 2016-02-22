@@ -26,6 +26,9 @@ include: user-manage, item-manage -->
     <!-- DataTables Responsive CSS -->
     <link href="/CoffeeShop/resources/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
    
+   	<!-- datepicker javascript -->
+   	<link rel="stylesheet" href="/CoffeeShop/resources/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+   	
     <!-- Custom CSS -->
     <link href="/CoffeeShop/resources/dist/css/sb-admin-2.css" rel="stylesheet">
     
@@ -59,16 +62,18 @@ include: user-manage, item-manage -->
     <script src="/CoffeeShop/resources/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="/CoffeeShop/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
     
+    <!-- moment & locale javascript -->
+    <script type="text/javascript" src="/CoffeeShop/resources/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/CoffeeShop/resources/bower_components/moment/locale/ja.js"></script>
+    
+    <!-- datepicker javascript -->
+    <script type="text/javascript" src="/CoffeeShop/resources/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    
     <!-- Custom Theme JavaScript -->
     <script src="/CoffeeShop/resources/dist/js/sb-admin-2.js"></script>
-    
-    <script>
-    $(document).ready(function() {
-        $('.table-use-javascript').DataTable({
-                responsive: true
-        });
-    });
-	</script>	
+	
+	<!-- script for order-table page -->
+	<script type="text/javascript" src="/CoffeeShop/resources/js/order-manage.js"></script>
 	
     <!-- change password -->
 	<script type="text/javascript" src="/CoffeeShop/resources/js/shared/changePassword.js" ></script>

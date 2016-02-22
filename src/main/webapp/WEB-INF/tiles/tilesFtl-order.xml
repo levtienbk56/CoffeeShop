@@ -12,8 +12,6 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/static/footer.ftl"
 			type="freemarker" />
-		<put-attribute name="script.common" value="resources/js/shared/changePassword.js" />
-		
 	</definition>
 
 	<definition name="IndexPage" extends="baseLayout">

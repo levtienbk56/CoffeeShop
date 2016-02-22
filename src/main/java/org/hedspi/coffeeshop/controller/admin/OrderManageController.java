@@ -1,6 +1,7 @@
 package org.hedspi.coffeeshop.controller.admin;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,10 +37,7 @@ public class OrderManageController {
 	CoffeeDAO coffeedao;
 
 	@RequestMapping(value = "/order-table", method = RequestMethod.GET)
-	public String viewOrderTable(@ModelAttribute("model") ModelMap model) {
-		List<Order> listOrder = orderDao.selectAll();
-
-		model.addAttribute("listOrder", listOrder);
+	public String viewOrderTable() {
 		return "OrderTablePage";
 	}
 
@@ -168,6 +166,19 @@ public class OrderManageController {
 			}
 		}
 
+		return list;
+	}
+
+	/**
+	 * select List of ORDER by Range of DATE
+	 */
+
+	@RequestMapping(value = "/analysis/order-by-range", method = RequestMethod.POST)
+	public @ResponseBody List<Order> selectByRange(@RequestParam("dfrom") String dfrom,
+			@RequestParam("dto") String dto) {
+		System.out.println("from: " + dfrom + ", to: " + dto);
+		List<Order> list = orderDao.selectByRange(new Timestamp(Long.parseLong(dfrom)),
+				new Timestamp(Long.parseLong(dto)));
 		return list;
 	}
 
