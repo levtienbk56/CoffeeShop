@@ -38,18 +38,35 @@ public class OrderController {
 	@Autowired
 	CupDAO cupdao;
 
+	/**
+	 * open order page
+	 * 
+	 * @param model
+	 *            contain list of coffee & condiment
+	 * @param modell
+	 *            contain username
+	 * @return page name
+	 */
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
 	public String index(@ModelAttribute("model") ModelMap model, Model modell) {
-		List<Coffee> listCoffee = coffeedao.selectAll();
-		List<Condiment> listCondiment = condimentdao.selectAll();
+		List<Coffee> listCoffee = coffeedao.selectAllActive();
+		List<Condiment> listCondiment = condimentdao.selectAllActive();
 		model.addAttribute("listCondiment", listCondiment);
 		model.addAttribute("listCoffee", listCoffee);
-		
+
 		modell.addAttribute("username", MainController.getUserName());
 
 		return "OrderPage"; // definition in tilesFtl.xml
 	}
 
+	/**
+	 * check customer chosen Cups, then insert order data into DB
+	 * 
+	 * @see #insertOrderIntoDataBase(OrderWrapper orderWrapper)
+	 * @param listCup
+	 *            Customer chosen Cups
+	 * @return summary orders
+	 */
 	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
 	public @ResponseBody OrderWrapper checkout(@RequestBody Map<String, CupWrapper> listCup) {
 		printAjax(listCup);
@@ -182,6 +199,9 @@ public class OrderController {
 		}
 	}
 
+	/*
+	 * insert after checking success
+	 */
 	private void insertOrderIntoDataBase(OrderWrapper orderWrapper) {
 		String username = MainController.getUserName();
 		Timestamp timestamp = new Timestamp(new Date().getTime());

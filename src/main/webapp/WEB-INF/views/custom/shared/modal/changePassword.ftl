@@ -10,7 +10,7 @@
 			
 			   <div id="response-body" class="modal-body">
 			    
-			    <div id="changePassNotification" class="alert col-md-10 col-md-offset-1">
+			    <div id="changePassNotification">
 			     <!-- content -->
 			    </div>
 			    

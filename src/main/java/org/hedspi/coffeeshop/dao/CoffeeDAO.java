@@ -10,4 +10,5 @@ public interface CoffeeDAO {
 	List<Coffee> selectAll();
 	Coffee selectCoffee(int id);
 	int update(Coffee coffee);
+	List<Coffee> selectAllActive();
 }

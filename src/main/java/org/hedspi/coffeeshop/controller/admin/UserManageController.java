@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.UserDAO;
-import org.hedspi.coffeeshop.model.Coffee;
 import org.hedspi.coffeeshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,37 +35,50 @@ public class UserManageController {
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public @ResponseBody User removeUser(@RequestParam("username") String username) {
+	public @ResponseBody Map<String, String> removeUser(@RequestParam("username") String username) {
 		System.out.println("request remove user=" + username);
-		int result = userdao.delete(username.toString().trim());
-		
-		User user = null;
-		if(result == 1){
-			user = new User(username,"",false,"");
-			System.out.println("delete success");
-		}else{
-			System.out.println("delete fail, code=" + result);
+		int code = userdao.delete(username.toString().trim());
+
+		Map<String, String> map = new HashMap<String, String>();
+		if (code == 1) {
+			map.put("result", "success");
+			map.put("message", Constant.QUERY_DELETE_SUCCESS);
+		} else {
+			map.put("result", "fail");
+			map.put("message", Constant.QUERY_FAIL);
 		}
-		return user;
+		return map;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> editUser(@RequestBody User user) {
 		System.out.println(user.toString());
-		
+
 		int code = userdao.update(user);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("code", ""+code);
+		if (code == 1) {
+			map.put("result", "success");
+			map.put("message", Constant.QUERY_UPDATE_SUCCESS);
+		} else {
+			map.put("result", "fail");
+			map.put("message", Constant.QUERY_FAIL);
+		}
 		return map;
 	}
-	
+
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> insertUser(@RequestBody User user) {
 		System.out.println(user.toString());
-		
+
 		int code = userdao.insert(user);
-		Map<String, String> obj = new HashMap<String, String>();
-		obj.put("code", ""+ code);
-		return obj;
+		Map<String, String> map = new HashMap<String, String>();
+		if (code == 1) {
+			map.put("result", "success");
+			map.put("message", Constant.QUERY_INSERT_SUCCESS);
+		} else {
+			map.put("result", "fail");
+			map.put("message", Constant.QUERY_FAIL);
+		}
+		return map;
 	}
 }

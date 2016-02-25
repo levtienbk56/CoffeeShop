@@ -2,7 +2,6 @@ package org.hedspi.coffeeshop.controller.admin;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.CupDAO;
 import org.hedspi.coffeeshop.dao.OrderDAO;
@@ -19,8 +19,6 @@ import org.hedspi.coffeeshop.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +43,11 @@ public class OrderManageController {
 	public String analyzeData(Model model) {
 		return "AnalysisPage";
 	}
+	/**
+	 * get data from DB, push out PieChart
+	 * @param require nothing
+	 * @return list of record of Cup (select by count(number of cup))
+	 */
 
 	@RequestMapping(value = "/analysis/pie-chart", method = RequestMethod.POST)
 	public @ResponseBody List<Map<String, Object>> analyzePieChartData(@RequestParam("require") String require) {
@@ -57,6 +60,16 @@ public class OrderManageController {
 		return list;
 	}
 
+	/**
+	 * get data from DB, push out StackBarChart
+	 * 
+	 * @param year
+	 *            order's year
+	 * @param month
+	 *            order's month
+	 * @return list of record
+	 * @throws ParseException
+	 */
 	@RequestMapping(value = "/analysis/stack-bar-chart", method = RequestMethod.POST)
 	public @ResponseBody List<Map<String, Object>> analyzeStackBarChartData(@RequestParam("year") String year,
 			@RequestParam("month") String month) throws ParseException {
@@ -85,7 +98,7 @@ public class OrderManageController {
 
 			// cause there is any day in month EMPTY data
 			// need to add ['day': 0]
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter = new SimpleDateFormat(Constant.DATE_SIMPLE_FORMAT);
 			double mday = 0;
 			while (true) {
 				mday++;
@@ -117,6 +130,16 @@ public class OrderManageController {
 		return listReturn;
 	}
 
+	/**
+	 * get data from DB, push out BarChart
+	 * 
+	 * @param year
+	 *            order's year
+	 * @param month
+	 *            order's month
+	 * @return List of records
+	 * @throws ParseException
+	 */
 	@RequestMapping(value = "/analysis/bar-chart", method = RequestMethod.POST)
 	public @ResponseBody List<Map<String, Object>> analyzeBarChartData(@RequestParam("year") String year,
 			@RequestParam("month") String month) throws ParseException {
@@ -132,7 +155,7 @@ public class OrderManageController {
 		}
 
 		// insert empty date
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat(Constant.DATE_SIMPLE_FORMAT);
 		int mdate = 0;
 
 		while (true) {
@@ -171,8 +194,13 @@ public class OrderManageController {
 
 	/**
 	 * select List of ORDER by Range of DATE
+	 * 
+	 * @param dfrom
+	 *            query order from day
+	 * @param dto
+	 *            query order to day
+	 * @return list of records
 	 */
-
 	@RequestMapping(value = "/analysis/order-by-range", method = RequestMethod.POST)
 	public @ResponseBody List<Order> selectByRange(@RequestParam("dfrom") String dfrom,
 			@RequestParam("dto") String dto) {
@@ -182,6 +210,11 @@ public class OrderManageController {
 		return list;
 	}
 
+	/**
+	 * all of years that has order in DB
+	 * 
+	 * @return list of years
+	 */
 	@RequestMapping(value = "/analysis/years", method = RequestMethod.POST)
 	public @ResponseBody List<Integer> getYears() {
 		List<Integer> list = orderDao.selectYears();
@@ -192,6 +225,13 @@ public class OrderManageController {
 		return list;
 	}
 
+	/**
+	 * all of month that has order in DB
+	 * 
+	 * @param year
+	 *            order's year
+	 * @return list of orders
+	 */
 	@RequestMapping(value = "/analysis/months", method = RequestMethod.POST)
 	public @ResponseBody List<Integer> getMonths(@RequestParam("year") String year) {
 		List<Integer> list = orderDao.selectMonths(Double.parseDouble(year));

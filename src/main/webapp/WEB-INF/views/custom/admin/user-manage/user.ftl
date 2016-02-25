@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">User Management</h1>
+            <h1 class="page-header">User Tables</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -18,26 +18,23 @@
                         <table class="table table-striped table-bordered table-hover table-use-javascript">
                             <thead>
                                 <tr>
-                                    <th class="col-sm-2 col-md-2">Username</th>
-                                    <th class="col-sm-2 col-md-2">Password</th>
-                                    <th class="col-sm-2 col-md-2">Enabled?</th>
-                                    <th class="col-sm-2 col-md-2">Role</th>
-                                    <th class="col-sm-2 col-md-2">Functions</th>
+                                    <th class="col-sm-2 col-md-2 text-center">Username</th>
+                                    <th class="col-sm-2 col-md-2 text-center">Password</th>
+                                    <th class="col-sm-2 col-md-2 text-center">Active?</th>
+                                    <th class="col-sm-2 col-md-2 text-center">Role</th>
+                                    <th class="col-sm-2 col-md-2 text-center">Functions</th>
                                 </tr>
                             </thead>
                             <tbody>
 			                  	<#list model['listUser'] as user> 
 									<tr class="odd gradeX" id="tr-${user.username}">
-	                                    <td class="td-username">${user.username}</td>
-	                                    <td class="td-password">${user.password}</td>
-	                                    <td class="td-enabled">${user.enabled?c}</td>
-	                                    <td class="center td-role">${user.role}</td>
-	                                    <td>
-									        <button value="${user.username}" href="#modal-edit"  data-toggle="modal" class="btn btn-default" onClick="editUser($(this))">
-									        	<span class="glyphicon glyphicon-edit"></span> Edit
-									        </button>
-	                                    	<button value="${user.username}" type="button" class="btn btn-danger btn-sm btn-remove-user" onClick="removeUser($(this))">
-									          	<span class="glyphicon glyphicon-remove"></span> Remove 
+	                                    <td class="td-username text-center">${user.username}</td>
+	                                    <td class="td-password text-center">${user.password}</td>
+	                                    <td class="td-enabled text-center <#if user.enabled?c = 'true'>info<#else>danger</#if>">${user.enabled?c}</td>
+	                                    <td class="center td-role text-center">${user.role}</td>
+	                                    <td style="padding:4px;" class=" text-center">
+									        <button value="${user.username}" href="#modal-edit"  data-toggle="modal" class="btn btn-default btn-sm " onClick="editUser($(this))"  style="min-width:100px">
+									        	<i class="fa fa-pencil"></i> Edit
 									        </button>
 	                                    </td>
                                 	</tr>
@@ -71,28 +68,39 @@
           <h3 class="modal-title">Edit User</h3>
         </div>
         <div class="modal-body">
+        	<div class="modal-notice"></div>
           <table class="table table-striped" id="modal-tbl-edit-user">
             <thead id="tblHead">
               <tr>
-              	<th>Username</th>
-                <th>Password</th>
-                <th>Enabled?</th>
-                <th class="text-right">Role</th>
+              	<th class="col-md-2 text-center">Username</th>
+                <th class="col-md-2 text-center">Password</th>
+                <th class="col-md-2 text-center">Enabled?</th>
+                <th class="col-md-2 text-center">Role</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-              	<td class="td-username"></td>
-                <td class="td-password"><input type="text" class="form-control"></td>
-                <td class="td-enabled text-center"><input type="checkbox"></td>
-                <td class="td-role"><input type="text" class="form-control"></td>
+              	<td class="text-center td-username"></td>
+                <td class="text-center td-password"><input type="password" class="form-control"></td>
+                <td class="text-center td-enabled text-center">
+                	<select class="form-control">
+					    <option value="true">Active</option>
+					    <option value="false">Deleted</option>
+					</select>
+                </td>
+                <td class="text-center td-role">
+                	<select class="form-control">
+					    <option value="SELLER">Seller</option>
+					    <option value="ADMIN">Admin</option>
+					</select>
+				</td>
               </tr>
             </tbody>
           </table>
 		</div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-success"  data-dismiss="modal" id="update-user">Save Changes</button>
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick="updateUser()">Save Changes</button>
         </div>
 				
       </div><!-- /.modal-content -->
@@ -108,33 +116,43 @@
           <h3 class="modal-title">New User</h3>
         </div>
         <div class="modal-body">
-          <table class="table table-striped" id="modal-tbl-insert-user">
+        	<div class="modal-notice"></div>
+          <table class="table table-striped table-bordered table-hover" id="modal-tbl-insert-user">
             <thead id="tblHead">
               <tr>
-              	<th>Username</th>
-                <th>Password</th>
-                <th>Enabled?</th>
-                <th class="text-right">Role</th>
+              	<th class="col-md-2 text-center">Username</th>
+                <th class="col-md-2 text-center">Password</th>
+                <th class="col-md-2 text-center">Enabled?</th>
+                <th class="col-md-2 text-center">Role</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-              	<td class="td-username"><input type="text" class="form-control"></td>
-                <td class="td-password"><input type="text" class="form-control"></td>
-                <td class="td-enabled text-center"><input type="checkbox" checked></td>
-                <td class="td-role"><input type="text" class="form-control"></td>
+              	<td class="text-center td-username"><input type="text" class="form-control"></td>
+                <td class="text-center td-password"><input type="password" class="form-control"></td>
+                <td class="text-center td-enabled text-center">
+                	<select class="form-control">
+					    <option value="true">Active</option>
+					    <option value="false">Deleted</option>
+					</select>
+                </td>
+                <td class="text-center td-role">
+                	<select class="form-control">
+					    <option value="SELLER">Seller</option>
+					    <option value="ADMIN">Admin</option>
+					</select>
+                </td>
               </tr>
             </tbody>
           </table>
 		</div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-success"  data-dismiss="modal" id="insert-user">Insert</button>
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick="insertUser()">Insert</button>
         </div>
 				
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-
 
 <script src="/CoffeeShop/resources/js/user-manage.js"></script>

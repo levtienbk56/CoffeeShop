@@ -23,8 +23,8 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public int insert(Condiment condiment) {
-		String sql = "INSERT INTO condiments(name, price) VALUES(?,?)";
-		Object[] params = new Object[] { condiment.getName(), condiment.getPrice() };
+		String sql = "INSERT INTO condiments(name, price, enabled) VALUES(?,?,?)";
+		Object[] params = new Object[] { condiment.getName(), condiment.getPrice(), condiment.isEnabled() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
 		} catch (CannotGetJdbcConnectionException e) {
@@ -35,8 +35,9 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public int update(Condiment condiment) {
-		String sql = "UPDATE condiments SET name=?,price=? WHERE condiment_id=?";
-		Object[] params = new Object[] { condiment.getName(), condiment.getPrice(), condiment.getId() };
+		String sql = "UPDATE condiments SET name=?,price=?,enabled=? WHERE condiment_id=?";
+		Object[] params = new Object[] { condiment.getName(), condiment.getPrice(), condiment.isEnabled(),
+				condiment.getId() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
 		} catch (Exception e) {
@@ -65,7 +66,17 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public List<Condiment> selectAll() {
-		String sql = "SELECT * FROM condiments";
+		String sql = "SELECT * FROM condiments ORDER BY condiment_id";
+
+		Object[] params = new Object[] {};
+		CondimentMapper mapper = new CondimentMapper();
+
+		List<Condiment> list = this.getJdbcTemplate().query(sql, params, mapper);
+		return list;
+	}
+
+	public List<Condiment> selectAllActive() {
+		String sql = "SELECT * FROM condiments where enabled=true ORDER BY condiment_id";
 
 		Object[] params = new Object[] {};
 		CondimentMapper mapper = new CondimentMapper();

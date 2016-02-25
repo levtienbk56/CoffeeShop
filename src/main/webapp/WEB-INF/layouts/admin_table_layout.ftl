@@ -34,7 +34,12 @@ include: user-manage, item-manage -->
     
     <!-- Custom Fonts -->
     <link href="/CoffeeShop/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	
+    
+    <!-- jQuery -->
+    <script src="/CoffeeShop/resources/bower_components/jquery/dist/jquery.min.js"></script>
+    
+   	<!-- Bootstrap Core JavaScript -->
+  	<script src="/CoffeeShop/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -49,12 +54,6 @@ include: user-manage, item-manage -->
 
     </div>
 </body>
-	<!-- jQuery -->
-    <script src="/CoffeeShop/resources/bower_components/jquery/dist/jquery.min.js"></script>
-    
-   	<!-- Bootstrap Core JavaScript -->
-  	<script src="/CoffeeShop/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/CoffeeShop/resources/bower_components/metisMenu/dist/metisMenu.min.js"></script>
     

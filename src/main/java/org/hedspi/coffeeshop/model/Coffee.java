@@ -4,6 +4,7 @@ public class Coffee {
 	private int id;
 	private String name;
 	private double price;
+	private boolean enabled = true;
 
 	public Coffee() {
 
@@ -14,6 +15,14 @@ public class Coffee {
 		this.id = id;
 		this.name = name;
 		this.price = price;
+	}
+
+	public Coffee(int id, String name, double price, boolean enabled) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.enabled = enabled;
 	}
 
 	public int getId() {
@@ -38,6 +47,14 @@ public class Coffee {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public String toString() {

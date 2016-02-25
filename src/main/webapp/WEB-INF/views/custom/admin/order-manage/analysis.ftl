@@ -1,31 +1,20 @@
 <div id="wrapper">
 	<div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Total Sell</h1>
+                <div class="col-lg-4 text-center">
+    	            <div class="page-header">
+	                		<label for="sel1">Select A Year:</label>
+	                    	<select class="form-control" id="select_year"></select>
+				      		<label for="sel1">Select A Month:</label>
+					      	<select class="form-control col-lg-3" id="select_month"></select>
+					      	<div><h1></h1></div>
+			      	</div>
+	                <!-- /.page-header -->
                 </div>
-                <!-- /.col-lg-12 -->
+            	<!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-            	<!-- /.col-lg-6 -->
-                <div class="col-lg-12">
-                	<div class="panel panel-default">
-	                	 <div class="row"> 
-		                    	<div class="col-lg-3">
-		                    		<label for="sel1">Select A Year:</label>
-		                        	<select class="form-control" id="select_year">
-								      </select>
-							      </div>
-						      <div class="col-lg-3">
-						      		<label for="sel1">Select A Month:</label>
-							      	<select class="form-control col-lg-3" id="select_month">
-							      	</select>
-						      </div>
-	                    </div>
-	                </div>
-                </div>
-            
                 <!-- /.col-lg-6 -->
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -42,7 +31,6 @@
                     </div>
                     <!-- /.panel -->
                 </div>
-                
                 
                 <!-- /.col-lg-6 -->
                 <div class="col-lg-12">

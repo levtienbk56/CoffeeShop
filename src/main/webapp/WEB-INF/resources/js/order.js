@@ -64,11 +64,11 @@ function addCupFunction() {
 	// append html as a cup
 	$("#table_order tr#add_new").before(str);
 	$("div#row_to_insert table tbody tr").attr("name", "cup0");
-	
+
 	// create cup object
 	var cup = new Cup(cupID);
 	listCup[cupID] = cup;
-	
+
 	disableCheckoutButton(false);
 }
 
@@ -178,7 +178,8 @@ function updatePriceFunction(cupID) {
 	var coffee = listCup[cupID].coffee;
 	var size = listCup[cupID].cupSize;
 	var sizeInt = 1;
-	if(size == 'BIG') sizeInt = 1.2;
+	if (size == 'BIG')
+		sizeInt = 1.2;
 
 	// get condiment value
 	var condiments = listCup[cupID].condiments;
@@ -225,6 +226,9 @@ function updateTotalPriceFunction() {
  */
 function updateRefundFunction() {
 	var pay = parseFloat($("td#customer_pay input").val());
+	if (pay <= 0) {
+		return;
+	}
 	var total = parseFloat(ORDER.totalPrice);
 	var refund = parseFloat(0);
 
@@ -254,18 +258,19 @@ function newOrderFunction() {
 	location.reload();
 }
 
-/* 
+/*
  * test ajax
  */
 function checkoutFunction() {
 	// check coffee selected?
-	if(!checkCoffeeSelected()){
+	if (!checkCoffeeSelected()) {
 		alert('choose a coffee first');
 		return;
 	}
-	
+
 	// disable checkout button
-	disableCheckoutButton(true);	getListCupLength();
+	disableCheckoutButton(true);
+	getListCupLength();
 
 	$.ajax({
 		type : "POST",
@@ -287,11 +292,12 @@ function checkoutFunction() {
 	});
 }
 
-function checkCoffeeSelected(){
+function checkCoffeeSelected() {
 	var p = "0";
 	for (key in listCup) {
 		p = listCup[key].coffee.id;
-		if(p == "0") return false;
+		if (p == "0")
+			return false;
 	}
 	return true;
 }

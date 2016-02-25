@@ -14,5 +14,7 @@ public interface CondimentDAO {
 	Condiment select(int id);
 	
 	List<Condiment> selectAll();
+	
+	List<Condiment> selectAllActive();
 
 }

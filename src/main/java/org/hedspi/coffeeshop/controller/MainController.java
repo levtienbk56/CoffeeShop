@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.dao.UserDAO;
 import org.hedspi.coffeeshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
-	
+
 	@Autowired
 	UserDAO userdao;
 
+	/**
+	 * @see SpringSecurity
+	 * @return page address
+	 */
 	@RequestMapping(value = "/")
 	public String home() {
 		SecurityContext sc = SecurityContextHolder.getContext();
@@ -33,6 +38,11 @@ public class MainController {
 		return "redirect:" + targetUrl;
 	}
 
+	/**
+	 * @see SpringSecurity
+	 * @param authentication
+	 * @return page name
+	 */
 	protected String determineTargetUrl(Authentication authentication) {
 		String url = "";
 
@@ -54,36 +64,51 @@ public class MainController {
 		return url;
 	}
 
+	/**
+	 * login function use Spring security
+	 * @see SpringSecurity
+	 * @param error
+	 * @param msg
+	 * @param model push notification through FreemarkerObject
+	 * @return page name
+	 */
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public String loginPage(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String msg, org.springframework.ui.Model model) {
 		if (error != null) {
-			model.addAttribute("error", "Invalid username and password!");
+			model.addAttribute("error", Constant.LOGIN_FAIL);
 		}
 		if (msg != null) {
-			model.addAttribute("msg", "Logout successfully.");
+			model.addAttribute("msg", Constant.lOGIN_SUCCESS);
 		}
 		return "LoginPage"; // definition in tilesFtl.xml
 	}
-	
+
+	/**
+	 * update password for user
+	 * 
+	 * @param currentPass
+	 * @param newPass
+	 * @return Map{"result" : "aaa", message : "bbb"}
+	 */
 	@RequestMapping(value = { "/change-pass" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> changePass(@RequestParam("currentPass") String currentPass,
 			@RequestParam("newPass") String newPass) {
 		System.out.println("curpass: " + currentPass + ", newpass: " + newPass);
-		
+
 		User user = userdao.selectUser(MainController.getUserName());
 		Map<String, String> map = new HashMap<String, String>();
-		if(user == null){
+		if (user == null) {
 			map.put("result", "fail");
-			map.put("message", "Please sign in first!");
-		}else if(!user.getPassword().equals(currentPass)){
+			map.put("message", Constant.CHANGE_PASS_FAIL);
+		} else if (!user.getPassword().equals(currentPass)) {
 			map.put("result", "fail");
-			map.put("message", "Wrong password!");
-		}else{
+			map.put("message", Constant.CHANGE_PASS_WRONG);
+		} else {
 			user.setPassword(newPass);
 			userdao.update(user);
 			map.put("result", "success");
-			map.put("message", "Password was changed");
+			map.put("message", Constant.CHANGE_PASS_SUCCESS);
 		}
 		return map;
 	}
@@ -93,7 +118,11 @@ public class MainController {
 		return "Error403Page"; // definition in tilesFtl.xml
 	}
 
-	// get current username
+	/**
+	 * get current username of user
+	 * 
+	 * @return username as String
+	 */
 	public static String getUserName() {
 		SecurityContext sc = SecurityContextHolder.getContext();
 		Authentication authentication = sc.getAuthentication();
