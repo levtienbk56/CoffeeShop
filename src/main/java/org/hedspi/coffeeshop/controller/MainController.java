@@ -64,12 +64,24 @@ public class MainController {
 		return url;
 	}
 
+	@RequestMapping(value = { "/403" }, method = RequestMethod.GET)
+	public String error403() {
+		return "Error403Page"; // definition in tilesFtl-common.xml
+	}
+
+	@RequestMapping(value = { "/404" }, method = RequestMethod.GET)
+	public String error404() {
+		return "Error404Page"; // definition in tilesFtl-common.xml
+	}
+
 	/**
 	 * login function use Spring security
+	 * 
 	 * @see SpringSecurity
 	 * @param error
 	 * @param msg
-	 * @param model push notification through FreemarkerObject
+	 * @param model
+	 *            push notification through FreemarkerObject
 	 * @return page name
 	 */
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
@@ -111,11 +123,6 @@ public class MainController {
 			map.put("message", Constant.CHANGE_PASS_SUCCESS);
 		}
 		return map;
-	}
-
-	@RequestMapping(value = { "/403" }, method = RequestMethod.GET)
-	public String error403() {
-		return "Error403Page"; // definition in tilesFtl.xml
 	}
 
 	/**

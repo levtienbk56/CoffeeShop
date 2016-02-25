@@ -26,6 +26,12 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- page error handle -->
+	<error-page>
+	    <error-code>404</error-code>
+	    <location>/404</location>
+	</error-page>
+	
 	<!-- Spring Security Filter -->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
