@@ -55,7 +55,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
-                        <table id="tbl-order" class="table table-striped table-bordered table-hover table-use-javascript">
+                        <table class="table table-striped table-bordered table-hover tbl-responsive">
                             <thead>
                                 <tr>
                                     <th class="col-sm-2 col-md-2 text-center">Id</th>
@@ -80,3 +80,7 @@
     </div>
 </div>
 <!-- /#page-wrapper -->
+
+<!-- script for order-table page -->
+<script type="text/javascript" src="/CoffeeShop/resources/js/order-manage.js"></script>
+	

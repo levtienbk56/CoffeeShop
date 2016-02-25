@@ -1,10 +1,5 @@
 var table;
 
-$(document).ready(function() {
-	table = $('#tbl-order').DataTable({
-		responsive : true
-	});
-});
 
 $(function() {
 	$('#datetimepicker6').datetimepicker({

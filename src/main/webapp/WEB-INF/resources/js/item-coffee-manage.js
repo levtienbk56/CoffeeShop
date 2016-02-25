@@ -58,7 +58,7 @@ function removeCoffee(arg) {
 }
 
 // get update info, request UPDATE to server
-$("#update-coffee")
+$(".tbl-responsive")
 		.click(
 				function() {
 					// clear notice in modal

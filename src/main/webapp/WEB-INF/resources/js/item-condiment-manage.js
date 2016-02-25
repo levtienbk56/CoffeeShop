@@ -58,7 +58,7 @@ function removeCondiment(arg) {
 }
 
 // get update info, request UPDATE to server
-$("#update-condiment")
+$(".tbl-responsive")
 		.click(
 				function() {
 					// clear notice

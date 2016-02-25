@@ -16,7 +16,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover table-use-javascript">
+                        <table class="table table-striped table-bordered table-hover tbl-responsive">
                             <thead>
                                 <tr>
                                     <th class="col-sm-2 col-md-1 text-center">#</th>

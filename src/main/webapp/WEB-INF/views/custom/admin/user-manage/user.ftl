@@ -15,7 +15,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover table-use-javascript">
+                        <table class="table table-striped table-bordered table-hover tbl-responsive">
                             <thead>
                                 <tr>
                                     <th class="col-sm-2 col-md-2 text-center">Username</th>
@@ -69,7 +69,7 @@
         </div>
         <div class="modal-body">
         	<div class="modal-notice"></div>
-          <table class="table table-striped" id="modal-tbl-edit-user">
+          <table class="table table-striped" id="modal-tbl-edit">
             <thead id="tblHead">
               <tr>
               	<th class="col-md-2 text-center">Username</th>
@@ -117,7 +117,7 @@
         </div>
         <div class="modal-body">
         	<div class="modal-notice"></div>
-          <table class="table table-striped table-bordered table-hover" id="modal-tbl-insert-user">
+          <table class="table table-striped table-bordered table-hover" id="modal-tbl-insert">
             <thead id="tblHead">
               <tr>
               	<th class="col-md-2 text-center">Username</th>

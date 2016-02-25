@@ -16,23 +16,23 @@ function editUser(element) {
 	var role = element.parent('td').parent('tr').children('.td-role').text();
 	console.log('edit ' + username + password + enabled + role);
 
-	$('table#modal-tbl-edit-user').attr('name', username);
-	$('table#modal-tbl-edit-user .td-username').text(username);
-	$('table#modal-tbl-edit-user .td-password input').val(password);
+	$('table#modal-tbl-edit').attr('name', username);
+	$('table#modal-tbl-edit .td-username').text(username);
+	$('table#modal-tbl-edit .td-password input').val(password);
 	if (enabled == 'true') {
-		$('table#modal-tbl-edit-user .td-enabled select').val('true');
+		$('table#modal-tbl-edit .td-enabled select').val('true');
 	} else {
-		$('table#modal-tbl-edit-user .td-enabled select').val('false');
+		$('table#modal-tbl-edit .td-enabled select').val('false');
 	}
 	if (role == 'SELLER') {
-		$('table#modal-tbl-edit-user .td-role select').val('SELLER');
+		$('table#modal-tbl-edit .td-role select').val('SELLER');
 	} else {
-		$('table#modal-tbl-edit-user .td-role select').val('ADMIN');
+		$('table#modal-tbl-edit .td-role select').val('ADMIN');
 	}
 }
 
 // get update info, request UPDATE to server
-$("#update-user")
+$(".tbl-responsive")
 		.click(
 				function() {
 					// clear notice
@@ -41,13 +41,13 @@ $("#update-user")
 					$(".modal-notice").text("");
 
 					// remove space: .replace(/\s/g, '')
-					var username = $('table#modal-tbl-edit-user .td-username')
+					var username = $('table#modal-tbl-edit .td-username')
 							.text().replace(/\s/g, '');
 					var password = $(
-							'table#modal-tbl-edit-user .td-password input')
+							'table#modal-tbl-edit .td-password input')
 							.val().replace(/\s/g, '');
-					var enabled = $('table#modal-tbl-edit-user .td-enabled select option:selected').val();
-					var role = $('table#modal-tbl-edit-user .td-role select option:selected').val();
+					var enabled = $('table#modal-tbl-edit .td-enabled select option:selected').val();
+					var role = $('table#modal-tbl-edit .td-role select option:selected').val();
 
 					if (username == '' || password == ''
 							|| (role != 'ADMIN' && role != 'SELLER')) {
@@ -108,13 +108,13 @@ $("#insert-user")
 
 					// remove space: .replace(/\s/g, '')
 					var username = $(
-							'table#modal-tbl-insert-user .td-username input')
+							'table#modal-tbl-insert .td-username input')
 							.val().replace(/\s/g, '');
 					var password = $(
-							'table#modal-tbl-insert-user .td-password input')
+							'table#modal-tbl-insert .td-password input')
 							.val().replace(/\s/g, '');
-					var enabled = $('table#modal-tbl-insert-user .td-enabled select option:selected').val();
-					var role = $('table#modal-tbl-insert-user .td-role select option:selected').val();
+					var enabled = $('table#modal-tbl-insert .td-enabled select option:selected').val();
+					var role = $('table#modal-tbl-insert .td-role select option:selected').val();
 
 					console.log('insert ' + username + password + enabled
 							+ role);
