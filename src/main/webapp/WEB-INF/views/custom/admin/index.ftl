@@ -1,4 +1,7 @@
 <#ftl encoding='UTF-8'> 
+<style>
+
+</style>
 
 <div id="page-wrapper">
     <div class="row">
@@ -26,11 +29,15 @@
 			   <!-- /.modal-header -->
 			
 			   <div class="modal-body">
+			   		<!-- notification -->
+			   		<div class="modal-notice">
+				    </div>
+				    
 				    <!-- input name-->
 				    <div class="form-group">
-					     <label class="col-sm-2 control-label" for="newEname">Name:</label>
+					     <label class="col-sm-2 control-label" for="newEname">Title:</label>
 					     <div class="col-sm-10">
-		                    <input type="text" class="form-control" id="newEname" name="newEname">
+		                    <input type="text" class="form-control" id="title" name="newEname">
 	                  	</div>
 				    </div>
 				    <!-- input START hour&date -->
@@ -78,12 +85,26 @@
 	                    	</div>
 	                  	</div>
 	                </div>
+		            <!-- input COLOR -->
+				    <div class="form-group">
+		              	<label class="col-sm-2 control-label" for="starts">color:</label>    
+		                <div class="col-sm-10">
+		                    <select class="form-control" id='colors'>
+							    <option value="Red">Red</option>
+							    <option value="Orange">Orange</option>
+							    <option value="Yellow">Yellow</option>
+							    <option value="Green">Green</option>
+							    <option value="Blue">Blue</option>
+							    <option value="Purple">Purple </option>
+							</select>
+	                  	</div>
+	              	</div>
 				</div>
 				<!-- /.modal-body -->
 				
 			   	<div class="modal-footer">
-				    <button id="update-pass" type="button" class="btn btn-success" data-dismiss="modal">
-				     	<i class="fa fa-check"></i>OK
+				    <button id="add-event" type="button" class="btn btn-success" data-dismiss="modal">
+				     	<i class="fa fa-check"></i>Add
 				    </button>
 				    <button id="reject" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			   	</div>
