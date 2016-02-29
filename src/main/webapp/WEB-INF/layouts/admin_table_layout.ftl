@@ -26,7 +26,7 @@ include: user-manage, item-manage -->
     <!-- DataTables Responsive CSS -->
     <link href="/CoffeeShop/resources/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
    
-   	<!-- datepicker javascript -->
+   	<!-- datepicker CSS -->
    	<link rel="stylesheet" href="/CoffeeShop/resources/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
    	
     <!-- Custom CSS -->
