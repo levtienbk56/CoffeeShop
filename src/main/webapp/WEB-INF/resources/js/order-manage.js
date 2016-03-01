@@ -1,6 +1,5 @@
 var table;
 
-
 $(function() {
 	$('#datetimepicker6').datetimepicker({
 		format : "LL"
@@ -56,6 +55,9 @@ $(function() {
 												'LL') + " " + data[i].total);
 							}
 
+							if(i==0){
+								alert("No record found");
+							}
 						} else {
 							alert('no data');
 						}
