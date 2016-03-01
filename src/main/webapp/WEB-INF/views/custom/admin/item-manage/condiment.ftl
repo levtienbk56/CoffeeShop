@@ -145,5 +145,5 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-<script src="/CoffeeShop/resources/js/item-condiment-manage.js"></script>
+<script src="/CoffeeShop/resources/js/admin/product-manage/condiment.js"></script>
 

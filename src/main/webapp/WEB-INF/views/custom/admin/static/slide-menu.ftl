@@ -11,10 +11,10 @@
                             <a href="/CoffeeShop/admin/orders/order-table"><i class="fa fa-table fa-fw"></i> Order Table</a>
                         </li>
                         <li>
-                            <a href="/CoffeeShop/admin/orders/analysis"><i class="fa fa-bar-chart fa-fw"></i> Analysis Order Use flot Charts</a>
+                            <a href="/CoffeeShop/admin/orders/analysis"><i class="fa fa-bar-chart fa-fw"></i> Analysis Order</a>
                         </li>
                         <li>
-                            <a href="/CoffeeShop/admin/orders/rank"><i class="fa fa-pie-chart fa-fw"></i> Rank flot Charts</a>
+                            <a href="/CoffeeShop/admin/orders/rank"><i class="fa fa-pie-chart fa-fw"></i> Rank</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

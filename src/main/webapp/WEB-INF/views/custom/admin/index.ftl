@@ -118,5 +118,5 @@
   
   
 <!-- Custom page JavaScript -->
-<script src="/CoffeeShop/resources/js/admin_calendar.js"></script>
+<script src="/CoffeeShop/resources/js/admin/admin_calendar.js"></script>
   

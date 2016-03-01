@@ -145,5 +145,5 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-<script src="/CoffeeShop/resources/js/item-coffee-manage.js"></script>
+<script src="/CoffeeShop/resources/js/admin/product-manage/coffee.js"></script>
 

@@ -16,6 +16,17 @@ $(document)
 										console.log("currentPass:" + curpass);
 										console.log("newPass:" + newpass);
 										console.log("repeatPass:" + reppass);
+										if (curpass == '' || newpass == ''
+												|| reppass == '') {
+											$("#changePassNotification")
+													.removeClass();
+											$("#changePassNotification")
+													.addClass(
+															"alert col-md-10 col-md-offset-1 alert-warning");
+											$("#changePassNotification").text(
+													"Input Empty!");
+											return false;
+										}
 										if (newpass != reppass) {
 											$("#changePassNotification")
 													.removeClass();
@@ -32,7 +43,7 @@ $(document)
 											$
 													.ajax({
 														type : "POST",
-														url : "change-pass",
+														url : "/CoffeeShop/change-pass",
 														data : {
 															currentPass : curpass,
 															newPass : newpass

@@ -82,5 +82,5 @@
 <!-- /#page-wrapper -->
 
 <!-- script for order-table page -->
-<script type="text/javascript" src="/CoffeeShop/resources/js/order-manage.js"></script>
+<script type="text/javascript" src="/CoffeeShop/resources/js/admin/order-manage/order-table.js"></script>
 	

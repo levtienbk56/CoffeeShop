@@ -53,7 +53,6 @@ include: user-manage, item-manage -->
         <@tiles.insertAttribute name="page-wrapper" />
 
     </div>
-</body>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/CoffeeShop/resources/bower_components/metisMenu/dist/metisMenu.min.js"></script>
     
@@ -82,7 +81,7 @@ include: user-manage, item-manage -->
 			});
 		});
 	</script>
-
+</body>
 </html>
 
  

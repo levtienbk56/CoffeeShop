@@ -155,4 +155,4 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-<script src="/CoffeeShop/resources/js/user-manage.js"></script>
+<script src="/CoffeeShop/resources/js/admin/user-manage/user.js"></script>

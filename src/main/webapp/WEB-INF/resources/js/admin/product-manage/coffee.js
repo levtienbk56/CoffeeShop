@@ -1,4 +1,4 @@
-function Condiment(id, name, price, enabled) {
+function Coffee(id, name, price, enabled) {
 	this.id = id;
 	this.name = name;
 	this.price = price;
@@ -6,7 +6,7 @@ function Condiment(id, name, price, enabled) {
 }
 
 // get value from table, insert into modal
-function editCondiment(element) {
+function editCoffee(element) {
 	var id = element.parent('td').parent('tr').children('.td-id').text();
 	var name = element.parent('td').parent('tr').children('.td-name').text();
 	var price = element.parent('td').parent('tr').children('.td-price').text();
@@ -26,15 +26,15 @@ function editCondiment(element) {
 }
 
 // get username, request DELETE to server
-function removeCondiment(arg) {
+function removeCoffee(arg) {
 	var id = arg.attr('value').replace(/\s/g, '');
 	var r = confirm("Are you sure to remove : " + id);
 	if (r == true) {
 		$.ajax({
 			type : "POST",
-			url : "condiments/remove",
+			url : "coffees/remove",
 			data : {
-				condimentId : id
+				coffeeId : id
 			},
 			timeout : 100000,
 			success : function(data) {
@@ -58,10 +58,10 @@ function removeCondiment(arg) {
 }
 
 // get update info, request UPDATE to server
-$(".tbl-responsive")
+$("#update-coffee")
 		.click(
 				function() {
-					// clear notice
+					// clear notice in modal
 					$(".modal-notice").removeClass(
 							"alert alert-warning alert-success");
 					$(".modal-notice").text("");
@@ -83,7 +83,7 @@ $(".tbl-responsive")
 					// validate name
 					if (id == '' || name == '' || price == '') {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text("Input Empty!");
+						$(".modal-notice").text("Input Empty!!");
 						return false;
 					}
 
@@ -93,18 +93,19 @@ $(".tbl-responsive")
 						$(".modal-notice").text("Invalid Price!");
 						return false;
 					}
-					var condiment = new Condiment(id, name, price, enabled);
+
+					var coffee = new Coffee(id, name, price, enabled);
 
 					$.ajax({
 						type : "POST",
 						contentType : "application/json",
-						url : "condiments/edit",
-						data : JSON.stringify(condiment),
+						url : "coffees/edit",
+						data : JSON.stringify(coffee),
 						dataType : 'json',
 						timeout : 100000,
 						success : function(data) {
 							// unable button
-							$("#update-condiment").prop('disabled', true);
+							$("#update-coffee").prop('disabled', true);
 							
 							if (data.result == 'success') {
 								$(".modal-notice").addClass(
@@ -131,7 +132,7 @@ $(".tbl-responsive")
 				});
 
 // get new user info, request INSERT to server
-$("#insert-condiment")
+$("#insert-coffee")
 		.click(
 				function() {
 					// clear notice
@@ -147,7 +148,7 @@ $("#insert-condiment")
 					var enabled = $(
 							'table#modal-tbl-insert .td-enabled select option:selected')
 							.val();
-					console.log('insert condiment: ' + name + price + enabled);
+					console.log('insert coffee: ' + name + price + enabled);
 
 					// validate name
 					if (name == '' || price == '') {
@@ -162,18 +163,19 @@ $("#insert-condiment")
 						$(".modal-notice").text("Invalid Price!");
 						return false;
 					}
-					var condiment = new Condiment('0', name, price, enabled);
+
+					var coffee = new Coffee('0', name, price, enabled);
 
 					$.ajax({
 						type : "POST",
 						contentType : "application/json",
-						url : "condiments/insert",
-						data : JSON.stringify(condiment),
+						url : "coffees/insert",
+						data : JSON.stringify(coffee),
 						dataType : 'json',
 						timeout : 100000,
 						success : function(data) {
 							// unable button
-							$("#insert-condiment").prop('disabled', true);
+							$("#insert-coffee").prop('disabled', true);
 							
 							if (data.result == 'success') {
 								$(".modal-notice").addClass(
