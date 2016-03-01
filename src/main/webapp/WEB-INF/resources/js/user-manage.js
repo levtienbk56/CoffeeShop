@@ -32,7 +32,7 @@ function editUser(element) {
 }
 
 // get update info, request UPDATE to server
-$(".tbl-responsive")
+$("#update-user")
 		.click(
 				function() {
 					// clear notice
