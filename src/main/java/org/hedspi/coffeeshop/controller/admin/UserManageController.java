@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/admin/users")
 public class UserManageController {
 
-	public static final Logger logger = LogManager.getLogger();
+	public static final Logger logger = LogManager.getLogger(UserManageController.class);
 	@Autowired
 	UserDAO userdao;
 	@Autowired
@@ -32,7 +32,8 @@ public class UserManageController {
 
 	@RequestMapping(value = { "" }, method = RequestMethod.GET)
 	public String manageUsers(@ModelAttribute("model") ModelMap model) {
-		logger.trace("select all user");
+		logger.entry();
+
 		List<User> listUser = userdao.selectAll();
 		model.addAttribute("listUser", listUser);
 		return "UsersPage"; // definition in tilesFtl-admin.xml
@@ -40,13 +41,12 @@ public class UserManageController {
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> removeUser(@RequestParam("username") String username) {
-		logger.entry("username", username);
-		logger.trace("remove user");
+		logger.entry(username);
+
 		int code = userdao.delete(username.toString().trim());
 
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
-			logger.info("Query success!");
 			map.put("result", "success");
 			map.put("message", Constant.QUERY_DELETE_SUCCESS);
 		} else {
@@ -54,17 +54,16 @@ public class UserManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> editUser(@RequestBody User user) {
 		logger.entry(user);
-		logger.trace("edit user");
+
 		int code = userdao.update(user);
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
-			logger.info("Query success!");
 			map.put("result", "success");
 			map.put("message", Constant.QUERY_UPDATE_SUCCESS);
 		} else {
@@ -72,18 +71,16 @@ public class UserManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> insertUser(@RequestBody User user) {
 		logger.entry(user);
-		logger.trace("insert new user");
 
 		int code = userdao.insert(user);
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
-			logger.info("Query success!");
 			map.put("result", "success");
 			map.put("message", Constant.QUERY_INSERT_SUCCESS);
 		} else {
@@ -91,6 +88,6 @@ public class UserManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 }

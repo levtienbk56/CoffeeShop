@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.CondimentDAO;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/admin/items")
 public class ItemManageController {
+	public static final Logger logger = LogManager.getLogger(ItemManageController.class);
 
 	@Autowired
 	CoffeeDAO coffeedao;
@@ -30,6 +33,8 @@ public class ItemManageController {
 
 	@RequestMapping(value = { "/coffees" }, method = RequestMethod.GET)
 	public String manageCoffees(@ModelAttribute("model") ModelMap model) {
+		logger.entry();
+
 		List<Coffee> listCoffee = coffeedao.selectAll();
 		model.addAttribute("listCoffee", listCoffee);
 		return "ItemsCoffeesPage"; // definition in tilesFtl-admin.xml
@@ -37,6 +42,8 @@ public class ItemManageController {
 
 	@RequestMapping(value = { "/coffees/remove" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> removeCoffee(@RequestParam("coffeeId") String id) {
+		logger.entry(id);
+
 		int code = coffeedao.delete(Integer.parseInt(id));
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -47,11 +54,13 @@ public class ItemManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 
 	@RequestMapping(value = { "/coffees/edit" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> editCoffee(@RequestBody Coffee coffee) {
+		logger.entry(coffee);
+
 		int code = coffeedao.update(coffee);
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -62,12 +71,12 @@ public class ItemManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 
 	@RequestMapping(value = "/coffees/insert", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> insertCoffee(@RequestBody Coffee coffee) {
-		System.out.println(coffee.toString());
+		logger.entry(coffee);
 
 		int code = coffeedao.insert(coffee);
 		Map<String, String> map = new HashMap<String, String>();
@@ -78,11 +87,13 @@ public class ItemManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 
 	@RequestMapping(value = { "/condiments" }, method = RequestMethod.GET)
 	public String manageCondiments(@ModelAttribute("model") ModelMap model) {
+		logger.entry();
+
 		List<Condiment> listCondiment = condimentdao.selectAll();
 		model.addAttribute("listCondiment", listCondiment);
 		return "ItemsCondimentsPage"; // definition in tilesFtl-admin.xml
@@ -90,6 +101,8 @@ public class ItemManageController {
 
 	@RequestMapping(value = { "/condiments/remove" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> removeCondiment(@RequestParam("condimentId") String id) {
+		logger.entry(id);
+
 		int code = condimentdao.delete(Integer.parseInt(id));
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -100,11 +113,13 @@ public class ItemManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 
 	@RequestMapping(value = { "/condiments/edit" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> editCondiment(@RequestBody Condiment condiment) {
+		logger.entry(condiment);
+
 		int code = condimentdao.update(condiment);
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -115,12 +130,12 @@ public class ItemManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 
 	@RequestMapping(value = "/condiments/insert", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> insertCondiment(@RequestBody Condiment condiment) {
-		System.out.println(condiment.toString());
+		logger.entry();
 
 		int code = condimentdao.insert(condiment);
 		Map<String, String> map = new HashMap<String, String>();
@@ -131,6 +146,6 @@ public class ItemManageController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 }

@@ -63,6 +63,6 @@ public class Event {
 	}
 
 	public String toString() {
-		return "event{" + id + "," + title + "," + start + "," + end + "," + color + "}";
+		return "{" + id + "," + title + "," + start + "," + end + "," + color + "}";
 	}
 }

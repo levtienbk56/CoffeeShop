@@ -58,7 +58,7 @@ public class Coffee {
 	}
 
 	public String toString() {
-		return "coffee(" + id + "," + name + "," + price + ")";
+		return "{" + id + "," + name + "," + price + "}";
 
 	}
 

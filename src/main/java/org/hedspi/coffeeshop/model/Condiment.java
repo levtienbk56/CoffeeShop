@@ -67,4 +67,8 @@ public class Condiment {
 		return (this.id == that.id) && this.name.equals(that.name) && (this.price == that.price);
 	}
 
+	public String toString() {
+		return "{" + id + "," + name + "," + price + "}";
+	}
+
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.controller.MainController;
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.CondimentDAO;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class OrderController {
+	public static final Logger logger = LogManager.getLogger(OrderController.class);
+
 	@Autowired
 	CondimentDAO condimentdao;
 	@Autowired
@@ -49,6 +53,8 @@ public class OrderController {
 	 */
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
 	public String index(@ModelAttribute("model") ModelMap model, Model modell) {
+		logger.entry();
+
 		List<Coffee> listCoffee = coffeedao.selectAllActive();
 		List<Condiment> listCondiment = condimentdao.selectAllActive();
 		model.addAttribute("listCondiment", listCondiment);
@@ -69,6 +75,8 @@ public class OrderController {
 	 */
 	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
 	public @ResponseBody OrderWrapper checkout(@RequestBody Map<String, CupWrapper> listCup) {
+		logger.entry();
+		
 		printAjax(listCup);
 		OrderWrapper orderWrapper = new OrderWrapper();
 		if (listCup != null && listCup.size() > 0) {
@@ -175,7 +183,6 @@ public class OrderController {
 	 * just check result
 	 */
 	private void printAjax(Map<String, CupWrapper> listCup) {
-		System.out.println("Ajax size of Cups: " + listCup.size());
 		if (listCup != null) {
 			for (String key : listCup.keySet()) {
 				CupWrapper cup = listCup.get(key);

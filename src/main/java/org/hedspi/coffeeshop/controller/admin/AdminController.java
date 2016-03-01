@@ -34,25 +34,20 @@ public class AdminController {
 	@RequestMapping(value = { "/calendar/events" }, method = RequestMethod.POST)
 	public @ResponseBody List<Event> showEvents() {
 		logger.entry();
-		List<Event> list = eventDAO.selectAll();
 
-		for (Event e : list) {
-			System.out.println(e);
-		}
-		return list;
+		List<Event> list = eventDAO.selectAll();
+		return logger.exit(list);
 	}
 
 	@RequestMapping(value = { "/calendar/insert-event" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> addEvent(@RequestBody Event event) {
 		logger.entry(event);
-		System.out.println(event);
 
 		int code = 1;
 		code = eventDAO.insert(event);
 
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
-			logger.info("Query success");
 			map.put("result", "success");
 			map.put("message", Constant.QUERY_INSERT_SUCCESS);
 		} else {
@@ -60,7 +55,7 @@ public class AdminController {
 			map.put("result", "fail");
 			map.put("message", Constant.QUERY_FAIL);
 		}
-		return map;
+		return logger.exit(map);
 	}
 
 }

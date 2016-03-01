@@ -54,7 +54,7 @@ public class User {
 	}
 
 	public String toString() {
-		return "user(" + username + "," + password + "," + enabled + "," + role + ")";
+		return "{" + username + "," + password + "," + enabled + "," + role + "}";
 
 	}
 

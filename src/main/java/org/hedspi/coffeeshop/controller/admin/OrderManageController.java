@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.dao.CupDAO;
@@ -27,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/admin/orders")
 public class OrderManageController {
+	public static final Logger logger = LogManager.getLogger(OrderManageController.class);
+
 	@Autowired
 	OrderDAO orderDao;
 	@Autowired
@@ -36,28 +40,30 @@ public class OrderManageController {
 
 	@RequestMapping(value = "/order-table", method = RequestMethod.GET)
 	public String viewOrderTable() {
+		logger.entry();
 		return "OrderTablePage";
 	}
 
 	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
 	public String analyzeData(Model model) {
+		logger.entry();
 		return "AnalysisPage";
 	}
+
 	/**
 	 * get data from DB, push out PieChart
-	 * @param require nothing
+	 * 
+	 * @param require
+	 *            nothing
 	 * @return list of record of Cup (select by count(number of cup))
 	 */
 
 	@RequestMapping(value = "/analysis/pie-chart", method = RequestMethod.POST)
 	public @ResponseBody List<Map<String, Object>> analyzePieChartData(@RequestParam("require") String require) {
+		logger.entry();
 		List<Map<String, Object>> list = cupdao.selectCoffeeCorrelate();
-		System.out.println("analyzePieChartData:\t" + "required code: " + require);
 
-		for (Map<String, Object> map : list) {
-			System.out.println(map);
-		}
-		return list;
+		return logger.exit(list);
 	}
 
 	/**
@@ -74,7 +80,7 @@ public class OrderManageController {
 	public @ResponseBody List<Map<String, Object>> analyzeStackBarChartData(@RequestParam("year") String year,
 			@RequestParam("month") String month) throws ParseException {
 
-		System.out.println("analyzeStackBarChartData:\t" + "year:" + year + ", month:" + month);
+		logger.entry(year, month);
 
 		// format: [{'label' : label1, 'data' : [arrdata1]}, {...}, ...]
 		List<Map<String, Object>> listReturn = new ArrayList<Map<String, Object>>();
@@ -125,9 +131,8 @@ public class OrderManageController {
 		}
 
 		for (Map<String, Object> map : listReturn) {
-			System.out.println(map);
 		}
-		return listReturn;
+		return logger.exit(listReturn);
 	}
 
 	/**
@@ -143,7 +148,8 @@ public class OrderManageController {
 	@RequestMapping(value = "/analysis/bar-chart", method = RequestMethod.POST)
 	public @ResponseBody List<Map<String, Object>> analyzeBarChartData(@RequestParam("year") String year,
 			@RequestParam("month") String month) throws ParseException {
-		System.out.println("analyzeBarChartData:\t" + "year:" + year + ", month:" + month);
+		logger.entry(year, month);
+
 		List<Map<String, Object>> list = orderDao.selectTotalDateCorrelate(Double.parseDouble(year),
 				Double.parseDouble(month));
 
@@ -151,7 +157,6 @@ public class OrderManageController {
 		for (Map<String, Object> map : list) {
 			Date date = (Date) map.get("label");
 			map.put("label", date.getTime());
-			System.out.println(map);
 		}
 
 		// insert empty date
@@ -184,12 +189,12 @@ public class OrderManageController {
 					list.add(map);
 				}
 			} catch (ParseException e) {
-				e.printStackTrace();
+				logger.catching(e);
 				break;
 			}
 		}
 
-		return list;
+		return logger.exit(list);
 	}
 
 	/**
@@ -204,10 +209,11 @@ public class OrderManageController {
 	@RequestMapping(value = "/analysis/order-by-range", method = RequestMethod.POST)
 	public @ResponseBody List<Order> selectByRange(@RequestParam("dfrom") String dfrom,
 			@RequestParam("dto") String dto) {
-		System.out.println("from: " + dfrom + ", to: " + dto);
+		logger.entry(dfrom, dto);
+
 		List<Order> list = orderDao.selectByRange(new Timestamp(Long.parseLong(dfrom)),
 				new Timestamp(Long.parseLong(dto)));
-		return list;
+		return logger.exit(list);
 	}
 
 	/**
@@ -217,12 +223,10 @@ public class OrderManageController {
 	 */
 	@RequestMapping(value = "/analysis/years", method = RequestMethod.POST)
 	public @ResponseBody List<Integer> getYears() {
+		logger.entry();
 		List<Integer> list = orderDao.selectYears();
 
-		for (Integer i : list) {
-			System.out.println(i);
-		}
-		return list;
+		return logger.exit(list);
 	}
 
 	/**
@@ -234,17 +238,16 @@ public class OrderManageController {
 	 */
 	@RequestMapping(value = "/analysis/months", method = RequestMethod.POST)
 	public @ResponseBody List<Integer> getMonths(@RequestParam("year") String year) {
+		logger.entry(year);
 		List<Integer> list = orderDao.selectMonths(Double.parseDouble(year));
 
-		for (Integer i : list) {
-			System.out.println(i);
-		}
-		return list;
+		return logger.exit(list);
 
 	}
 
 	@RequestMapping(value = "/rank", method = RequestMethod.GET)
 	public String rank(Model model) {
+		logger.entry();
 		return "RankPage";
 	}
 }
