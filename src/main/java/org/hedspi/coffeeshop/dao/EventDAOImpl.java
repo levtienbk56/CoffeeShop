@@ -59,7 +59,8 @@ public class EventDAOImpl extends JdbcDaoSupport implements EventDAO {
 
 	public int update(Event event) {
 		String sql = "UPDATE events SET title=?,time_start=?,time_end=?,color=? WHERE event_id=?";
-		Object[] params = new Object[] { event.getTitle(), event.getStart(), event.getEnd(), event.getColor() };
+		Object[] params = new Object[] { event.getTitle(), event.getStart(), event.getEnd(), event.getColor(),
+				event.getId() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
 		} catch (Exception e) {
