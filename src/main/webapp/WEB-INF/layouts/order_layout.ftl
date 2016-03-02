@@ -3,7 +3,14 @@
 <html>
 <head>
 	<title><@tiles.insertAttribute name="title" /></title>
-	<link rel="stylesheet"  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Bootstrap Core CSS -->
+    <link href="/CoffeeShop/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- jQuery -->
+    <script src="/CoffeeShop/resources/bower_components/jquery/dist/jquery.min.js"></script>
+   	<!-- Bootstrap Core JavaScript -->
+    <script src="/CoffeeShop/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	
 	<link rel="stylesheet"  href="/CoffeeShop/resources/css/header.css">
 	<link rel="stylesheet"  href="/CoffeeShop/resources/css/footer.css">
 	
@@ -13,21 +20,16 @@
 			margin-top:25px;
 			margin-bottom:20px;
 		}
-</style>
+	</style>
 </head>
 <body>
 		<@tiles.insertAttribute name="header" />
 		<@tiles.insertAttribute name="body" />
 		<@tiles.insertAttribute name="footer" />
 	
-</body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	
-  	<script type="text/javascript" src="resources/js/order.js" ></script>
-  	<script type="text/javascript" src="resources/js/custom.js" ></script>
-  	
+	<script type="text/javascript" src="resources/js/shared/custom.js" ></script>
 	<!-- change password -->
 	<script type="text/javascript" src="resources/js/shared/changePassword.js" ></script>
   	
+</body>
 </html>

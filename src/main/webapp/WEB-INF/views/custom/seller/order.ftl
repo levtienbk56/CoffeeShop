@@ -152,5 +152,5 @@
 	</table>
 </div>
 
-
-
+<!-- JavaScript -->
+<script type="text/javascript" src="resources/js/seller/order.js" ></script>
