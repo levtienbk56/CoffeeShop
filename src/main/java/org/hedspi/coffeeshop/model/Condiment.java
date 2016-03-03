@@ -4,6 +4,7 @@ public class Condiment {
 	private int id;
 	private String name;
 	private double price = 0;
+	private boolean enabled = true;
 
 	public Condiment() {
 
@@ -14,6 +15,14 @@ public class Condiment {
 		this.id = id;
 		this.name = name;
 		this.price = price;
+	}
+
+	public Condiment(int id, String name, double price, boolean enabled) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.enabled = enabled;
 	}
 
 	public int getId() {
@@ -40,6 +49,14 @@ public class Condiment {
 		this.price = price;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		if (!(other instanceof Condiment)) {
@@ -48,6 +65,10 @@ public class Condiment {
 
 		Condiment that = (Condiment) other;
 		return (this.id == that.id) && this.name.equals(that.name) && (this.price == that.price);
+	}
+
+	public String toString() {
+		return "{" + id + "," + name + "," + price + "}";
 	}
 
 }

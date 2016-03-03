@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 public class CondimentMapper implements RowMapper<Condiment> {
 
 	public Condiment mapRow(ResultSet rs, int arg1) throws SQLException {
-		return new Condiment(rs.getInt("condiment_id"), rs.getString("name"), rs.getDouble("price"));
+		return new Condiment(rs.getInt("condiment_id"), rs.getString("name"), rs.getDouble("price"), rs.getBoolean("enabled"));
 	}
 
 }

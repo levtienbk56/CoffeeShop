@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="Error403Page" extends="baseLayout">
+		<put-attribute name="title" value="403" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/static/error403.ftl"
+			type="freemarker" />
+		<put-attribute name="footer" value="" />
+
+	</definition>
+	<definition name="Error404Page" extends="baseLayout">
+		<put-attribute name="title" value="404" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/static/error404.ftl"
+			type="freemarker" />
+		<put-attribute name="footer" value="" />
+
+	</definition>
+
+</tiles-definitions>

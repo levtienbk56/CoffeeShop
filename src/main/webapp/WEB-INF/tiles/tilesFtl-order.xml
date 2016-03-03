@@ -18,11 +18,12 @@
 		<put-attribute name="title" value="Index" />
 		<put-attribute name="body" value="/WEB-INF/views/custom/index.ftl"
 			type="freemarker" />
+		
 	</definition>
 	
 	<definition name="OrderPage" extends="baseLayout">
 		<put-attribute name="title" value="Order Page" />
-		<put-attribute name="body" value="/WEB-INF/views/custom/order/order.ftl"
+		<put-attribute name="body" value="/WEB-INF/views/custom/seller/order.ftl"
 			type="freemarker" />
 	</definition>
 	<definition name="Error403Page" extends="baseLayout">

@@ -68,4 +68,8 @@ public class Order {
 				&& this.purchaseTime.equals(that.purchaseTime) && (this.total == that.total);
 	}
 
+	public String toString() {
+		return "{" + id + "," + username + "," + purchaseTime + "," + total + "}";
+	}
+
 }

@@ -23,9 +23,9 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 
 	}
 
-	public int insertCoffee(Coffee coffee) {
-		String sql = "INSERT INTO coffees(name,price) VALUES(?,?)";
-		Object[] params = new Object[] { coffee.getName(), coffee.getPrice() };
+	public int insert(Coffee coffee) {
+		String sql = "INSERT INTO coffees(name,price,enabled) VALUES(?,?,?)";
+		Object[] params = new Object[] { coffee.getName(), coffee.getPrice(), coffee.isEnabled() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
 		} catch (CannotGetJdbcConnectionException e) {
@@ -38,13 +38,19 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 
 	}
 
-	public void deleteCoffee(int id) {
-		// TODO Auto-generated method stub
-
+	public int delete(int id) {
+		String sql = "DELETE FROM coffees WHERE coffee_id = ?";
+		Object[] params = new Object[] { id };
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 	public List<Coffee> selectAll() {
-		String sql = "SELECT * FROM coffees";
+		String sql = "SELECT * FROM coffees  ORDER BY coffee_id";
 		CoffeeMapper mapper = new CoffeeMapper();
 		try {
 			return this.getJdbcTemplate().query(sql, mapper);
@@ -56,10 +62,32 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 
 	public Coffee selectCoffee(int id) {
 		String sql = "SELECT * FROM coffees WHERE coffee_id=?";
-		Object[] params = new Object[] {id};
+		Object[] params = new Object[] { id };
 		CoffeeMapper rowMapper = new CoffeeMapper();
 		Coffee c = this.getJdbcTemplate().queryForObject(sql, params, rowMapper);
 		return c;
+	}
+
+	public int update(Coffee coffee) {
+		String sql = "UPDATE coffees SET name=?,price=?,enabled=? WHERE coffee_id=?";
+		Object[] params = new Object[] { coffee.getName(), coffee.getPrice(), coffee.isEnabled(), coffee.getId() };
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	public List<Coffee> selectAllActive() {
+		String sql = "SELECT * FROM coffees where enabled=true  ORDER BY coffee_id";
+		CoffeeMapper mapper = new CoffeeMapper();
+		try {
+			return this.getJdbcTemplate().query(sql, mapper);
+		} catch (CannotGetJdbcConnectionException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

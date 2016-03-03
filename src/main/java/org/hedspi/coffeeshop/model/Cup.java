@@ -80,4 +80,7 @@ public class Cup {
 				&& this.size.equals(that.size) && this.condiments.equals(that.coffeeId) && (this.price == that.price);
 	}
 
+	public String toString() {
+		return "{" + id + "," + coffeeId + "," + orderId + "," + size + "," + condiments + "," + price + "}";
+	}
 }

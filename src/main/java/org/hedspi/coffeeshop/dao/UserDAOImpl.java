@@ -5,14 +5,12 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.hedspi.coffeeshop.mapper.CoffeeMapper;
 import org.hedspi.coffeeshop.mapper.UserMapper;
 import org.hedspi.coffeeshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.security.core.userdetails.memory.UserMap;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,13 +36,19 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 
 	}
 
-	public void delete(User user) {
-		// TODO Auto-generated method stub
-
+	public int delete(String username) {
+		String sql = "DELETE FROM users as u WHERE u.username = ?";
+		Object[] params = new Object[] { username };
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} 
 	}
 
 	public User selectUser(String username) {
-		String sql = "SELECT username,password,role FROM users WHERE username=?";
+		String sql = "SELECT username,password,enabled,role FROM users WHERE username=?";
 		Object[] params = new Object[] { username };
 		UserMapper mapper = new UserMapper();
 		User user = this.getJdbcTemplate().queryForObject(sql, params, mapper);
@@ -60,6 +64,17 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 			e.printStackTrace();
 			return new ArrayList<User>();
 		}
+	}
+
+	public int update(User user) {
+		String sql = "UPDATE users SET password=?,enabled=?,role=? WHERE username=?";
+		Object[] params = new Object[] {user.getPassword(), user.isEnabled(), user.getRole(),  user.getUsername()};
+		try {
+			return this.getJdbcTemplate().update(sql, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} 
 	}
 
 }

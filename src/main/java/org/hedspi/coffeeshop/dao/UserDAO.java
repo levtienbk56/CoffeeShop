@@ -6,7 +6,8 @@ import org.hedspi.coffeeshop.model.User;
 
 public interface UserDAO {
 	int insert(User user);
-	void delete(User user);
+	int delete(String username);
 	User selectUser(String username);
 	List<User> selectAll();
+	int update(User user);
 }
