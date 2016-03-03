@@ -17,7 +17,7 @@
     <link href="/CoffeeShop/resources/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link href="/CoffeeShop/resources/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/CoffeeShop/resources/css/sb-admin-2.css" rel="stylesheet">
     
     <!-- Custom Fonts -->
     <link href="/CoffeeShop/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -72,7 +72,7 @@
     <script src="/CoffeeShop/resources/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="/CoffeeShop/resources/dist/js/sb-admin-2.js"></script>
+    <script src="/CoffeeShop/resources/js/sb-admin-2.js"></script>
     
     <!-- change password -->
 	<script type="text/javascript" src="/CoffeeShop/resources/js/shared/changePassword.js" ></script>

@@ -31,7 +31,7 @@ include: user-manage, item-manage -->
    	<link rel="stylesheet" href="/CoffeeShop/resources/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
    	
     <!-- Custom CSS -->
-    <link href="/CoffeeShop/resources/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/CoffeeShop/resources/css/sb-admin-2.css" rel="stylesheet">
     
     <!-- Custom Fonts -->
     <link href="/CoffeeShop/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -69,7 +69,7 @@ include: user-manage, item-manage -->
     <script type="text/javascript" src="/CoffeeShop/resources/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     
     <!-- Custom Theme JavaScript -->
-    <script src="/CoffeeShop/resources/dist/js/sb-admin-2.js"></script>
+    <script src="/CoffeeShop/resources/js/sb-admin-2.js"></script>
 	
     <!-- change password -->
 	<script type="text/javascript" src="/CoffeeShop/resources/js/shared/changePassword.js" ></script>
