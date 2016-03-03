@@ -4,7 +4,7 @@ public class Cup {
 	private int id;
 	private int coffeeId;
 	private int orderId;
-	private String size = "NORMAL"; // NORNAL(default), BIG
+	private String size = "NORMAL"; // NORMAL(default), BIG
 	private String condiments;
 	private double price;
 

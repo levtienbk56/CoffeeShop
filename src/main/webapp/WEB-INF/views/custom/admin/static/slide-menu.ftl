@@ -2,7 +2,7 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="/CoffeeShop/admin/"><i class="fa fa-calendar fa-fw"></i> Calendar</a>
+                    <a href="/CoffeeShop/admin/"><i class="fa fa-calendar fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Manage Order<span class="fa arrow"></span></a>

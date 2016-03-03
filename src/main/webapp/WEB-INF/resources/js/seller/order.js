@@ -24,7 +24,7 @@ function Condiment(id, name, price) {
 function Cup(id) {
 	this.id = id;
 	this.coffee = new Coffee("0", "", 0);
-	this.cupSize = "NORMAL";
+	this.cupSize = "NORMAL"; // or BIG
 	this.quantity = 1;
 	this.price = 0;
 	this.condiments = {};
@@ -280,8 +280,33 @@ function checkoutFunction() {
 		dataType : 'json',
 		timeout : 100000,
 		success : function(data) {
-			alert("Order success! total=" + data.total);
-			location.reload();
+			// alert("Order success! total=" + data.total);
+			$('#revieworder-modal').modal('show');
+			for (key in listCup) {
+				var cup = listCup[key];
+				var coffeeName = cup.coffee.name;
+				var cupSize = cup.cupSize;
+				var quantity = cup.quantity;
+				var price = cup.price;
+				var condiments = cup.condiments;
+				var condimentStr = '';
+				for (k in condiments) {
+					condimentStr += condiments[k].name + ', ';
+				}
+
+				var str = "<tr> <td>" + coffeeName
+						+ "</td> <td class='text-center'>" + cupSize
+						+ "</td><td>" + condimentStr
+						+ "</td><td class='text-center'>" + quantity
+						+ "</td><td class='text-center'>" + price
+						+ "</td></tr>";
+				// insert into order-table
+				$('#table-revieworder tr#revieworder-total').before(str);
+
+			}
+			$("#revieworder-modal tr#revieworder-total strong.price").text(
+					data.total);
+			return false;
 		},
 		error : function(e) {
 			console.log("ERROR " + e);
@@ -301,3 +326,8 @@ function checkCoffeeSelected() {
 	}
 	return true;
 }
+
+// reload page when close review order modal
+$("#revieworder-modal .modal-close").click(function(){
+	location.reload();
+});

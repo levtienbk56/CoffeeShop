@@ -5,7 +5,7 @@
 		  <div class="modal-content">
 			   <div class="modal-header">
 				    <button id="close-updatepw" type="button" class="close" data-dismiss="modal">&times;</button>
-				    <h4 class="modal-title">Chang Password</h4>
+				    <h4 class="modal-title">Change Password</h4>
 			   </div>
 			
 			   <div id="response-body" class="modal-body">

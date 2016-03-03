@@ -6,7 +6,7 @@ import java.util.Map;
 public class CupWrapper {
 	private String id;
 	private Coffee coffee;
-	private String cupSize;
+	private String cupSize ="NORMAL";  // or BIG
 	private int quantity;
 	private Map<String, Condiment> condiments = new HashMap<String, Condiment>();
 	private double price;

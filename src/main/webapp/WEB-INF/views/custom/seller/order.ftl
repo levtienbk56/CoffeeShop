@@ -1,3 +1,5 @@
+<#ftl encoding='UTF-8'> 
+
 <style>
 .dropbtn {
     color: black;
@@ -150,6 +152,46 @@
 			</tr>
 		</tbody>
 	</table>
+</div>
+
+<!-- modal review order -->
+<div class="modal fade" id="revieworder-modal" role="dialog">
+	 <div class="modal-dialog">
+		  <!-- Modal content-->
+		  <div class="modal-content">
+			   <div class="modal-header">
+				    <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+				    <h4 class="modal-title">Receipt</h4>
+			   </div>
+			
+			   <div class="modal-body">
+			   		<table id="table-revieworder" class="table table-hover">
+						<thead>
+							<tr>
+								<th class="col-sm-3">Coffee</th>
+								<th class="text-center col-sm-1">Size</th>
+								<th class=" col-sm-3">Condiment</th>
+								<th class="text-center col-sm-1">Quantity</th>
+								<th class="text-center col-sm-2">Price ($)</th>
+							</tr>
+						</thead>
+						<tbody>			
+		                    <tr  id='revieworder-total'>
+								<td colspan="4" align="right"><h4><strong>Total<strong></h4></td>
+								<td class="text-left">
+									<h4>
+										<strong class="price">0$</strong>
+									</h4>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			   <div class="modal-footer">
+				    <button id="reject" type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+			   </div>
+		  </div>
+	 </div>
 </div>
 
 <!-- JavaScript -->
