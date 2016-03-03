@@ -10,4 +10,5 @@ public interface CupDAO {
 
 	List<Map<String, Object>> selectCoffeeCorrelate();
 
+	public List<Cup> selectByOrderId(int orderId);
 }

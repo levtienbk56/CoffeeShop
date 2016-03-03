@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.dao.CoffeeDAO;
+import org.hedspi.coffeeshop.dao.CondimentDAO;
 import org.hedspi.coffeeshop.dao.CupDAO;
 import org.hedspi.coffeeshop.dao.OrderDAO;
 import org.hedspi.coffeeshop.model.Coffee;
+import org.hedspi.coffeeshop.model.Condiment;
+import org.hedspi.coffeeshop.model.Cup;
+import org.hedspi.coffeeshop.model.CupWrapper;
 import org.hedspi.coffeeshop.model.Order;
+import org.hedspi.coffeeshop.model.OrderWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +43,8 @@ public class OrderManageController {
 	CupDAO cupdao;
 	@Autowired
 	CoffeeDAO coffeedao;
+	@Autowired
+	CondimentDAO condimentdao;
 
 	@RequestMapping(value = "/order-table", method = RequestMethod.GET)
 	public String viewOrderTable() {
@@ -213,6 +221,64 @@ public class OrderManageController {
 
 		List<Order> list = orderDao.selectByRange(new Timestamp(Long.parseLong(dfrom)),
 				new Timestamp(Long.parseLong(dto)));
+		return logger.exit(list);
+	}
+
+	/**
+	 * 
+	 * @param orderId
+	 * @return List of map{'coffeeName':xxx, 'size':xxx, 'condiments':xxx,
+	 *         'price':xxx}
+	 */
+	@RequestMapping(value = "/cups", method = RequestMethod.POST)
+	public @ResponseBody List<Map<String, Object>> getCupsOfOrder(@RequestParam("orderId") Integer orderId) {
+		logger.entry(orderId);
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		List<Cup> cups = cupdao.selectByOrderId(orderId);
+		List<Coffee> coffees = coffeedao.selectAll();
+		List<Condiment> condiments = condimentdao.selectAll();
+
+		for (Cup cup : cups) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			// get coffeeName
+			int coffeeId = cup.getCoffeeId();
+			String coffeeName = "";
+			for (Coffee c : coffees) {
+				if (coffeeId == c.getId()) {
+					coffeeName = c.getName();
+					break;
+				}
+			}
+
+			// get size
+			String size = cup.getSize();
+
+			// get condiments
+			String condimentNames = "";
+			String condimentIds = cup.getCondiments();
+			condimentIds = condimentIds.replace("[", "");
+			condimentIds = condimentIds.replace("]", "");
+			List<String> listIds = Arrays.asList(condimentIds.split("\\s*,\\s*"));
+			for (String id : listIds) {
+				for (Condiment c : condiments) {
+					if (id.equals("" + c.getId())) {
+						condimentNames += c.getName() + ", ";
+						break;
+					}
+				}
+			}
+
+			// get price
+			double price = cup.getPrice();
+
+			map.put("coffeeName", coffeeName);
+			map.put("size", size);
+			map.put("condiments", condimentNames);
+			map.put("price", price);
+			list.add(map);
+		}
+
 		return logger.exit(list);
 	}
 
