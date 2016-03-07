@@ -99,8 +99,8 @@
           </table>
 		</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success"  data-dismiss="modal" id="update-user">Save Changes</button>
-          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" id="update-user">Save Changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
 				
       </div><!-- /.modal-content -->
@@ -147,8 +147,8 @@
           </table>
 		</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success"  data-dismiss="modal" id="insert-user">Insert</button>
-          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success"  id="insert-user">Insert</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
 				
       </div><!-- /.modal-content -->

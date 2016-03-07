@@ -96,7 +96,7 @@
           </table>
 		</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal" id="update-condiment">Save Changes</button>
+          <button type="button" class="btn btn-success" id="update-condiment">Save Changes</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
 				
@@ -137,7 +137,7 @@
           </table>
 		</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary"  data-dismiss="modal" id="insert-condiment">Insert</button>
+          <button type="button" class="btn btn-primary" id="insert-condiment">Insert</button>
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
         </div>
 				

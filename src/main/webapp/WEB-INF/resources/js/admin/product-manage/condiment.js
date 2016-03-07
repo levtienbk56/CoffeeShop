@@ -5,6 +5,9 @@ function Condiment(id, name, price, enabled) {
 	this.enabled = enabled;
 }
 
+var condiment;
+var confirmAction;
+
 // get value from table, insert into modal
 function editCondiment(element) {
 	var id = element.parent('td').parent('tr').children('.td-id').text();
@@ -58,9 +61,11 @@ function removeCondiment(arg) {
 }
 
 // get update info, request UPDATE to server
-$(".update-condiment")
+$("#update-condiment")
 		.click(
 				function() {
+					confirmAction = "update-condiment";
+
 					// clear notice
 					$(".modal-notice").removeClass(
 							"alert alert-warning alert-success");
@@ -77,7 +82,7 @@ $(".update-condiment")
 							'table#modal-tbl-edit .td-enabled select option:selected')
 							.val();
 					console
-							.log('update coffee: ' + id + name + price
+							.log('update condiment: ' + id + name + price
 									+ enabled);
 
 					// validate name
@@ -93,47 +98,17 @@ $(".update-condiment")
 						$(".modal-notice").text("Invalid Price!");
 						return false;
 					}
-					var condiment = new Condiment(id, name, price, enabled);
-
-					$.ajax({
-						type : "POST",
-						contentType : "application/json",
-						url : "condiments/edit",
-						data : JSON.stringify(condiment),
-						dataType : 'json',
-						timeout : 100000,
-						success : function(data) {
-							// unable button
-							$("#update-condiment").prop('disabled', true);
-							
-							if (data.result == 'success') {
-								$(".modal-notice").addClass(
-										"alert alert-success");
-								$(".modal-notice").text(data.message);
-							} else {
-								$(".modal-notice").addClass(
-										"alert alert-warning");
-								$(".modal-notice").text(data.message);
-							}
-							// wait 1.5s then reload page
-							setInterval(function() {
-								location.reload();
-							}, 1500);
-						},
-						error : function(e) {
-							console.log("ERROR " + e);
-						},
-						done : function(e) {
-							console.log("DONE " + e);
-						}
-					});
-					return false;
+					condiment = new Condiment(id, name, price, enabled);
+					showConfirmModal("Are you sure to update condiment");
+					$("#modal-edit").modal('hide');
 				});
 
 // get new user info, request INSERT to server
 $("#insert-condiment")
 		.click(
 				function() {
+					confirmAction = "insert-condiment";
+
 					// clear notice
 					$(".modal-notice").removeClass(
 							"alert alert-warning alert-success");
@@ -162,39 +137,98 @@ $("#insert-condiment")
 						$(".modal-notice").text("Invalid Price!");
 						return false;
 					}
-					var condiment = new Condiment('0', name, price, enabled);
-
-					$.ajax({
-						type : "POST",
-						contentType : "application/json",
-						url : "condiments/insert",
-						data : JSON.stringify(condiment),
-						dataType : 'json',
-						timeout : 100000,
-						success : function(data) {
-							// unable button
-							$("#insert-condiment").prop('disabled', true);
-							
-							if (data.result == 'success') {
-								$(".modal-notice").addClass(
-										"alert alert-success");
-								$(".modal-notice").text(data.message);
-							} else {
-								$(".modal-notice").addClass(
-										"alert alert-warning");
-								$(".modal-notice").text(data.message);
-							}
-							// wait 1.5s then reload page
-							setInterval(function() {
-								location.reload();
-							}, 1500);
-						},
-						error : function(e) {
-							console.log("ERROR " + e);
-						},
-						done : function(e) {
-							console.log("DONE " + e);
-						}
-					});
-					return false;
+					condiment = new Condiment('0', name, price, enabled);
+					showConfirmModal("Are you sure to insert condiment");
+					$("#modal-insert").modal('hide');
 				});
+
+// confirm ok, detect action
+$("#confirm-modal .btn-success").click(function() {
+	if (confirmAction == 'insert-condiment') {
+		requestInsertCondiment(condiment);
+	} else if (confirmAction == 'update-condiment') {
+		requestUpdateCondiment(condiment);
+	}
+});
+
+// request update to server
+function requestUpdateCondiment() {
+	// show modal
+	$("#modal-edit").modal('show');
+
+	// clear notice
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").text("");
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "condiments/edit",
+		data : JSON.stringify(condiment),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			// unable button
+			$("#update-condiment").prop('disabled', true);
+
+			if (data.result == 'success') {
+				$(".modal-notice").addClass("alert alert-success");
+				$(".modal-notice").text(data.message);
+			} else {
+				$(".modal-notice").addClass("alert alert-warning");
+				$(".modal-notice").text(data.message);
+			}
+			// wait 1.5s then reload page
+			setInterval(function() {
+				location.reload();
+			}, 1500);
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
+}
+
+// request Insert to server
+function requestInsertCondiment(condiment) {
+	// show modal
+	$("#modal-insert").modal('show');
+
+	// clear notice
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").text("");
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "condiments/insert",
+		data : JSON.stringify(condiment),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			// unable button
+			$("#insert-condiment").prop('disabled', true);
+
+			if (data.result == 'success') {
+				$(".modal-notice").addClass("alert alert-success");
+				$(".modal-notice").text(data.message);
+			} else {
+				$(".modal-notice").addClass("alert alert-warning");
+				$(".modal-notice").text(data.message);
+			}
+			// wait 1.5s then reload page
+			setInterval(function() {
+				location.reload();
+			}, 1500);
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
+}

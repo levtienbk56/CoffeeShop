@@ -5,6 +5,9 @@ function Coffee(id, name, price, enabled) {
 	this.enabled = enabled;
 }
 
+var confirmAction;
+var coffee;
+
 // get value from table, insert into modal
 function editCoffee(element) {
 	var id = element.parent('td').parent('tr').children('.td-id').text();
@@ -57,10 +60,12 @@ function removeCoffee(arg) {
 	}
 }
 
-// get update info, request UPDATE to server
+//get new user info and validate before request to server
 $("#update-coffee")
 		.click(
 				function() {
+					confirmAction = 'update-coffee';
+					
 					// clear notice in modal
 					$(".modal-notice").removeClass(
 							"alert alert-warning alert-success");
@@ -94,47 +99,17 @@ $("#update-coffee")
 						return false;
 					}
 
-					var coffee = new Coffee(id, name, price, enabled);
-
-					$.ajax({
-						type : "POST",
-						contentType : "application/json",
-						url : "coffees/edit",
-						data : JSON.stringify(coffee),
-						dataType : 'json',
-						timeout : 100000,
-						success : function(data) {
-							// unable button
-							$("#update-coffee").prop('disabled', true);
-							
-							if (data.result == 'success') {
-								$(".modal-notice").addClass(
-										"alert alert-success");
-								$(".modal-notice").text(data.message);
-							} else {
-								$(".modal-notice").addClass(
-										"alert alert-warning");
-								$(".modal-notice").text(data.message);
-							}
-							// wait 1.5s then reload page
-							setInterval(function() {
-								location.reload();
-							}, 1500);
-						},
-						error : function(e) {
-							console.log("ERROR " + e);
-						},
-						done : function(e) {
-							console.log("DONE " + e);
-						}
-					});
-					return false;
+					coffee = new Coffee(id, name, price, enabled);
+					showConfirmModal("Are you sure to update coffee");
+					$("#modal-edit").modal('hide');
 				});
 
-// get new user info, request INSERT to server
+//get new user info and validate before request to server
 $("#insert-coffee")
 		.click(
 				function() {
+					confirmAction = 'insert-coffee';
+					
 					// clear notice
 					$(".modal-notice").removeClass(
 							"alert alert-warning alert-success");
@@ -164,39 +139,100 @@ $("#insert-coffee")
 						return false;
 					}
 
-					var coffee = new Coffee('0', name, price, enabled);
-
-					$.ajax({
-						type : "POST",
-						contentType : "application/json",
-						url : "coffees/insert",
-						data : JSON.stringify(coffee),
-						dataType : 'json',
-						timeout : 100000,
-						success : function(data) {
-							// unable button
-							$("#insert-coffee").prop('disabled', true);
-							
-							if (data.result == 'success') {
-								$(".modal-notice").addClass(
-										"alert alert-success");
-								$(".modal-notice").text(data.message);
-							} else {
-								$(".modal-notice").addClass(
-										"alert alert-warning");
-								$(".modal-notice").text(data.message);
-							}
-							// wait 1.5s then reload page
-							setInterval(function() {
-								location.reload();
-							}, 1500);
-						},
-						error : function(e) {
-							console.log("ERROR " + e);
-						},
-						done : function(e) {
-							console.log("DONE " + e);
-						}
-					});
-					return false;
+					coffee = new Coffee('0', name, price, enabled);
+					showConfirmModal("Are you sure to insert coffee");
+					$("#modal-insert").modal('hide');
 				});
+
+// confirm ok, detect action
+$("#confirm-modal .btn-success").click(function() {
+	if (confirmAction == 'insert-coffee') {
+		requestInsertCoffee(coffee);
+	} else if (confirmAction == 'update-coffee') {
+		requestUpdateCoffee(coffee);
+	}
+});
+
+// request update coffee
+function requestUpdateCoffee(coffee) {
+	// show modal
+	$("#modal-edit").modal('show');
+	
+	// clear notice in modal
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").text("");
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "coffees/edit",
+		data : JSON.stringify(coffee),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			// unable button
+			$("#update-coffee").prop('disabled', true);
+
+			if (data.result == 'success') {
+				$(".modal-notice").addClass("alert alert-success");
+				$(".modal-notice").text(data.message);
+			} else {
+				$(".modal-notice").addClass("alert alert-warning");
+				$(".modal-notice").text(data.message);
+			}
+			// wait 1.5s then reload page
+			setInterval(function() {
+				location.reload();
+			}, 1500);
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
+	return false;
+}
+
+// request insert coffee
+function requestInsertCoffee(coffee) {
+	// show modal
+	$("#modal-insert").modal('show');
+	
+	// clear notice
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").text("");
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "coffees/insert",
+		data : JSON.stringify(coffee),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			// unable button
+			$("#insert-coffee").prop('disabled', true);
+
+			if (data.result == 'success') {
+				$(".modal-notice").addClass("alert alert-success");
+				$(".modal-notice").text(data.message);
+			} else {
+				$(".modal-notice").addClass("alert alert-warning");
+				$(".modal-notice").text(data.message);
+			}
+			// wait 1.5s then reload page
+			setInterval(function() {
+				location.reload();
+			}, 1500);
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
+	return false;
+}
