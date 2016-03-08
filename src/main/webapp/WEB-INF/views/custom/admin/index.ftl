@@ -124,7 +124,7 @@
 		  <div class="modal-content form-horizontal">
 			   <div class="modal-header">
 				    <button id="close-insertE" type="button" class="close" data-dismiss="modal">&times;</button>
-				    <h4 class="modal-title">New Event</h4>
+				    <h4 class="modal-title">Update Event</h4>
 			   </div>
 			   <!-- /.modal-header -->
 			

@@ -25,7 +25,10 @@ $(function() {
 				var to = new Date($("#datetimepicker7").data("DateTimePicker")
 						.date()).getTime();
 				console.log('from:' + from + ', to:' + to);
-
+				if(from == "" || from == null || to =="" ||to ==null){
+					alert("Input Empty!");
+					return;
+				}
 				$.ajax({
 					type : "POST",
 					url : "analysis/order-by-range",

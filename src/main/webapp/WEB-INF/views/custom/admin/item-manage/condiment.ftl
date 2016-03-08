@@ -137,7 +137,7 @@
           </table>
 		</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="insert-condiment">Insert</button>
+          <button type="button" class="btn btn-success" id="insert-condiment">Insert</button>
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
         </div>
 				
