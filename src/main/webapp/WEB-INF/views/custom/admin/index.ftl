@@ -19,7 +19,7 @@
 <!-- /#page-wrapper -->
 
 <!-- modal add-event -->
-<div class="modal fade" id="modal-add-event" role="dialog">
+<div class="modal fade" id="modal-insert" role="dialog">
 	 <div class="modal-dialog">
 		  <!-- Modal content-->
 		  <div class="modal-content form-horizontal">
@@ -104,7 +104,7 @@
 				<!-- /.modal-body -->
 				
 			   	<div class="modal-footer">
-				    <button id="btn-add-event" type="button" class="btn btn-success" data-dismiss="modal">
+				    <button id="btn-insert-event" type="button" class="btn btn-success">
 				     	<i class="fa fa-check"></i>Add
 				    </button>
 				    <button id="reject" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -118,7 +118,7 @@
 <!-- /.modal fade-->
 
 <!-- modal edit-event -->
-<div class="modal fade" id="modal-edit-event" role="dialog">
+<div class="modal fade" id="modal-edit" role="dialog">
 	 <div class="modal-dialog">
 		  <!-- Modal content-->
 		  <div class="modal-content form-horizontal">
@@ -208,7 +208,7 @@
 				     	<i class="fa fa-trash"></i> Remove
 				    </button>
 				    
-				    <button id="btn-update-event" type="button" class="btn btn-success" data-dismiss="modal">
+				    <button id="btn-update-event" type="button" class="btn btn-success">
 				     	<i class="fa fa-check"></i> Update
 				    </button>
 				    

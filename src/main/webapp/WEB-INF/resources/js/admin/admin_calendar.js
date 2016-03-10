@@ -7,6 +7,8 @@ function Event(id, title, start, end, color) {
 }
 
 var eventSource = {};
+var confirmAction;
+var mEvent;
 
 $(document).ready(function() {
 	// init calendar
@@ -32,7 +34,7 @@ $(document).ready(function() {
 
 			// change the day's background color just for fun
 			// $(this).css('background-color', 'red');
-			$('#modal-add-event').modal('show');
+			$('#modal-insert').modal('show');
 		},
 		// event click
 		eventClick : function(calEvent, jsEvent, view) {
@@ -40,7 +42,7 @@ $(document).ready(function() {
 			str += 'start: ' + calEvent.start + '\n';
 			str += 'end: ' + calEvent.end;
 
-			$('#modal-edit-event').modal('show');
+			$('#modal-edit').modal('show');
 			pushEventToEditModal(calEvent);
 		}
 
@@ -165,6 +167,13 @@ function pushEventToEditModal(e) {
 $("button#btn-update-event")
 		.click(
 				function() {
+					confirmAction = 'update-event';
+
+					// clear notice
+					$(".modal-notice").removeClass(
+							"alert alert-warning alert-success");
+					$(".modal-notice").text("");
+
 					var id = $("input#id-edit").val();
 					var title = $("input#title-edit").val();
 					var startTime = $("input#start-time-edit").val();
@@ -187,90 +196,35 @@ $("button#btn-update-event")
 
 					var start = new Date(startDate + ' ' + startTime);
 					var end = new Date(endDate + ' ' + endTime);
-					var mEvent = new Event(id, title, start, end, color);
+					mEvent = new Event(id, title, start, end, color);
 					console.log(mEvent);
-					return updateEventRequest(mEvent);
+
+					showConfirmModal("Are you sure to update event?");
+					$("#modal-edit").modal('hide');
 				});
 
-// send request: update EVENT
-function updateEventRequest(event) {
-	$.ajax({
-		type : "POST",
-		contentType : "application/json",
-		url : "/CoffeeShop/admin/calendar/update-event",
-		data : JSON.stringify(event),
-		dataType : 'json',
-		timeout : 100000,
-		success : function(data) {
-			if (data.result == 'success') {
-				$(".modal-notice").html(
-						"<div class='text-center alert alert-success'>"
-								+ data.message + "</div>");
-			} else {
-				$(".modal-notice").html(
-						"<div class='text-center alert alert-warning'>"
-								+ data.message + "</div>");
-			}
-			// wait 1.5s then reload page
-			setInterval(function() {
-				location.reload();
-			}, 1500);
-		},
-		error : function(e) {
-			console.log("ERROR " + e);
-		},
-		done : function(e) {
-			console.log("DONE " + e);
-		}
-	});
-	return false;
-}
-
-//when confirm remove new event
+// when confirm remove new event
 $("button#btn-remove-event").click(function() {
+	confirmAction = 'remove-event';
+
 	var id = $("input#id-edit").val();
-	return removeEventRequest(id);
+	mEvent = new Event(id, '', null, null, '');
+
+	showConfirmModal("Are you sure to delete event?");
+	$("#modal-edit").modal('hide');
 });
 
-// send request: remove EVENT
-function removeEventRequest(id) {
-	$.ajax({
-		type : "POST",
-		url : "/CoffeeShop/admin/calendar/remove-event",
-		data : {
-			eventID : id
-		},
-		timeout : 100000,
-		success : function(data) {
-			if (data.result == 'success') {
-				$(".modal-notice").html(
-						"<div class='text-center alert alert-success'>"
-								+ data.message + "</div>");
-			} else {
-				$(".modal-notice").html(
-						"<div class='text-center alert alert-warning'>"
-								+ data.message + "</div>");
-			}
-			// wait 1.5s then reload page
-			setInterval(function() {
-				location.reload();
-			}, 1500);
-		},
-		error : function(e) {
-			console.log("ERROR " + e);
-		},
-		done : function(e) {
-			console.log("DONE " + e);
-		}
-	});
-	return false;
-}
-
-
-//when confirm add new event
-$("button#btn-add-event")
+// when confirm add new event
+$("button#btn-insert-event")
 		.click(
 				function() {
+					confirmAction = 'insert-event';
+
+					// clear notice
+					$(".modal-notice").removeClass(
+							"alert alert-warning alert-success");
+					$(".modal-notice").text("");
+
 					var title = $("input#title-add").val();
 					var startTime = $("input#start-time-add").val();
 					var startDate = $("input#start-date-add").val();
@@ -292,13 +246,32 @@ $("button#btn-add-event")
 
 					var start = new Date(startDate + ' ' + startTime);
 					var end = new Date(endDate + ' ' + endTime);
-					var mEvent = new Event(0, title, start, end, color);
+					mEvent = new Event(0, title, start, end, color);
 					console.log(mEvent);
-					return addEventRequest(mEvent);
+
+					showConfirmModal("Are you sure to insert event");
+					$("#modal-insert").modal('hide');
 				});
 
+// confirm ok, detect action
+$("#confirm-modal .btn-success").click(function() {
+	if (confirmAction == 'insert-event') {
+		requestInsertEvent(mEvent);
+	} else if (confirmAction == 'update-event') {
+		requestUpdateEvent(mEvent);
+	} else if (confirmAction == 'remove-event') {
+		requestRemoveEvent(mEvent);
+	}
+});
+
 // send request: Add new Event
-function addEventRequest(event) {
+function requestInsertEvent(event) {
+	// show modal again
+	$("#modal-insert").modal('show');
+	// clear notice
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").text("");
+
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
@@ -308,13 +281,11 @@ function addEventRequest(event) {
 		timeout : 100000,
 		success : function(data) {
 			if (data.result == 'success') {
-				$(".modal-notice").html(
-						"<div class='text-center alert alert-success'>"
-								+ data.message + "</div>");
+				$(".modal-notice").addClass("alert alert-success");
+				$(".modal-notice").text(data.message);
 			} else {
-				$(".modal-notice").html(
-						"<div class='text-center alert alert-warning'>"
-								+ data.message + "</div>");
+				$(".modal-notice").addClass("alert alert-warning");
+				$(".modal-notice").text(data.message);
 			}
 			// wait 1.5s then reload page
 			setInterval(function() {
@@ -328,5 +299,78 @@ function addEventRequest(event) {
 			console.log("DONE " + e);
 		}
 	});
-	return false;
+}
+
+// send request: update EVENT
+function requestUpdateEvent(event) {
+	// show modal again
+	$("#modal-edit").modal('show');
+	// clear notice
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").text("");
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "/CoffeeShop/admin/calendar/update-event",
+		data : JSON.stringify(event),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			if (data.result == 'success') {
+				$(".modal-notice").addClass("alert alert-success");
+			} else {
+				$(".modal-notice").addClass("alert alert-warning");
+			}
+			$(".modal-notice").text(data.message);
+			
+			// wait 1.5s then reload page
+			setInterval(function() {
+				location.reload();
+			}, 1500);
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
+}
+
+// send request: remove EVENT
+function requestRemoveEvent(event) {
+	// show modal again
+	$("#modal-edit").modal('show');
+	// clear notice
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").text("");
+	
+	$.ajax({
+		type : "POST",
+		url : "/CoffeeShop/admin/calendar/remove-event",
+		data : {
+			eventID : event.id
+		},
+		timeout : 100000,
+		success : function(data) {
+			if (data.result == 'success') {
+				$(".modal-notice").addClass("alert alert-success");
+			} else {
+				$(".modal-notice").addClass("alert alert-warning");
+			}
+			$(".modal-notice").text(data.message);
+			
+			// wait 1.5s then reload page
+			setInterval(function() {
+				location.reload();
+			}, 1500);
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
 }
