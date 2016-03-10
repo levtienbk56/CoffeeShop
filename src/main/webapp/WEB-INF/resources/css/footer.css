@@ -10,7 +10,6 @@
 .footer {
 	background: #EDEFF1;
 	height: auto;
-	padding-bottom: 30px;
 	position: relative;
 	width: 100%;
 	border-bottom: 1px solid #CCCCCC;
@@ -28,7 +27,7 @@
 	font-size: 18px;
 	font-weight: 600;
 	line-height: 27px;
-	padding: 40px 0 10px;
+	padding: 0px 0 10px;
 	text-transform: uppercase;
 }
 .footer ul {

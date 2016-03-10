@@ -6,13 +6,13 @@ import java.util.List;
 public class MainTest {
 
 	public static void main(String[] args) {
-		String str = "[3, 4, 5]";
-		str = str.replace("[", "");
-		str =str.replace("]", "");
-		List<String> list = Arrays.asList(str.split("\\s*,\\s*"));
-		for(String s: list){
-			System.out.println(s);
-		}
+		Integer a = 1;
+		Integer b = 1;
+		Integer c = new Integer(1);
+		int d = 1;
+		System.out.println(a.equals(b));
+		System.out.println(b.equals(c));
+		System.out.println(c.equals(d));
 	}
 
 }

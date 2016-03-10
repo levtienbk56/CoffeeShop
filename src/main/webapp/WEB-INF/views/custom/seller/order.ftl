@@ -1,41 +1,44 @@
 <#ftl encoding='UTF-8'> 
 
 <style>
-.dropbtn {
-    color: black;
-    padding: 16px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.dropdown {
-    position: inherit;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #A0522D;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-	background-color: #773d22;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
+	.dropbtn {
+	    color: black;
+	    padding: 16px;
+	    font-size: 16px;
+	    cursor: pointer;
+	}
+	
+	.dropdown {
+	    position: inherit;
+	    display: inline-block;
+	}
+	
+	.dropdown-content {
+	    display: none;
+	    position: absolute;
+	    background-color: #A0522D;
+	    min-width: 160px;
+	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	}
+	
+	.dropdown-content a {
+	    color: white;
+	    padding: 12px 16px;
+	    text-decoration: none;
+	    display: block;
+	}
+	
+	.dropdown-content a:hover {
+		background-color: #773d22;
+	}
+	
+	.dropdown:hover .dropdown-content {
+	    display: block;
+	}
+	
+	table#table_order{
+		background-color: #ffffff;
+	}
 </style>
 
 <div class="container">

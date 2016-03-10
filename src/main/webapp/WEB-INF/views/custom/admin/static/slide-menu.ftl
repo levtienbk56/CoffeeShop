@@ -13,9 +13,6 @@
                         <li>
                             <a href="/CoffeeShop/admin/orders/analysis"><i class="fa fa-bar-chart fa-fw"></i> Analysis Order</a>
                         </li>
-                        <li>
-                            <a href="/CoffeeShop/admin/orders/rank"><i class="fa fa-pie-chart fa-fw"></i> Rank</a>
-                        </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>

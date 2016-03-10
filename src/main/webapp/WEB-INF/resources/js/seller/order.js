@@ -87,7 +87,7 @@ function onSelectCoffeeNameFunction(element) {
 	// put out coffee name
 	var dest = element.parent('div').parent('div').parent('td').children(
 			'.alert');
-	dest.children('.name').html('<strong>' + name + '</strong>');
+	dest.children('.name').html('<h4><strong>' + name + '</strong></h4>');
 	dest.children('.price').text(price);
 	dest.children('.id').text(id);
 

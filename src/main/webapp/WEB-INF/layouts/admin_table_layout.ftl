@@ -23,7 +23,7 @@ include: user-manage, item-manage -->
     <!-- DataTables CSS -->
     <link href="/CoffeeShop/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
     
-    <link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/CoffeeShop/resources/bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- DataTables Responsive CSS -->
     <link href="/CoffeeShop/resources/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
    
