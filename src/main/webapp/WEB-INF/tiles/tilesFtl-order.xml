@@ -7,10 +7,10 @@
 	<definition name="baseLayout" template="WEB-INF/layouts/order_layout.ftl"
 		templateType="freemarker">
 		<put-attribute name="title" value="" />
-		<put-attribute name="header" value="/WEB-INF/views/static/header.ftl"
+		<put-attribute name="header" value="/WEB-INF/views/custom/seller/static/header.ftl"
 			type="freemarker" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/WEB-INF/views/static/footer.ftl"
+		<put-attribute name="footer" value="/WEB-INF/views/custom/seller/static/footer.ftl"
 			type="freemarker" />
 	</definition>
 

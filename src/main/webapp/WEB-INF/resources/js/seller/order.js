@@ -1,5 +1,7 @@
 var rowCount = 0;
 var coffeeChosen = 0;
+var confirmAction;
+
 var ORDER = {
 	totalPrice : 0
 }
@@ -254,24 +256,44 @@ function getListCupLength() {
 function disableCheckoutButton(flag) {
 	$("#btn-checkout").prop("disabled", flag);
 }
-function newOrderFunction() {
-	location.reload();
-}
 
+$("button#btn-new-order").click(function() {
+	confirmAction = 'new-order';
+	showConfirmModal("Are you sure to create new order? Current cups'll be deleted.");
+});
 /*
- * test ajax
+ * checkout button clicked. validate input & open confirm modal
  */
-function checkoutFunction() {
-	// check coffee selected?
+$("button#btn-checkout").click(function() {
+	confirmAction = 'checkout-order';
+
+	// validate coffee selected?
 	if (!checkCoffeeSelected()) {
 		alert('choose a coffee first');
 		return;
 	}
 
+	showConfirmModal("Are you sure to checkout order?");
+});
+
+// confirm Modal: OK, process to checkout
+$("#confirm-modal .btn-success").click(function() {
+	if (confirmAction == 'new-order') {
+		location.reload();
+	} else if (confirmAction == 'checkout-order') {
+		// request to server
+		requestCheckoutOrder();
+	}
+});
+
+/*
+ * send request checkout order to server
+ */
+function requestCheckoutOrder() {
 	// disable checkout button
 	disableCheckoutButton(true);
 	getListCupLength();
-
+	
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
@@ -328,6 +350,6 @@ function checkCoffeeSelected() {
 }
 
 // reload page when close review order modal
-$("#revieworder-modal .modal-close").click(function(){
+$("#revieworder-modal .modal-close").click(function() {
 	location.reload();
 });

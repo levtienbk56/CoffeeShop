@@ -42,7 +42,7 @@
     <div class="row">
 		<div class="col-sm-12 col-md-11 col-md-offset-1">
 			<div>
-				<button type="button" class="btn btn-primary" onClick="newOrderFunction()">
+				<button type="button" class="btn btn-primary" id="btn-new-order">
 					New Order <span class="glyphicon glyphicon-plus"></span>
 				</button>			
 			</div>
@@ -67,19 +67,19 @@
 					</tr>
 
 					<tr >
-						<td colspan="4" align="right"><h3><strong>Total<strong></h3></td>
+						<td colspan="4" align="right"><h3><strong>Total $<strong></h3></td>
 						<td class="text-left" id='total_price'><h3>
 								<strong>0$</strong>
 							</h3></td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"><h4>Customer Pay</h4></td>
+						<td colspan="4" align="right"><h4>Customer Pay $</h4></td>
 						<td id="customer_pay" class="text-left">
 							<input type="number" class="form-control" min="0" step="0.01" onKeyUp="updateRefundFunction()">
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"><h4>Refund</h4></td>
+						<td colspan="4" align="right"><h4>Refund $</h4></td>
 						<td id="customer_refund" class="text-left"><h4><strong>0$</strong></h4></td>
 					</tr>
 					<tr>
@@ -88,7 +88,7 @@
 						<td></td>
 						<td></td>
 						<td>
-							<button id="btn-checkout" type="button" class="btn btn-success btn-lg" onClick="checkoutFunction()" disabled="true">
+							<button id="btn-checkout" type="button" class="btn btn-success btn-lg" disabled="true">
 								Checkout <span class="glyphicon glyphicon-play"></span>
 							</button>
 						</td>
