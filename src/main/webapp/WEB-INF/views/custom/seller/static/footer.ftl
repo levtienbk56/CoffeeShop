@@ -35,8 +35,8 @@
             <p class="pull-left"> Copyright © ABC. All right reserved. </p>
             <div class="pull-right">
                 <ul class="nav nav-pills payments">
-                	<li><a href="" class="fa fa-facebook-square" onClick="changeLocale('en')"></a></li>
-                	<li><a href="" class="fa fa-facebook-square" onClick="changeLocale('jp')"></a></li>
+                	<li><a href="" ><img border="0" width="200%" height="200%" src="resources/img/us.png" onClick="changeLocale('en')"></img></a></li>
+                	<li><a href="" ><img border="0" width="200%" height="200%" src="resources/img/jp.png" onClick="changeLocale('jp')"></img></a></li>
                 </ul> 
             </div>
         </div>
@@ -52,6 +52,7 @@ function changeLocale(lang){
 		data : {language: lang},
 		timeout : 100000,
 		success : function(data) {
+			document.body.scrollTop = document.documentElement.scrollTop = 0;
 			location.reload();
 		},
 		error : function(e) {

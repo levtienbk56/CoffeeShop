@@ -11,45 +11,42 @@
 			<table id="table_order" class="table table-hover">
 				<thead>
 					<tr>
-						<th class="col-sm-3 col-md-3">コーヒー</th>
-						<th class="col-sm-1 col-md-1">サイズ</th>
-						<th class="col-sm-2 col-md-2">余分</th>
-						<th class="col-sm-1 col-md-1">数量</th>
-						<th class="col-sm-1 col-md-1">価格</th>
-						<th class="col-sm-1 col-md-1"></th>
+						<th class="col-lg-3 text-center">コーヒー</th>
+						<th class="col-lg-1">サイズ</th>
+						<th class="col-lg-2">余分</th>
+						<th class="col-lg-1 text-center">数量</th>
+						<th class="col-lg-1"></th>
+						<th class="col-lg-1">価格 ($)</th>
+						<th class="col-lg-2 text-right"></th>
 					</tr>
 				</thead>
 				<tbody>					
                     <tr id="add_new">
-    					<td colspan="6" align='center'>
+    					<td colspan="7" align='center'>
                             <button type="button" style="background-color:#fff;" onClick="addCupFunction()">
-    							<img src="http://www2.psd100.com/ppp/2013/12/1301/Add-the-green-button-1214031005.png_s.jpg" width="40" height="40" /> Add a Cup
+    							<img src="http://www2.psd100.com/ppp/2013/12/1301/Add-the-green-button-1214031005.png_s.jpg" width="40" height="40" /> カップ追加
 							</button>
 						</td>
 					</tr>
 
 					<tr >
-						<td colspan="4" align="right"><h3><strong>合計 $<strong></h3></td>
+						<td colspan="5" align="right"><h3><strong>合計 $<strong></h3></td>
 						<td class="text-left" id='total_price'><h3>
-								<strong>0$</strong>
+								<strong>0</strong>
 							</h3></td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"><h4>支払い $</h4></td>
+						<td colspan="5" align="right"><h4>支払い $</h4></td>
 						<td id="customer_pay" class="text-left">
 							<input type="number" class="form-control" min="0" step="0.01" onKeyUp="updateRefundFunction()">
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"><h4>払い戻し $</h4></td>
-						<td id="customer_refund" class="text-left"><h4><strong>0$</strong></h4></td>
+						<td colspan="5" align="right"><h4>払い戻し $</h4></td>
+						<td id="customer_refund" class="text-left"><h4><strong>0</strong></h4></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>
+						<td colspan="6" align="right">
 							<button id="btn-checkout" type="button" class="btn btn-success btn-lg" disabled="true">
 								チェックアウト <span class="glyphicon glyphicon-play"></span>
 							</button>
@@ -67,14 +64,14 @@
 			<tr name="cup0">
 				<td align="center">
 					<div class="alert alert-success" style="width:100%;">
-						<text class='name' ><strong>(choose one below)</strong></text>
+						<text class='name' ><strong>(以下のコーヒーを選択ください)</strong></text>
 						<text class='id' style="display:none;"></text>
 						<text class='price' style="display:none;"></text>
 					  	
 					</div>
 											
 					<div class="dropdown">
-					  	<button class="btn-default dropbtn"> <i class="fa fa-search"></i> Choose a Coffee</button>
+					  	<button class="btn-default dropbtn"> <i class="fa fa-search"></i>コーヒー種類</button>
 					  	<div class="dropdown-content">
 					  		<#list model["listCoffee"] as coffee>
 					    		<a class="coffee-name" onClick="onSelectCoffeeNameFunction($(this))">
@@ -93,7 +90,7 @@
 					<#list model['listCondiment'] as condiment> 
 						   <input type='checkbox' name='coffee-condiment' value=${condiment.price} onClick="onSelectCondimentFunction($(this))">
 						   <b>
-						   		<text type='hide' class='id'>${condiment.id}</text>.<text class='name'>${condiment.name}</text> (<text class='price'>${condiment.price}</text>$)<br>
+						   		<text type='hide' class='id'>${condiment.id}</text>.<text class='name'>${condiment.name}</text> (<text class='price'>${condiment.price}</text>)<br>
 						   	</b>
 						   	
 					 </#list>
@@ -101,8 +98,9 @@
 				<td>
 					<input type="number" name="coffee-quantity"  class="form-control" min="1" value="1" onClick="onSelectQuantityFunction($(this))">
 				</td>
+				<td> </td>
 				<td>
-					<text name="cup-price">0</text>$
+					<text name="cup-price">0</text>
 				</td>
 				<td>
                     <p>
@@ -139,10 +137,10 @@
 						</thead>
 						<tbody>			
 		                    <tr  id='revieworder-total'>
-								<td colspan="4" align="right"><h4><strong>Total<strong></h4></td>
+								<td colspan="4" align="right"><h4><strong>Total $<strong></h4></td>
 								<td class="text-left">
 									<h4>
-										<strong class="price">0$</strong>
+										<strong class="price">0</strong>
 									</h4>
 								</td>
 							</tr>
