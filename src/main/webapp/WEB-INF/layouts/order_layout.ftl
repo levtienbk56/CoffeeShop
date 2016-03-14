@@ -11,8 +11,10 @@
    	<!-- Bootstrap Core JavaScript -->
     <script src="/CoffeeShop/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	
+	<!-- custom css -->
 	<link rel="stylesheet"  href="/CoffeeShop/resources/css/header.css">
 	<link rel="stylesheet"  href="/CoffeeShop/resources/css/footer.css">
+	<link rel="stylesheet"  href="/CoffeeShop/resources/css/page_order.css">
 	
   	<meta charset=UTF-8">
 	<style>

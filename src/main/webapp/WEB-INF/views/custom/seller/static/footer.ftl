@@ -35,10 +35,31 @@
             <p class="pull-left"> Copyright © ABC. All right reserved. </p>
             <div class="pull-right">
                 <ul class="nav nav-pills payments">
-                	<li><a href="https://fb.com/levtienbk56" class="fa fa-facebook-square" target="_blank"></a></li>
+                	<li><a href="" class="fa fa-facebook-square" onClick="changeLocale('en')"></a></li>
+                	<li><a href="" class="fa fa-facebook-square" onClick="changeLocale('jp')"></a></li>
                 </ul> 
             </div>
         </div>
     </div>
     <!--/.footer-bottom--> 
 </footer>
+
+<script>
+function changeLocale(lang){
+	$.ajax({
+		type : "POST",
+		url : "locale",
+		data : {language: lang},
+		timeout : 100000,
+		success : function(data) {
+			location.reload();
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
+}
+</script>

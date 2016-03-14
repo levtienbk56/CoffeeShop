@@ -3,7 +3,11 @@ package org.hedspi.coffeeshop.controller.seller;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,14 +24,18 @@ import org.hedspi.coffeeshop.model.Order;
 import org.hedspi.coffeeshop.model.OrderWrapper;
 import org.hedspi.coffeeshop.utils.NumberHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.LocaleResolver;
 
 @Controller
 public class OrderController {
@@ -41,6 +49,17 @@ public class OrderController {
 	OrderDAO orderdao;
 	@Autowired
 	CupDAO cupdao;
+	
+	@Autowired
+	LocaleResolver localeResolver;
+	
+	@RequestMapping(value = { "/locale" }, method = RequestMethod.POST)
+	public void changeLocale(HttpServletRequest request, HttpServletResponse response,@RequestParam("language") String lang) {
+		logger.entry();
+		
+		localeResolver.setLocale(request, response, StringUtils.parseLocaleString(lang)); 
+		return ; // definition in tilesFtl.xml
+	}
 
 	/**
 	 * open order page
@@ -52,7 +71,7 @@ public class OrderController {
 	 * @return page name
 	 */
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	public String index(@ModelAttribute("model") ModelMap model, Model modell) {
+	public String index(Locale locale, @ModelAttribute("model") ModelMap model, Model modell) {
 		logger.entry();
 
 		List<Coffee> listCoffee = coffeedao.selectAllActive();
@@ -61,9 +80,14 @@ public class OrderController {
 		model.addAttribute("listCoffee", listCoffee);
 
 		modell.addAttribute("username", MainController.getUserName());
-
+		
+		logger.debug("locale:" + locale.getLanguage());
+		if (locale.getLanguage().equals(new Locale("jp").getLanguage())){
+			return "OrderJPPage";
+		}
 		return "OrderPage"; // definition in tilesFtl.xml
 	}
+
 
 	/**
 	 * check customer chosen Cups, then insert order data into DB

@@ -5,17 +5,17 @@
 		<div class="col-sm-12 col-md-11 col-md-offset-1">
 			<div>
 				<button type="button" class="btn btn-primary" id="btn-new-order">
-					 <span class="glyphicon glyphicon-plus"></span>
+					 新しいオーダー<span class="glyphicon glyphicon-plus"></span>
 				</button>			
 			</div>
 			<table id="table_order" class="table table-hover">
 				<thead>
 					<tr>
-						<th class="col-sm-3 col-md-3">Coffee Name</th>
-						<th class="col-sm-1 col-md-1">Size</th>
-						<th class="col-sm-2 col-md-2">COndiments</th>
-						<th class="col-sm-1 col-md-1">Quantity</th>
-						<th class="col-sm-1 col-md-1">price</th>
+						<th class="col-sm-3 col-md-3">コーヒー</th>
+						<th class="col-sm-1 col-md-1">サイズ</th>
+						<th class="col-sm-2 col-md-2">余分</th>
+						<th class="col-sm-1 col-md-1">数量</th>
+						<th class="col-sm-1 col-md-1">価格</th>
 						<th class="col-sm-1 col-md-1"></th>
 					</tr>
 				</thead>
@@ -29,19 +29,19 @@
 					</tr>
 
 					<tr >
-						<td colspan="4" align="right"><h3><strong>Total $<strong></h3></td>
+						<td colspan="4" align="right"><h3><strong>合計 $<strong></h3></td>
 						<td class="text-left" id='total_price'><h3>
 								<strong>0$</strong>
 							</h3></td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"><h4>Customer Pay $</h4></td>
+						<td colspan="4" align="right"><h4>支払い $</h4></td>
 						<td id="customer_pay" class="text-left">
 							<input type="number" class="form-control" min="0" step="0.01" onKeyUp="updateRefundFunction()">
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"><h4>Refund $</h4></td>
+						<td colspan="4" align="right"><h4>払い戻し $</h4></td>
 						<td id="customer_refund" class="text-left"><h4><strong>0$</strong></h4></td>
 					</tr>
 					<tr>
@@ -51,7 +51,7 @@
 						<td></td>
 						<td>
 							<button id="btn-checkout" type="button" class="btn btn-success btn-lg" disabled="true">
-								Checkout <span class="glyphicon glyphicon-play"></span>
+								チェックアウト <span class="glyphicon glyphicon-play"></span>
 							</button>
 						</td>
 					</tr>
