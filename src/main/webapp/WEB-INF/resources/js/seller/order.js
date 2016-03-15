@@ -1,6 +1,7 @@
 var rowCount = 0;
 var coffeeChosen = 0;
 var confirmAction;
+var lang = getLanguage();
 
 var ORDER = {
 	totalPrice : 0
@@ -257,10 +258,17 @@ function disableCheckoutButton(flag) {
 	$("#btn-checkout").prop("disabled", flag);
 }
 
-$("button#btn-new-order").click(function() {
-	confirmAction = 'new-order';
-	showConfirmModal("Are you sure to create new order? Current cups'll be deleted.");
-});
+$("button#btn-new-order")
+		.click(
+				function() {
+					confirmAction = 'new-order';
+					console.log(lang);
+					if (lang === 'jp') {
+						showConfirmModal("新しいオーダーを追加するか。既存のオーダーが解消される！");
+					} else {
+						showConfirmModal("Are you sure to create new order? Current cups'll be deleted.");
+					}
+				});
 /*
  * checkout button clicked. validate input & open confirm modal
  */
@@ -269,11 +277,20 @@ $("button#btn-checkout").click(function() {
 
 	// validate coffee selected?
 	if (!checkCoffeeSelected()) {
-		alert('choose a coffee first');
+		if(lang === 'jp'){
+			showAlertModal('コーヒー種類をご選択ください！');			
+		}else{
+			showAlertModal('choose a coffee first!');
+		}
 		return;
 	}
-
-	showConfirmModal("Are you sure to checkout order?");
+	
+	console.log(lang);
+	if (lang === 'jp') {
+		showConfirmModal("オーダーをチェックアウトするか?");
+	} else {
+		showConfirmModal("Are you sure to checkout order?");
+	}
 });
 
 // confirm Modal: OK, process to checkout
@@ -293,7 +310,7 @@ function requestCheckoutOrder() {
 	// disable checkout button
 	disableCheckoutButton(true);
 	getListCupLength();
-	
+
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
@@ -353,3 +370,23 @@ function checkCoffeeSelected() {
 $("#revieworder-modal .modal-close").click(function() {
 	location.reload();
 });
+
+
+//get locale
+//data format: {'lang':value}
+function getLanguage() {
+	$.ajax({
+		type : "POST",
+		url : "/CoffeeShop/locale",
+		timeout : 100000,
+		success : function(data) {
+			lang =  data.lang;
+		},
+		error : function(e) {
+			return "en";
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
+}

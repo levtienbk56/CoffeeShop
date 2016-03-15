@@ -33,4 +33,7 @@
 <!-- modal confirm -->
 <#include "/WEB-INF/views/custom/shared/modal/confirm.ftl">
 
+<!-- modal alert -->
+<#include "/WEB-INF/views/custom/shared/modal/alert.ftl">
+
 

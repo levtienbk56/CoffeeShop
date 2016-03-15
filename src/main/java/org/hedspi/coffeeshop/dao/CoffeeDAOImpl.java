@@ -39,7 +39,7 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 	}
 
 	public int delete(int id) {
-		String sql = "DELETE FROM coffees WHERE coffee_id = ?";
+		String sql = "DELETE FROM coffees WHERE coffees_id = ?";
 		Object[] params = new Object[] { id };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
@@ -50,7 +50,7 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 	}
 
 	public List<Coffee> selectAll() {
-		String sql = "SELECT * FROM coffees  ORDER BY coffee_id";
+		String sql = "SELECT * FROM coffees  ORDER BY coffees_id";
 		CoffeeMapper mapper = new CoffeeMapper();
 		try {
 			return this.getJdbcTemplate().query(sql, mapper);
@@ -61,7 +61,7 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 	}
 
 	public Coffee selectCoffee(int id) {
-		String sql = "SELECT * FROM coffees WHERE coffee_id=?";
+		String sql = "SELECT * FROM coffees WHERE coffees_id=?";
 		Object[] params = new Object[] { id };
 		CoffeeMapper rowMapper = new CoffeeMapper();
 		Coffee c = this.getJdbcTemplate().queryForObject(sql, params, rowMapper);
@@ -69,7 +69,7 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 	}
 
 	public int update(Coffee coffee) {
-		String sql = "UPDATE coffees SET name=?,price=?,enabled=? WHERE coffee_id=?";
+		String sql = "UPDATE coffees SET name=?,price=?,enabled=? WHERE coffees_id=?";
 		Object[] params = new Object[] { coffee.getName(), coffee.getPrice(), coffee.isEnabled(), coffee.getId() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
@@ -80,7 +80,7 @@ public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
 	}
 
 	public List<Coffee> selectAllActive() {
-		String sql = "SELECT * FROM coffees where enabled=true  ORDER BY coffee_id";
+		String sql = "SELECT * FROM coffees where enabled=true  ORDER BY coffees_id";
 		CoffeeMapper mapper = new CoffeeMapper();
 		try {
 			return this.getJdbcTemplate().query(sql, mapper);

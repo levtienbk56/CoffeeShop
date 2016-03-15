@@ -5,19 +5,19 @@
 		<div class="col-sm-12 col-md-11 col-md-offset-1">
 			<div>
 				<button type="button" class="btn btn-primary" id="btn-new-order">
-					 新しいオーダー<span class="glyphicon glyphicon-plus"></span>
+					 <span class="glyphicon glyphicon-plus"></span> 新しいオーダー 
 				</button>			
 			</div>
 			<table id="table_order" class="table table-hover">
 				<thead>
 					<tr>
-						<th class="col-lg-3 text-center">コーヒー</th>
-						<th class="col-lg-1">サイズ</th>
-						<th class="col-lg-2">余分</th>
-						<th class="col-lg-1 text-center">数量</th>
-						<th class="col-lg-1"></th>
-						<th class="col-lg-1">価格 ($)</th>
-						<th class="col-lg-2 text-right"></th>
+						<th class="col-sm-3 col-lg-3 text-center">コーヒー</th>
+						<th class="col-sm-1 col-lg-2">サイズ</th>
+						<th class="col-sm-2 col-lg-2">コンディメント</th>
+						<th class="col-sm-2 col-lg-1 text-center">数量</th>
+						<th class="col-sm-1 col-lg-1"></th>
+						<th class="col-sm-1 col-lg-1">価格 ($)</th>
+						<th class="col-sm-2 col-lg-2 text-right"></th>
 					</tr>
 				</thead>
 				<tbody>					
@@ -31,22 +31,22 @@
 
 					<tr >
 						<td colspan="5" align="right"><h3><strong>合計 $<strong></h3></td>
-						<td class="text-left" id='total_price'><h3>
+						<td id='total_price' colspan="2" align="left"><h3>
 								<strong>0</strong>
 							</h3></td>
 					</tr>
 					<tr>
 						<td colspan="5" align="right"><h4>支払い $</h4></td>
-						<td id="customer_pay" class="text-left">
+						<td id="customer_pay" colspan="2" align="left">
 							<input type="number" class="form-control" min="0" step="0.01" onKeyUp="updateRefundFunction()">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="5" align="right"><h4>払い戻し $</h4></td>
-						<td id="customer_refund" class="text-left"><h4><strong>0</strong></h4></td>
+						<td id="customer_refund"  colspan="2" align="left"><h4><strong>0</strong></h4></td>
 					</tr>
 					<tr>
-						<td colspan="6" align="right">
+						<td colspan="7" align="right">
 							<button id="btn-checkout" type="button" class="btn btn-success btn-lg" disabled="true">
 								チェックアウト <span class="glyphicon glyphicon-play"></span>
 							</button>
@@ -84,7 +84,7 @@
 					</div>
 				</td>
 				<td>
-						<input type='checkbox' name='coffee-size' value='big' onClick="onSelectSizeFunction($(this))">Big Size?
+						<input type='checkbox' name='coffee-size' value='big' onClick="onSelectSizeFunction($(this))">大きい?
 				</td>
 				<td >
 					<#list model['listCondiment'] as condiment> 
@@ -102,10 +102,10 @@
 				<td>
 					<text name="cup-price">0</text>
 				</td>
-				<td>
+				<td align="right">
                     <p>
                       	<button name="btn_remove_cup" type="button" class="btn btn-danger" onClick="removeCupFunction($(this))">
-							<span class="glyphicon glyphicon-remove"> </span> Remove
+							<span class="glyphicon glyphicon-remove"> </span> 　解消　
 						</button>
                     </p>
 				</td>
@@ -121,23 +121,23 @@
 		  <div class="modal-content">
 			   <div class="modal-header">
 				    <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
-				    <h4 class="modal-title">Receipt</h4>
+				    <h4 class="modal-title"><strong>領収</strong></h4>
 			   </div>
 			
 			   <div class="modal-body">
 			   		<table id="table-revieworder" class="table table-hover">
 						<thead>
 							<tr>
-								<th class="col-sm-3">Coffee</th>
-								<th class="text-center col-sm-1">Size</th>
-								<th class=" col-sm-3">Condiment</th>
-								<th class="text-center col-sm-1">Quantity</th>
-								<th class="text-center col-sm-2">Price ($)</th>
+								<th class="col-sm-3">コーヒー</th>
+								<th class="text-center col-sm-1">サイズ</th>
+								<th class=" col-sm-3">コンディメント</th>
+								<th class="text-center col-sm-1">数量</th>
+								<th class="text-center col-sm-2">価格 ($)</th>
 							</tr>
 						</thead>
 						<tbody>			
 		                    <tr  id='revieworder-total'>
-								<td colspan="4" align="right"><h4><strong>Total $<strong></h4></td>
+								<td colspan="4" align="right"><h4><strong>合計 ($)<strong></h4></td>
 								<td class="text-left">
 									<h4>
 										<strong class="price">0</strong>

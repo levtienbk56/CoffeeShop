@@ -11,6 +11,8 @@
    	<!-- Bootstrap Core JavaScript -->
     <script src="/CoffeeShop/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	
+	<script type="text/javascript" src="resources/js/shared/custom.js" ></script>
+	
 	<!-- custom css -->
 	<link rel="stylesheet"  href="/CoffeeShop/resources/css/header.css">
 	<link rel="stylesheet"  href="/CoffeeShop/resources/css/footer.css">
@@ -29,7 +31,6 @@
 		<@tiles.insertAttribute name="body" />
 		<@tiles.insertAttribute name="footer" />
 	
-	<script type="text/javascript" src="resources/js/shared/custom.js" ></script>
 	<!-- change password -->
 	<script type="text/javascript" src="resources/js/shared/changePassword.js" ></script>
   	

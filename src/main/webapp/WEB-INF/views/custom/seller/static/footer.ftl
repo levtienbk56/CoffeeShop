@@ -34,10 +34,8 @@
         <div class="container">
             <p class="pull-left"> Copyright © ABC. All right reserved. </p>
             <div class="pull-right">
-                <ul class="nav nav-pills payments">
-                	<li><a href="" ><img border="0" width="200%" height="200%" src="resources/img/us.png" onClick="changeLocale('en')"></img></a></li>
-                	<li><a href="" ><img border="0" width="200%" height="200%" src="resources/img/jp.png" onClick="changeLocale('jp')"></img></a></li>
-                </ul> 
+                <input href="" type="image" src="resources/img/us.png" onClick="changeLanguage('en')"></img></a>
+                <input href="" type="image" src="resources/img/jp.png" onClick="changeLanguage('jp')"></img></a>
             </div>
         </div>
     </div>
@@ -45,13 +43,14 @@
 </footer>
 
 <script>
-function changeLocale(lang){
+function changeLanguage(lang){
 	$.ajax({
 		type : "POST",
-		url : "locale",
+		url : "/CoffeeShop/change-locale",
 		data : {language: lang},
 		timeout : 100000,
 		success : function(data) {
+			// reload this page
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
 			location.reload();
 		},

@@ -44,7 +44,7 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	}
 
 	public int insertWithReturnId(Order order) {
-		String sql = "INSERT INTO orders(username,purchase_time,total) VALUES(?,?,?) RETURNING order_id";
+		String sql = "INSERT INTO orders(username,purchase_time,total) VALUES(?,?,?) RETURNING orders_id";
 
 		Object[] params = new Object[] { order.getUsername(), order.getPurchaseTime(), order.getTotal() };
 		try {
@@ -57,7 +57,7 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	}
 
 	public int updatePrice(int id, double price) {
-		String sql = "UPDATE orders SET total=? WHERE order_id=?";
+		String sql = "UPDATE orders SET total=? WHERE orders_id=?";
 		Object[] params = new Object[] { price, id };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
@@ -99,7 +99,7 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	public List<Map<String, Object>> selectTotalCoffeeCorrelation(Double year, Double month) {
 		String sql = "select co.name as mname, date_part('day', o.purchase_time) as mdate, count(co.name) as mcup "
 				+ "from orders as o, cups as c, coffees as co "
-				+ "where c.order_id = o.order_id and c.coffee_id = co.coffee_id and date_part('year', o.purchase_time)=? and date_part('month', o.purchase_time)=? "
+				+ "where c.orders_id = o.orders_id and c.coffees_id = co.coffees_id and date_part('year', o.purchase_time)=? and date_part('month', o.purchase_time)=? "
 				+ "group by mname, mdate "
 				+ "order by mname, mdate";
 		Object[] params = new Object[] { year, month };
@@ -125,7 +125,7 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 
 	public int selectNumberCupOfCoffeeByDate(String coffeeName, Date date) {
 		String sql = "select count(co.name) " + "from cups as c, coffees as co, orders as o"
-				+ " where c.coffee_id=co.coffee_id and c.order_id = o.order_id and co.name = ? and date(o.purchase_time)=?";
+				+ " where c.coffees_id=co.coffees_id and c.orders_id = o.orders_id and co.name = ? and date(o.purchase_time)=?";
 		Object[] params = new Object[] { coffeeName, date };
 		Object obj = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
 		if (obj == null) {

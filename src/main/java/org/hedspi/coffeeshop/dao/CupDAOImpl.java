@@ -25,7 +25,7 @@ public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
 	}
 
 	public int insert(Cup cup) {
-		String sql = "INSERT INTO cups(order_id,coffee_id,size,condiments,price) VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO cups(orders_id,coffees_id,size,condiments,price) VALUES(?,?,?,?,?)";
 		Object[] params = new Object[] { cup.getOrderId(), cup.getCoffeeId(), cup.getSize(), cup.getCondiments(),
 				cup.getPrice() };
 		try {
@@ -45,14 +45,14 @@ public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
 	 * data[{lable:xxx,data:yyy}...{lable:xxx,data:yyy}]
 	 */
 	public List<Map<String, Object>> selectCoffeeCorrelate() {
-		String sql = "SELECT co.name as label, count(co.name) as data FROM coffees as co, cups as cu WHERE co.coffee_id = cu.coffee_id GROUP BY (co.name)";
+		String sql = "SELECT co.name as label, count(co.name) as data FROM coffees as co, cups as cu WHERE co.coffees_id = cu.coffees_id GROUP BY (co.name)";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
 
 		return list;
 	}
 
 	public List<Cup> selectByOrderId(int orderId) {
-		String sql = "SELECT * FROM cups where order_id=?";
+		String sql = "SELECT * FROM cups where orders_id=?";
 		Object[] params = new Object[] { orderId };
 		CupMapper map = new CupMapper();
 		return this.getJdbcTemplate().query(sql, params, map);

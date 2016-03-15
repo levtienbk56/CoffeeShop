@@ -35,7 +35,7 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public int update(Condiment condiment) {
-		String sql = "UPDATE condiments SET name=?,price=?,enabled=? WHERE condiment_id=?";
+		String sql = "UPDATE condiments SET name=?,price=?,enabled=? WHERE condiments_id=?";
 		Object[] params = new Object[] { condiment.getName(), condiment.getPrice(), condiment.isEnabled(),
 				condiment.getId() };
 		try {
@@ -47,7 +47,7 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public int delete(int id) {
-		String sql = "DELETE FROM condiments WHERE condiment_id = ?";
+		String sql = "DELETE FROM condiments WHERE condiments_id = ?";
 		Object[] params = new Object[] { id };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
@@ -58,7 +58,7 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public Condiment select(int id) {
-		String sql = "SELECT * FROM condiments WHERE condiment_id=?";
+		String sql = "SELECT * FROM condiments WHERE condiments_id=?";
 		Object[] params = new Object[] { id };
 		CondimentMapper rowMapper = new CondimentMapper();
 		Condiment c = this.getJdbcTemplate().queryForObject(sql, params, rowMapper);
@@ -66,7 +66,7 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public List<Condiment> selectAll() {
-		String sql = "SELECT * FROM condiments ORDER BY condiment_id";
+		String sql = "SELECT * FROM condiments ORDER BY condiments_id";
 
 		Object[] params = new Object[] {};
 		CondimentMapper mapper = new CondimentMapper();
@@ -76,7 +76,7 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public List<Condiment> selectAllActive() {
-		String sql = "SELECT * FROM condiments where enabled=true ORDER BY condiment_id";
+		String sql = "SELECT * FROM condiments where enabled=true ORDER BY condiments_id";
 
 		Object[] params = new Object[] {};
 		CondimentMapper mapper = new CondimentMapper();

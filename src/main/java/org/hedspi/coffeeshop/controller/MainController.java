@@ -2,9 +2,16 @@ package org.hedspi.coffeeshop.controller;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
+import org.hedspi.coffeeshop.controller.seller.OrderController;
 import org.hedspi.coffeeshop.dao.UserDAO;
 import org.hedspi.coffeeshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +20,21 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.LocaleResolver;
 
 @Controller
 public class MainController {
-
+	public static final Logger logger = LogManager.getLogger(OrderController.class);
+	
 	@Autowired
 	UserDAO userdao;
+	@Autowired
+	LocaleResolver localeResolver;
 
 	/**
 	 * @see SpringSecurity
@@ -135,6 +147,23 @@ public class MainController {
 		Authentication authentication = sc.getAuthentication();
 
 		return authentication.getName();
+	}
+	
+	@RequestMapping(value = { "/change-locale" }, method = RequestMethod.POST)
+	public void changeLocale(HttpServletRequest request, HttpServletResponse response,@RequestParam("language") String lang) {
+		logger.entry(lang);
+		
+		localeResolver.setLocale(request, response, StringUtils.parseLocaleString(lang)); 
+		return ; // definition in tilesFtl.xml
+	}
+	
+	@RequestMapping(value = { "/locale" }, method = RequestMethod.POST)
+	public @ResponseBody Map<String, String> getLocale(Locale locale) {
+		logger.entry();
+		
+		Map<String, String> lang = new HashMap<String, String>(); 
+		lang.put("lang",  locale.getLanguage());
+		return logger.exit(lang); // definition in tilesFtl.xml
 	}
 
 }

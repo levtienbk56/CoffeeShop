@@ -21,9 +21,7 @@ import org.hedspi.coffeeshop.dao.OrderDAO;
 import org.hedspi.coffeeshop.model.Coffee;
 import org.hedspi.coffeeshop.model.Condiment;
 import org.hedspi.coffeeshop.model.Cup;
-import org.hedspi.coffeeshop.model.CupWrapper;
 import org.hedspi.coffeeshop.model.Order;
-import org.hedspi.coffeeshop.model.OrderWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -138,8 +136,6 @@ public class OrderManageController {
 
 		}
 
-		for (Map<String, Object> map : listReturn) {
-		}
 		return logger.exit(listReturn);
 	}
 
