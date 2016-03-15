@@ -52,21 +52,17 @@ public class OrderController {
 	 * @return page name
 	 */
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-//	public String index(@ModelAttribute("model") ModelMap model, Model modell) {
-//		logger.entry();
-//
-//		List<Coffee> listCoffee = coffeedao.selectAllActive();
-//		List<Condiment> listCondiment = condimentdao.selectAllActive();
-//		model.addAttribute("listCondiment", listCondiment);
-//		model.addAttribute("listCoffee", listCoffee);
-//
-//		modell.addAttribute("username", MainController.getUserName());
-//
-//		return "OrderPage"; // definition in tilesFtl.xml
-//	}
-	public String index(){
+	public String index(@ModelAttribute("model") ModelMap model, Model modell) {
+		logger.entry();
+
+		List<Coffee> listCoffee = coffeedao.selectAllActive();
+		List<Condiment> listCondiment = condimentdao.selectAllActive();
+		model.addAttribute("listCondiment", listCondiment);
+		model.addAttribute("listCoffee", listCoffee);
+
+		modell.addAttribute("username", MainController.getUserName());
+
 		return "pages/seller/order";
-		
 	}
 
 	/**
@@ -80,7 +76,7 @@ public class OrderController {
 	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
 	public @ResponseBody OrderWrapper checkout(@RequestBody Map<String, CupWrapper> listCup) {
 		logger.entry();
-		
+
 		printAjax(listCup);
 		OrderWrapper orderWrapper = new OrderWrapper();
 		if (listCup != null && listCup.size() > 0) {

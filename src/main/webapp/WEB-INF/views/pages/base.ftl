@@ -19,8 +19,18 @@
 <!-- custom css -->
 <#macro css_custom></#macro>
 
+
+<#macro html_custom>
+	<!-- modal change password-->
+	<#include "../static/modal/changePassword.ftl">
+	
+	<!-- modal confirm -->
+	<#include "../static/modal/confirm.ftl">
+</#macro>
 <!-- page content-->
-<#macro content></#macro>
+<#macro page_header></#macro>
+<#macro page_content></#macro>
+<#macro page_footer></#macro>
 
 <!-- global script -->
 <#macro script_global>
@@ -47,8 +57,11 @@
 		<@css_custom/>
 	</head>
 	<body>
+		<@html_custom/>
+		<@page_header/>
 		<@navbar/>
-		<@content/>
+		<@page_content/>
+		<@page_footer/>
 		<@script_custom/>
 	</body>
 	</html>

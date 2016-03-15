@@ -1,7 +1,8 @@
-
 <#ftl encoding='UTF-8'> 
 
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/CoffeeShop/resources/css/footer.css" rel="stylesheet">
+<link href="/CoffeeShop/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
 <footer>
     <div class="footer" id="footer">
         <div class="container">
@@ -34,10 +35,10 @@
         <div class="container">
             <p class="pull-left"> Copyright © ABC. All right reserved. </p>
             <div class="pull-right">
-                <ul class="nav nav-pills payments">
-                	<li><a href="https://fb.com/levtienbk56" class="fa fa-facebook-square" target="_blank"></a></li>
-                </ul> 
+                <input href="" type="image" src="resources/img/us.png" onClick="changeLanguage('en')"></img></a>
+                <input href="" type="image" src="resources/img/jp.png" onClick="changeLanguage('jp')"></img></a>
             </div>
+
         </div>
     </div>
     <!--/.footer-bottom--> 

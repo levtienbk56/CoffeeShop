@@ -23,7 +23,7 @@
 	</script>
 </#macro>
 
-<#macro content> 
+<#macro page_content> 
 	<div class="text-center mcenter">
 		<h4><b>Error: </b>You are not allowed to access this page!</h4>
 		<p><a href="/CoffeeShop/">click to go to home page</a></p>

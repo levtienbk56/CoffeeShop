@@ -1,3 +1,5 @@
+<link href="/CoffeeShop/resources/css/header.css" rel="stylesheet">
+
 <div class="navbar-wrapper" style="margin-bottom:56px">
     <div class="container-fluid">
         <nav class="navbar navbar-fixed-top">
@@ -25,12 +27,3 @@
         </nav>
     </div>
 </div>
-
-
-<!-- modal change password-->
-<#include "/WEB-INF/views/custom/shared/modal/changePassword.ftl">
-
-<!-- modal confirm -->
-<#include "/WEB-INF/views/custom/shared/modal/confirm.ftl">
-
-
