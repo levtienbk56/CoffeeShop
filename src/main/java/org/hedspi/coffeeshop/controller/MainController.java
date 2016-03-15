@@ -66,12 +66,12 @@ public class MainController {
 
 	@RequestMapping(value = { "/403" }, method = RequestMethod.GET)
 	public String error403() {
-		return "Error403Page"; // definition in tilesFtl-common.xml
+		return "pages/global/error403"; // definition in tilesFtl-common.xml
 	}
 
 	@RequestMapping(value = { "/404" }, method = RequestMethod.GET)
 	public String error404() {
-		return "Error404Page"; // definition in tilesFtl-common.xml
+		return "pages/global/error404"; // definition in tilesFtl-common.xml
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class MainController {
 		if (msg != null) {
 			model.addAttribute("msg", Constant.lOGIN_SUCCESS);
 		}
-		return "LoginPage"; // definition in tilesFtl.xml
+		return "pages/global/login"; 
 	}
 
 	/**
