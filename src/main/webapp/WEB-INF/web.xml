@@ -61,7 +61,6 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 		    /WEB-INF/spring-security.xml,
-		  	/WEB-INF/applicationContext.xml,
 	        /WEB-INF/data-source-cfg.xml,
           	/WEB-INF/transaction-cfg.xml
         </param-value>

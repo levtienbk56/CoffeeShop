@@ -12,8 +12,27 @@
       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<context:component-scan base-package="org.hedspi.coffeeshop.*" />
+	<context:annotation-config />
 	<mvc:annotation-driven />
 
+	<!-- Resource config -->
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
-	
+
+	<!-- view config -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/tilesFtl-order.xml</value>
+				<value>/WEB-INF/tiles/tilesFtl-admin.xml</value>
+				<value>/WEB-INF/tiles/tilesFtl-login.xml</value>
+			</list>
+		</property>
+		<property name="completeAutoload" value="true"></property>
+	</bean>
 </beans>

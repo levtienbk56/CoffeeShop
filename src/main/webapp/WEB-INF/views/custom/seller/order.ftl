@@ -46,23 +46,24 @@
 		<div class="col-sm-12 col-md-11 col-md-offset-1">
 			<div>
 				<button type="button" class="btn btn-primary" id="btn-new-order">
-					New Order <span class="glyphicon glyphicon-plus"></span>
+					 <span class="glyphicon glyphicon-plus"></span> New Order
 				</button>			
 			</div>
 			<table id="table_order" class="table table-hover">
 				<thead>
 					<tr>
-						<th class="col-sm-3 col-md-3">Coffee</th>
-						<th class="col-sm-1 col-md-1">Size</th>
-						<th class="col-sm-2 col-md-2">Condiment</th>
-						<th class="col-sm-1 col-md-1">Quantity</th>
-						<th class="col-sm-1 col-md-1">Price</th>
-						<th class="col-sm-1 col-md-1"></th>
+						<th class="col-sm-3 col-lg-3 text-center">Coffee Name</th>
+						<th class="col-sm-1 col-lg-2">Size</th>
+						<th class="col-sm-2 col-lg-2">Condiment</th>
+						<th class="col-sm-2 col-lg-1 text-center">Quantity</th>
+						<th class="col-sm-1 col-lg-1"></th>
+						<th class="col-sm-1 col-lg-1">Price ($)</th>
+						<th class="col-sm-2 col-lg-2 text-right"></th>
 					</tr>
 				</thead>
 				<tbody>					
                     <tr id="add_new">
-    					<td colspan="6" align='center'>
+    					<td colspan="7" align='center'>
                             <button type="button" style="background-color:#fff;" onClick="addCupFunction()">
     							<img src="http://www2.psd100.com/ppp/2013/12/1301/Add-the-green-button-1214031005.png_s.jpg" width="40" height="40" /> Add a Cup
 							</button>
@@ -70,27 +71,23 @@
 					</tr>
 
 					<tr >
-						<td colspan="4" align="right"><h3><strong>Total $<strong></h3></td>
-						<td class="text-left" id='total_price'><h3>
-								<strong>0$</strong>
+						<td colspan="5" align="right"><h3><strong>Total $<strong></h3></td>
+						<td id="total_price" colspan="2" align="left"><h3>
+								<strong>0</strong>
 							</h3></td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"><h4>Customer Pay $</h4></td>
-						<td id="customer_pay" class="text-left">
+						<td colspan="5" align="right"><h4>Customer Pay $</h4></td>
+						<td id="customer_pay" colspan="2" align="left">
 							<input type="number" class="form-control" min="0" step="0.01" onKeyUp="updateRefundFunction()">
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"><h4>Refund $</h4></td>
-						<td id="customer_refund" class="text-left"><h4><strong>0$</strong></h4></td>
+						<td colspan="5" align="right"><h4>Refund $</h4></td>
+						<td id="customer_refund" colspan="2" align="left"><h4><strong>0</strong></h4></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>
+						<td colspan="7" align="right">
 							<button id="btn-checkout" type="button" class="btn btn-success btn-lg" disabled="true">
 								Checkout <span class="glyphicon glyphicon-play"></span>
 							</button>
@@ -134,7 +131,7 @@
 					<#list model['listCondiment'] as condiment> 
 						   <input type='checkbox' name='coffee-condiment' value=${condiment.price} onClick="onSelectCondimentFunction($(this))">
 						   <b>
-						   		<text type='hide' class='id'>${condiment.id}</text>.<text class='name'>${condiment.name}</text> (<text class='price'>${condiment.price}</text>$)<br>
+						   		<text type='hide' class='id'>${condiment.id}</text>.<text class='name'>${condiment.name}</text> (<text class='price'>${condiment.price}</text>)<br>
 						   	</b>
 						   	
 					 </#list>
@@ -142,8 +139,9 @@
 				<td>
 					<input type="number" name="coffee-quantity"  class="form-control" min="1" value="1" onClick="onSelectQuantityFunction($(this))">
 				</td>
+				<td></td>
 				<td>
-					<text name="cup-price">0</text>$
+					<text name="cup-price">0</text>
 				</td>
 				<td>
                     <p>
@@ -164,7 +162,7 @@
 		  <div class="modal-content">
 			   <div class="modal-header">
 				    <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
-				    <h4 class="modal-title">Receipt</h4>
+				    <h4 class="modal-title"><strong>Receipt</strong></h4>
 			   </div>
 			
 			   <div class="modal-body">
@@ -180,10 +178,10 @@
 						</thead>
 						<tbody>			
 		                    <tr  id='revieworder-total'>
-								<td colspan="4" align="right"><h4><strong>Total<strong></h4></td>
+								<td colspan="4" align="right"><h4><strong>Total ($)<strong></h4></td>
 								<td class="text-left">
 									<h4>
-										<strong class="price">0$</strong>
+										<strong class="price">0</strong>
 									</h4>
 								</td>
 							</tr>
@@ -195,7 +193,7 @@
 			   </div>
 		  </div>
 	 </div>
-</div>
+</div> 
 
 <!-- JavaScript -->
 <script type="text/javascript" src="resources/js/seller/order.js" ></script>

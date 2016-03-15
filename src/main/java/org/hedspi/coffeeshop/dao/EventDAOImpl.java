@@ -36,7 +36,7 @@ public class EventDAOImpl extends JdbcDaoSupport implements EventDAO {
 	}
 
 	public int delete(int id) {
-		String sql = "DELETE FROM events WHERE event_id = ?";
+		String sql = "DELETE FROM events WHERE events_id = ?";
 		Object[] params = new Object[] { id };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
@@ -47,7 +47,7 @@ public class EventDAOImpl extends JdbcDaoSupport implements EventDAO {
 	}
 
 	public List<Event> selectAll() {
-		String sql = "SELECT * FROM events  ORDER BY event_id";
+		String sql = "SELECT * FROM events  ORDER BY events_id";
 		EventMapper mapper = new EventMapper();
 		try {
 			return this.getJdbcTemplate().query(sql, mapper);
@@ -58,7 +58,7 @@ public class EventDAOImpl extends JdbcDaoSupport implements EventDAO {
 	}
 
 	public int update(Event event) {
-		String sql = "UPDATE events SET title=?,time_start=?,time_end=?,color=? WHERE event_id=?";
+		String sql = "UPDATE events SET title=?,time_start=?,time_end=?,color=? WHERE events_id=?";
 		Object[] params = new Object[] { event.getTitle(), event.getStart(), event.getEnd(), event.getColor(),
 				event.getId() };
 		try {
