@@ -224,6 +224,9 @@
 		 <!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal fade-->
+	
+	<!-- Custom page JavaScript -->
+	<script src="/CoffeeShop/resources/js/admin/home/event_calendar.js"></script>
 </#macro>
 
 <!-- html code shown here -->

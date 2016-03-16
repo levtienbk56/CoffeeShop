@@ -36,7 +36,7 @@ public class UserManageController {
 
 		List<User> listUser = userdao.selectAll();
 		model.addAttribute("listUser", listUser);
-		return "UsersPage"; // definition in tilesFtl-admin.xml
+		return "pages/admin/user-manage/user";
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)

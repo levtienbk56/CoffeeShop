@@ -32,8 +32,6 @@
 	<script src="/CoffeeShop/resources/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 	<!-- Custom Theme JavaScript -->
 	<script src="/CoffeeShop/resources/js/sb-admin-2.js"></script>
-	<!-- Custom page JavaScript -->
-	<script src="/CoffeeShop/resources/js/admin/home/event_calendar.js"></script>
 </#macro>
 
 
