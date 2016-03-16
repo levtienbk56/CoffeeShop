@@ -35,8 +35,8 @@
         <div class="container">
             <p class="pull-left"> Copyright © ABC. All right reserved. </p>
             <div class="pull-right">
-                <input href="" type="image" src="resources/img/us.png" onClick="changeLanguage('en')"></img></a>
-                <input href="" type="image" src="resources/img/jp.png" onClick="changeLanguage('jp')"></img></a>
+                <input href="" type="image" src="/CoffeeShop/resources/img/us.png" id="lang-en"></a>
+                <input href="" type="image" src="/CoffeeShop/resources/img/jp.png" id="lang-jp"></a>
             </div>
 
         </div>
@@ -44,24 +44,4 @@
     <!--/.footer-bottom--> 
 </footer>
 
-<script>
-function changeLanguage(lang){
-	$.ajax({
-		type : "POST",
-		url : "/CoffeeShop/change-locale",
-		data : {language: lang},
-		timeout : 100000,
-		success : function(data) {
-			// reload this page
-			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			location.reload();
-		},
-		error : function(e) {
-			console.log("ERROR " + e);
-		},
-		done : function(e) {
-			console.log("DONE " + e);
-		}
-	});
-}
-</script>
+<script  type="text/javascript"  src="/CoffeeShop/resources/js/global/changeLanguage.js"></script>

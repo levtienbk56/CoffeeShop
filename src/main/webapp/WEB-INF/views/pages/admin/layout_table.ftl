@@ -1,5 +1,5 @@
 <#ftl encoding='UTF-8'>
-<#include "./layout_home.ftl"> <!-- to get navbar -->
+<#include "./layout_home.ftl"> <!-- get navbar, header, footer -->
 
 <#macro css_custom>
 	<!-- MetisMenu CSS -->
@@ -30,9 +30,7 @@
     <script type="text/javascript" src="/CoffeeShop/resources/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="/CoffeeShop/resources/js/sb-admin-2.js"></script>
-    <!-- change password -->
-	<script type="text/javascript" src="/CoffeeShop/resources/js/shared/changePassword.js" ></script>
-	<!-- set responsive for table-->
+    <!-- set responsive for table-->
 	<script> 
 		$(document).ready(function() {
 			table = $('.tbl-responsive').DataTable({

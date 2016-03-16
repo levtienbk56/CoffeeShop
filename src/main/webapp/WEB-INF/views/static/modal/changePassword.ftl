@@ -50,3 +50,5 @@
 	 </div>
 </div>
 
+<!-- script -->
+<script  type="text/javascript"  src="/CoffeeShop/resources/js/global/changePassword.js"></script>

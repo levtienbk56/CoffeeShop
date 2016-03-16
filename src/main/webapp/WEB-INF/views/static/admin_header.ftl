@@ -29,9 +29,3 @@
     </ul>
     <!-- /.navbar-top-links -->
 </nav>
-
-<!-- modal change password-->
-<#include "/WEB-INF/views/custom/shared/modal/changePassword.ftl">
-
-<!-- modal confirm -->
-<#include "/WEB-INF/views/custom/shared/modal/confirm.ftl">
