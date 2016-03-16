@@ -3,6 +3,7 @@ package org.hedspi.coffeeshop.controller.seller;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +53,7 @@ public class OrderController {
 	 * @return page name
 	 */
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	public String index(@ModelAttribute("model") ModelMap model, Model modell) {
+	public String index(Locale locale, @ModelAttribute("model") ModelMap model, Model modell) {
 		logger.entry();
 
 		List<Coffee> listCoffee = coffeedao.selectAllActive();

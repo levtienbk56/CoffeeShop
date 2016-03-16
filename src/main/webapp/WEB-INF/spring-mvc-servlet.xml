@@ -13,8 +13,8 @@
 
 	<context:component-scan base-package="org.hedspi.coffeeshop.*" />
 	<context:annotation-config />
-	<mvc:annotation-driven />
-	
+	<mvc:annotation-driven />	<!-- DB connect -->
+
 	<!-- Resource config -->
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
 
@@ -24,9 +24,7 @@
 		<property name="templateLoaderPath" value="/WEB-INF/views/" />
 	</bean>
 
-	<!-- View resolvers can also be configured with ResourceBundles or XML files. 
-		If you need different view resolving based on Locale, you have to use the 
-		resource bundle resolver. -->
+	<!-- View resolvers -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="cache" value="true" />
@@ -36,27 +34,33 @@
 		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSessionAttributes" value="true" />
 	</bean>
-	
-	
+
 	<!-- Register the messages.properties -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="messages" />
-    </bean>
-     
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="en" />
-    </bean>
-  
-    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-        <property name="paramName" value="lang" />
-    </bean>
-     
-    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-        <property name="interceptors">
-            <list>
-                <ref bean="localeChangeInterceptor" />
-            </list>
-        </property>
-    </bean>
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+	<!-- Locale Config -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
+
+	<bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="lang" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="localeChangeInterceptor" />
+			</list>
+		</property>
+	</bean>
+
 
 </beans>

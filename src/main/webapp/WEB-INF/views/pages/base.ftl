@@ -1,4 +1,6 @@
 <#ftl encoding='UTF-8'>
+<#import "/spring.ftl" as spring/>
+
 <!-- meta data -->
 <#macro meta>
 	<meta charset="utf-8">
@@ -8,7 +10,9 @@
 	<meta name="author" content="">
  </#macro>
 <!-- title-->
-<#macro title></#macro>
+<#macro title>
+	<title><@spring.message "label.newOrder"/></title>
+</#macro>
 
 <!-- global css-->
 <#macro css_global>
