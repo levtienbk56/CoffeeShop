@@ -29,7 +29,7 @@ public class AdminController {
 	public String adminPage() {
 		logger.entry();
 		logger.trace("Enter AdminController! return Admin home page.");
-		return "AdminPage"; // definition in tilesFtl-admin.xml
+		return "pages/admin/home/event-calendar";
 	}
 
 	@RequestMapping(value = { "/calendar/events" }, method = RequestMethod.POST)

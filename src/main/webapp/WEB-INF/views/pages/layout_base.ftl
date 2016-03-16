@@ -23,14 +23,13 @@
 <!-- custom css -->
 <#macro css_custom></#macro>
 
-
 <#macro html_custom>
 	<!-- modal change password-->
 	<#include "../static/modal/changePassword.ftl">
-	
 	<!-- modal confirm -->
 	<#include "../static/modal/confirm.ftl">
 </#macro>
+
 <!-- page content-->
 <#macro page_header></#macro>
 <#macro page_content></#macro>

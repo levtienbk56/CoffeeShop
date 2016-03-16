@@ -1,6 +1,6 @@
 <#ftl encoding='UTF-8'>
 
-<#include "../base.ftl">
+<#include "../layout_base.ftl">
 <#macro title> 
 </#macro>
 
