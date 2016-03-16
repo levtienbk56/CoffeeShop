@@ -1,5 +1,5 @@
 <#ftl encoding='UTF-8'>
-<#include "../layout_base.ftl">
+<#include "./layout_home.ftl">  <!-- get navbar -->
 
 <#macro css_custom>
 	<!-- Bootstrap Core CSS -->

@@ -49,29 +49,13 @@ public class OrderManageController {
 	@RequestMapping(value = "/order-table", method = RequestMethod.GET)
 	public String viewOrderTable() {
 		logger.entry();
-		return "OrderTablePage";
+		return "pages/admin/order-manage/table";
 	}
 
 	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
 	public String analyzeData(Model model) {
 		logger.entry();
-		return "AnalysisPage";
-	}
-
-	/**
-	 * get data from DB, push out PieChart
-	 * 
-	 * @param require
-	 *            nothing
-	 * @return list of record of Cup (select by count(number of cup))
-	 */
-
-	@RequestMapping(value = "/analysis/pie-chart", method = RequestMethod.POST)
-	public @ResponseBody List<Map<String, Object>> analyzePieChartData(@RequestParam("require") String require) {
-		logger.entry();
-		List<Map<String, Object>> list = cupdao.selectCoffeeCorrelate();
-
-		return logger.exit(list);
+		return "pages/admin/order-manage/analysis";
 	}
 
 	/**
