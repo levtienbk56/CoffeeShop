@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/admin/items")
-public class ItemManageController {
-	public static final Logger logger = LogManager.getLogger(ItemManageController.class);
+public class ProductManageController {
+	public static final Logger logger = LogManager.getLogger(ProductManageController.class);
 
 	@Autowired
 	CoffeeDAO coffeedao;
@@ -37,7 +37,7 @@ public class ItemManageController {
 
 		List<Coffee> listCoffee = coffeedao.selectAll();
 		model.addAttribute("listCoffee", listCoffee);
-		return "ItemsCoffeesPage"; // definition in tilesFtl-admin.xml
+		return "pages/admin/product-manage/coffee"; // definition in tilesFtl-admin.xml
 	}
 
 	@RequestMapping(value = { "/coffees/remove" }, method = RequestMethod.POST)
@@ -96,7 +96,7 @@ public class ItemManageController {
 
 		List<Condiment> listCondiment = condimentdao.selectAll();
 		model.addAttribute("listCondiment", listCondiment);
-		return "ItemsCondimentsPage"; // definition in tilesFtl-admin.xml
+		return "pages/admin/product-manage/condiment"; // definition in tilesFtl-admin.xml
 	}
 
 	@RequestMapping(value = { "/condiments/remove" }, method = RequestMethod.POST)
