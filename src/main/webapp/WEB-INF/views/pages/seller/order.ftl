@@ -147,7 +147,7 @@
 									<th class="col-sm-3"><@spring.message "label.cfName"/></th>
 									<th class="text-center col-sm-1"><@spring.message "label.cfSize"/></th>
 									<th class=" col-sm-3"><@spring.message "label.cfCondiment"/></th>
-									<th class="text-center col-sm-1">cfQuantity</th>
+									<th class="text-center col-sm-1"><@spring.message "label.cfQuantity"/></th>
 									<th class="text-center col-sm-2"><@spring.message "label.cfPrice"/></th>
 								</tr>
 							</thead>
@@ -164,7 +164,7 @@
 						</table>
 					</div>
 				   <div class="modal-footer">
-					    <button id="reject" type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+					    <button id="reject" type="button" class="btn btn-default modal-close" data-dismiss="modal"><@spring.message "label.global.close"/></button>
 				   </div>
 			  </div>
 		 </div>

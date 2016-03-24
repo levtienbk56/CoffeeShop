@@ -2,7 +2,7 @@
 <#include "../layout_table.ftl">
 
 <#macro title>
-	<title> Order TableData Page</title>
+	<title><@spring.message "title.manageOrderTable"/></title>
 </#macro>
 
 <#macro page_content>
@@ -12,7 +12,7 @@
 	    	<div class="container">
 			    <div class='col-lg-3'>
 				    <div class="panel-heading">
-	                    <strong>From</strong>
+	                    <strong><@spring.message "label.orderFrom"/></strong>
 	                </div>
 			        <div class="form-group">
 			            <div class='input-group date' id='datetimepicker6'>
@@ -27,7 +27,7 @@
 			    
 			    <div class='col-lg-3'>
 			    	<div class="panel-heading">
-	                    <strong>To</strong>
+	                    <strong><@spring.message "label.orderTo"/></strong>
 	                </div>
 			        <div class="form-group">
 			            <div class='input-group date' id='datetimepicker7'>
@@ -46,7 +46,7 @@
 	                </div>
 			        <div class="form-group">
 			            <button type="button" class="btn btn-default" id="btn-search-by-range">
-					      	<span class="glyphicon glyphicon-search"></span> Search
+					      	<span class="glyphicon glyphicon-search"></span> <@spring.message "label.global.search"/>
 					    </button>
 			        </div>
 			    </div>
@@ -58,7 +58,7 @@
 	        <div class="col-lg-6">
 	            <div class="panel panel-default">
 	                <div class="panel-heading">
-	                    Orders Table
+	                    <@spring.message "label.orderTable"/>
 	                </div>
 		    
 	                <!-- /.panel-heading -->
@@ -67,10 +67,10 @@
 	                        <table id="order-tbl" class="table table-striped table-bordered table-hover tbl-responsive-nosearch-order">
 	                            <thead>
 	                                <tr>
-	                                    <th class="col-md-1 text-center">Id</th>
-	                                    <th class="col-md-2 text-center">Username</th>
-	                                    <th class="col-md-2 text-center">Time</th>
-	                                    <th class="col-md-1 text-center">Total</th>
+	                                    <th class="col-md-1 text-center">#</th>
+	                                    <th class="col-md-2 text-center"><@spring.message "label.userName"/></th>
+	                                    <th class="col-md-2 text-center"><@spring.message "label.orderTime"/></th>
+	                                    <th class="col-md-1 text-center"><@spring.message "label.orderTotal"/></th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -91,7 +91,7 @@
 	        <div class="col-lg-6">
 	            <div class="panel panel-default">
 	                <div class="panel-heading">
-	                    Cups in Order
+	                    <@spring.message "label.orderCups" />
 	                </div>
 	                <!-- /.panel-heading -->
 	                <div class="panel-body">
@@ -99,10 +99,10 @@
 	                        <table class="table table-striped table-bordered table-hover tbl-responsive-nosearch-cup">
 	                            <thead>
 	                                <tr>
-	                                    <th class="col-md-2 text-center">Coffee</th>
-	                                    <th class="col-md-1 text-center">Size</th>
-	                                    <th class="col-md-2 text-center">Condiment</th>
-	                                    <th class="col-md-1 text-center">Price</th>
+	                                    <th class="col-md-2 text-center"><@spring.message "label.cfName"/></th>
+	                                    <th class="col-md-1 text-center"><@spring.message "label.cfSize"/></th>
+	                                    <th class="col-md-2 text-center"><@spring.message "label.cdName"/></th>
+	                                    <th class="col-md-1 text-center"><@spring.message "label.cfPrice"/></th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>

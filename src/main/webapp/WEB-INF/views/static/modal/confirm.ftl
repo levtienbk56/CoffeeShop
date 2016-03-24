@@ -9,9 +9,9 @@
 			   </div>
 			   <div class="modal-footer">
 				    <button type="button" class="btn btn-success" data-dismiss="modal">
-				     	<i class="fa fa-check"></i> Yes
+				     	<i class="fa fa-check"></i> <@spring.message "label.global.yes"/>
 				    </button>
-				    <button id="reject" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+				    <button id="reject" type="button" class="btn btn-default" data-dismiss="modal"><@spring.message "label.global.no"/></button>
 			   </div>
 		  </div>
 	 </div>

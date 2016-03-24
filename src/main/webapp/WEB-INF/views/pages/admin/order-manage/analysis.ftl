@@ -2,7 +2,7 @@
 <#include "../layout_chart.ftl">
 
 <#macro title>
-	<title> Analyse Order Page</title>
+	<title><@spring.message "title.manageOrderChart"/></title>
 </#macro>
 
 <#macro page_content>
@@ -11,9 +11,9 @@
 	            <div class="row">
 	                <div class="col-lg-4 text-center">
 	    	            <div class="page-header">
-		                		<label for="sel1">Select A Year:</label>
+		                		<label for="sel1"><@spring.message "label.chartSelectYear"/></label>
 		                    	<select class="form-control" id="select_year"></select>
-					      		<label for="sel1">Select A Month:</label>
+					      		<label for="sel1"><@spring.message "label.chartSelectMonth"/></label>
 						      	<select class="form-control col-lg-3" id="select_month"></select>
 						      	<div><h1></h1></div>
 				      	</div>
@@ -27,7 +27,7 @@
 	                <div class="col-lg-12">
 	                    <div class="panel panel-default">
 	                        <div class="panel-heading">
-	                           	Total Sell In A Month 	
+	                           	<@spring.message "label.chartTable1"/>
 	                        </div>
 	                        <!-- /.panel-heading -->
 	                        <div class="panel-body">
@@ -44,7 +44,7 @@
 	                <div class="col-lg-12">
 	                    <div class="panel panel-default">
 	                        <div class="panel-heading">
-	                            Number Cup Of Each Coffee Type By Day In A Month
+	                            <@spring.message "label.chartTable2"/>
 	                        </div>
 	                        <!-- /.panel-heading -->
 	                        <div class="panel-body">

@@ -18,9 +18,9 @@
                 <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#updatepw-modal"  data-toggle="modal">Change Password</a></li>
+                <li><a href="#updatepw-modal"  data-toggle="modal"><@spring.message "label.global.changePass"/></a></li>
                 <li class="divider"></li>
-                <li><a href="/CoffeeShop/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a href="/CoffeeShop/logout"><i class="fa fa-sign-out fa-fw"></i><@spring.message "label.global.logout"/></a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->

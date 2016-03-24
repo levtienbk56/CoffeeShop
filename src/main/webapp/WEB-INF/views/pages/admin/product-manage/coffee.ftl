@@ -2,14 +2,14 @@
 <#include "../layout_table.ftl">
 
 <#macro title>
-	<title> Coffee Manage Page</title>
+	<title><@spring.message "title.manageCoffee"/></title>
 </#macro>
 
 <#macro page_content>
 	<div id="page-wrapper">
 	    <div class="row">
 	        <div class="col-lg-12">
-	            <h1 class="page-header">Coffees Tables</h1>
+	            <h1 class="page-header"><@spring.message "label.cfManage"/></h1>
 	        </div>
 	        <!-- /.col-lg-12 -->
 	    </div>
@@ -19,7 +19,7 @@
 	        <div class="col-lg-12">
 	            <div class="panel panel-default">
 	                <div class="panel-heading">
-	                    Coffees Table
+	                    <@spring.message "label.cfTable"/>
 	                </div>
 	                <!-- /.panel-heading -->
 	                <div class="panel-body">
@@ -28,10 +28,10 @@
 	                            <thead>
 	                                <tr>
 	                                    <th class="col-sm-2 col-md-2 text-center">#</th>
-	                                    <th class="col-sm-2 col-md-2 text-center">Coffee Name</th>
-	                                    <th class="col-sm-2 col-md-2 text-center">Price ($)</th>
-	                                    <th class="col-sm-2 col-md-2 text-center">Available?</th>
-	                                    <th class="col-sm-2 col-md-2 text-center">Functions</th>
+	                                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.cfName"/></th>
+	                                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.cfPrice"/></th>
+	                                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.cfAvailable"/></th>
+	                                    <th class="col-sm-2 col-md-2 text-center"></th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -43,7 +43,7 @@
 		                                    <td class="text-center td-enabled <#if coffee.enabled?c = 'true'>info<#else>danger</#if>">${coffee.enabled?c}</td>
 		                                    <td class="text-center" style="padding:4px;">
 										        <button value="${coffee.id}" href="#modal-edit"  data-toggle="modal" class="btn btn-sm  btn-default" onClick="editCoffee($(this))" style="margin-right:10px; min-width:90px;">
-										        	<i class="fa fa-pencil"></i> Edit
+										        	<i class="fa fa-pencil"></i> <@spring.message "label.global.edit"/>
 										        </button>
 		                                    </td>
 	                                	</tr>
@@ -54,7 +54,7 @@
 	                    <!-- /.table-responsive -->
 	                    <div class="well">
 	                        <button href="#modal-insert"  data-toggle="modal" class="btn btn-success">
-					        	<span class="glyphicon glyphicon-plus"></span> New Coffee
+					        	<span class="glyphicon glyphicon-plus"></span> <@spring.message "label.cfNew"/>
 					        </button>
 	                    </div>
 	                </div>
@@ -75,7 +75,7 @@
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-	          <h3 class="modal-title">Edit Coffee</h3>
+	          <h3 class="modal-title"><@spring.message "label.cfEdit"/></h3>
 	        </div>
 	        <div class="modal-body">
 	        	<div class="modal-notice"> </div>
@@ -83,9 +83,9 @@
 	            <thead id="tblHead">
 	              <tr>
 	              	<th class="col-md-1 text-center">#</th>
-	                <th class="col-md-2 text-center">Coffee Name</th>
-	                <th class="col-md-2 text-center">Price($)</th>
-	                <th class="col-md-2 text-center">Active?</th>
+	                <th class="col-md-2 text-center"><@spring.message "label.cfName"/></th>
+	                <th class="col-md-2 text-center"><@spring.message "label.cfPrice"/></th>
+	                <th class="col-md-2 text-center"><@spring.message "label.cfAvailable"/></th>
 	              </tr>
 	            </thead>
 	            <tbody>
@@ -104,8 +104,8 @@
 	          </table>
 			</div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-success"  id="update-coffee">Save Changes</button>
-	           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	          <button type="button" class="btn btn-success"  id="update-coffee"><@spring.message "label.global.update"/></button>
+	           <button type="button" class="btn btn-default" data-dismiss="modal"><@spring.message "label.global.close"/></button>
 	        </div>
 					
 	      </div><!-- /.modal-content -->
@@ -118,16 +118,16 @@
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-	          <h3 class="modal-title">New Coffee</h3>
+	          <h3 class="modal-title"><@spring.message "label.cfNew"/></h3>
 	        </div>
 	        <div class="modal-body">
 	        	<div class="modal-notice"> </div>
 	          <table class="table table-striped" id="modal-tbl-insert">
 	            <thead id="tblHead">
 	              <tr>
-	              	<th class="col-md-1 text-center">Coffee Name</th>
-	                <th class="col-md-1 text-center">Price($)</th>
-	                <th class="col-md-1 text-center">Active?</th>
+	              	<th class="col-md-2 text-center"><@spring.message "label.cfName"/></th>
+	                <th class="col-md-2 text-center"><@spring.message "label.cfPrice"/></th>
+	                <th class="col-md-2 text-center"><@spring.message "label.cfAvailable"/></th>
 	              </tr>
 	            </thead>
 	            <tbody>
@@ -145,8 +145,8 @@
 	          </table>
 			</div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-success" id="insert-coffee">Insert</button>
-	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	          <button type="button" class="btn btn-success" id="insert-coffee"><@spring.message "label.global.add"/></button>
+	          <button type="button" class="btn btn-default" data-dismiss="modal"><@spring.message "label.global.close"/></button>
 	        </div>
 					
 	      </div><!-- /.modal-content -->
