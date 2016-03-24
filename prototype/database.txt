@@ -8,41 +8,41 @@ CREATE TABLE users
 );
 
 CREATE TABLE coffees(
-  coffee_id serial,
+  coffees_id serial,
   name varchar(50) NOT NULL,
   price double precision NOT NULL,
   enabled boolean DEFAULT true,
-  CONSTRAINT coffees_pkey PRIMARY KEY (coffee_id),
+  CONSTRAINT coffees_pkey PRIMARY KEY (coffees_id),
   CONSTRAINT unique_coffee_name UNIQUE (name)
 );
 
 CREATE TABLE condiments
 (
-  condiment_id serial,
+  condiments_id serial,
   name varchar(50) NOT NULL,
   price double precision NOT NULL DEFAULT 0,
   enabled boolean DEFAULT true,
-  CONSTRAINT condiments_pkey PRIMARY KEY (condiment_id),
+  CONSTRAINT condiments_pkey PRIMARY KEY (condiments_id),
   CONSTRAINT unique_condiment_name UNIQUE (name)
 );
 
 CREATE TABLE events
 (
-  event_id serial,
+  events_id serial,
   title varchar(100) NOT NULL,
   color varchar(20) DEFAULT 'Blue'::character varying NOT NULL,
   time_start timestamp without time zone NOT NULL,
   time_end timestamp without time zone NOT NULL,
-  CONSTRAINT event_pkey PRIMARY KEY (event_id)
+  CONSTRAINT event_pkey PRIMARY KEY (events_id)
 );
 
 CREATE TABLE orders
 (
-  order_id serial,
+  orders_id serial,
   username varchar(50),
   purchase_time timestamp without time zone NOT NULL,
   total double precision NOT NULL DEFAULT 0,
-  CONSTRAINT orders_pkey PRIMARY KEY (order_id),
+  CONSTRAINT orders_pkey PRIMARY KEY (orders_id),
   CONSTRAINT orders_username_fkey FOREIGN KEY (username)
       REFERENCES users (username) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE RESTRICT
@@ -50,18 +50,18 @@ CREATE TABLE orders
 
 CREATE TABLE cups
 (
-  cup_id serial,
-  order_id integer NOT NULL,
-  coffee_id integer NOT NULL,
+  cups_id serial,
+  orders_id integer NOT NULL,
+  coffees_id integer NOT NULL,
   condiments varchar(50),
   size varchar(20) NOT NULL DEFAULT 'NORMAL'::character varying,
   price double precision NOT NULL DEFAULT 0,
-  CONSTRAINT cups_pkey PRIMARY KEY (cup_id),
-  CONSTRAINT cups_coffee_id_fkey FOREIGN KEY (coffee_id)
-      REFERENCES coffees (coffee_id) MATCH SIMPLE
+  CONSTRAINT cups_pkey PRIMARY KEY (cups_id),
+  CONSTRAINT cups_coffees_id_fkey FOREIGN KEY (coffees_id)
+      REFERENCES coffees (coffees_id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT cups_order_id_fkey FOREIGN KEY (order_id)
-      REFERENCES orders (order_id) MATCH SIMPLE
+  CONSTRAINT cups_orders_id_fkey FOREIGN KEY (orders_id)
+      REFERENCES orders (orders_id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
