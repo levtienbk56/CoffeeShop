@@ -28,6 +28,8 @@
 	<#include "../static/modal/changePassword.ftl">
 	<!-- modal confirm -->
 	<#include "../static/modal/confirm.ftl">
+	<!-- modal confirm -->
+	<#include "../static/modal/alert.ftl">
 </#macro>
 
 <!-- page content-->

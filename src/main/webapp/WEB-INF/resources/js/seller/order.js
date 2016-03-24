@@ -269,7 +269,7 @@ $("button#btn-checkout").click(function() {
 
 	// validate coffee selected?
 	if (!checkCoffeeSelected()) {
-		alert('choose a coffee first');
+		showAlertModal('choose a coffee first');
 		return;
 	}
 
