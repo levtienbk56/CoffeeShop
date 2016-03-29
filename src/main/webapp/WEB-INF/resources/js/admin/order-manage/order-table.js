@@ -1,6 +1,3 @@
-var table01;
-var table02;
-
 $(function() {
 	$('#datetimepicker6').datetimepicker({
 		format : "LL"

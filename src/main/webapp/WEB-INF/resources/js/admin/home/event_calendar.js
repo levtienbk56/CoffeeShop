@@ -9,10 +9,12 @@ function Event(id, title, start, end, color) {
 var eventSource = {};
 var confirmAction;
 var mEvent;
+var language = getLanguage();
 
 $(document).ready(function() {
 	// init calendar
 	$('#calendar').fullCalendar({
+		lang : language,
 		header : {
 			left : 'today ',
 			center : 'prev title next',
@@ -323,7 +325,7 @@ function requestUpdateEvent(event) {
 				$(".modal-notice").addClass("alert alert-warning");
 			}
 			$(".modal-notice").text(data.message);
-			
+
 			// wait 1.5s then reload page
 			setInterval(function() {
 				location.reload();
@@ -345,7 +347,7 @@ function requestRemoveEvent(event) {
 	// clear notice
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
-	
+
 	$.ajax({
 		type : "POST",
 		url : "/CoffeeShop/admin/calendar/remove-event",
@@ -360,7 +362,7 @@ function requestRemoveEvent(event) {
 				$(".modal-notice").addClass("alert alert-warning");
 			}
 			$(".modal-notice").text(data.message);
-			
+
 			// wait 1.5s then reload page
 			setInterval(function() {
 				location.reload();

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -77,16 +78,17 @@ public class MainController {
 
 	@RequestMapping(value = { "/403" }, method = RequestMethod.GET)
 	public String error403() {
-		return "pages/global/error403"; // definition in tilesFtl-common.xml
+		return "pages/global/error403";
 	}
 
 	@RequestMapping(value = { "/404" }, method = RequestMethod.GET)
 	public String error404() {
-		return "pages/global/error404"; // definition in tilesFtl-common.xml
+		return "pages/global/error404";
 	}
 
 	/**
-	 * login function use Spring security
+	 * login function use Spring security with notification message. also set
+	 * language to default (='en')
 	 * 
 	 * @see SpringSecurity
 	 * @param error
@@ -96,7 +98,8 @@ public class MainController {
 	 * @return page name
 	 */
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-	public String loginPage(@RequestParam(value = "error", required = false) String error,
+	public String loginPage(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String msg, org.springframework.ui.Model model) {
 		if (error != null) {
 			model.addAttribute("error", Constant.LOGIN_FAIL);
@@ -104,7 +107,26 @@ public class MainController {
 		if (msg != null) {
 			model.addAttribute("msg", Constant.lOGIN_SUCCESS);
 		}
-		return "pages/global/login"; 
+
+		// set language to default
+		Cookie cookie = null;
+		if (request.getCookies() != null) {
+			for (Cookie c : request.getCookies()) {
+				if (c != null && c.getName().equals("language")) {
+					cookie = c;
+					break;
+				}
+			}
+		}
+
+		if (cookie == null) {
+			cookie = new Cookie("language", "en");
+		}
+		cookie.setValue("en");
+		cookie.setMaxAge(1000 * 60 * 60 * 24); // 1day
+		response.addCookie(cookie);
+
+		return "pages/global/login";
 	}
 
 	/**
@@ -148,12 +170,39 @@ public class MainController {
 		return authentication.getName();
 	}
 
+	/**
+	 * request to change language. Save language into cookie & localeResolver
+	 * 
+	 * @param request
+	 * @param response
+	 * @param lang
+	 *            language("en" or "jp")
+	 */
 	@RequestMapping(value = { "/change-locale" }, method = RequestMethod.POST)
-	public void changeLocale(HttpServletRequest request, HttpServletResponse response,@RequestParam("language") String lang) {
+	public void changeLocale(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("language") String lang) {
 		logger.entry(lang);
-		
-		localeResolver.setLocale(request, response, StringUtils.parseLocaleString(lang)); 
-		return ; // definition in tilesFtl.xml
+
+		Cookie cookie = null;
+		if (request.getCookies() != null) {
+			for (Cookie c : request.getCookies()) {
+				if (c != null && c.getName().equals("language")) {
+					cookie = c;
+					break;
+				}
+			}
+		}
+
+		if (cookie == null) {
+			cookie = new Cookie("language", "en");
+		}
+		cookie.setValue(lang);
+		cookie.setMaxAge(1000 * 60 * 60 * 24); // 1day
+		response.addCookie(cookie);
+
+		// change locale
+		localeResolver.setLocale(request, response, StringUtils.parseLocaleString(lang));
+		return;
 	}
 
 }

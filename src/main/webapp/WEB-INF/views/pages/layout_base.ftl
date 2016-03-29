@@ -43,6 +43,8 @@
     <script src="/CoffeeShop/resources/bower_components/jquery/dist/jquery.min.js"></script>
    	<!-- Bootstrap Core JavaScript -->
     <script src="/CoffeeShop/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- common javascript -->
+    <script src="/CoffeeShop/resources/js/global/common.js"></script>
 </#macro>
 
 <!-- custom script-->

@@ -32,20 +32,39 @@
     <script src="/CoffeeShop/resources/js/sb-admin-2.js"></script>
     <!-- set responsive for table-->
 	<script> 
-		$(document).ready(function() {
-			table = $('.tbl-responsive').DataTable({
-				responsive : true,
-			});
+		// init table
+		var language = getLanguage();
+		var langUrl = "";
+		var table;
+		var table01;
+		var table02;
+		
+		if(language == 'ja'){
+		langUrl = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Japanese.json";
+		}else{
+			langUrl = "//cdn.datatables.net/plug-ins/1.10.11/i18n/English.json";
+		}
+		
+		var table = $('.tbl-responsive').DataTable({
+			responsive : true,
+			'language' : {
+				'url' : langUrl
+			}
 		});
-		$(document).ready(function() {
-			table01 = $('.tbl-responsive-nosearch-order').DataTable({
-				responsive : true,
-				searching : false
-			});
-			table02 = $('.tbl-responsive-nosearch-cup').DataTable({
-				responsive : true,
-				searching : false
-			});
+		var table01 = $('.tbl-responsive-nosearch-order').DataTable({
+			responsive : true,
+			searching : false,
+			'language' : {
+				'url' : langUrl
+			}
 		});
-	</script>
+		var table02 = $('.tbl-responsive-nosearch-cup').DataTable({
+			responsive : true,
+			searching : false,
+			"language" : {
+				"url" : langUrl
+			}
+		});
+	
+</script>
 </#macro>

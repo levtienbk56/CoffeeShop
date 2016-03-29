@@ -28,6 +28,7 @@
 	<script src='/CoffeeShop/resources/bower_components/moment/min/moment.min.js'></script>
 	<!-- calendar JavaScript -->
 	<script src='/CoffeeShop/resources/bower_components/fullcalendar/dist/fullcalendar.js'></script>
+	<script src='/CoffeeShop/resources/bower_components/fullcalendar/dist/lang-all.js'></script>
 	<!-- Metis Menu Plugin JavaScript -->
 	<script src="/CoffeeShop/resources/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 	<!-- Custom Theme JavaScript -->
