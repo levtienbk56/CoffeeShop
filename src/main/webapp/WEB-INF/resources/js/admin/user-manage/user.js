@@ -7,6 +7,7 @@ function User(username, password, enabled, role) {
 
 var confirmAction;
 var user;
+var language = getLanguage();
 
 // get value from table, insert into modal
 function editUser(element) {
@@ -62,7 +63,12 @@ $("#insert-user").click(function() {
 	}
 
 	user = new User(username, password, enabled, role);
-	showConfirmModal("Are you sure to insert user");
+	
+	if(language=="ja"){
+		showConfirmModal("ユーザーを追加しますか？");
+	}else{
+		showConfirmModal("Are you sure to insert user");
+	}
 	$("#modal-insert").modal('hide');
 });
 
@@ -93,7 +99,11 @@ $("#update-user").click(function() {
 
 	user = new User(username, password, enabled, role);
 	
-	showConfirmModal("Are you sure to update user?");
+	if(language == "ja"){
+		showConfirmModal("ユーザーを更新しますか?");
+	}else{
+		showConfirmModal("Are you sure to update user?");
+	}
 	$("#modal-edit").modal('hide');
 });
 

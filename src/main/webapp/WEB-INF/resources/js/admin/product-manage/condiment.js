@@ -7,6 +7,7 @@ function Condiment(id, name, price, enabled) {
 
 var condiment;
 var confirmAction;
+var language = getLanguage();
 
 // get value from table, insert into modal
 function editCondiment(element) {
@@ -99,7 +100,12 @@ $("#update-condiment")
 						return false;
 					}
 					condiment = new Condiment(id, name, price, enabled);
-					showConfirmModal("Are you sure to update condiment");
+					if(language=="ja"){
+						showConfirmModal("コンディメントを更新しますか？");
+					}else{
+						showConfirmModal("Are you sure to update condiment");
+					}
+					
 					$("#modal-edit").modal('hide');
 				});
 
@@ -138,7 +144,11 @@ $("#insert-condiment")
 						return false;
 					}
 					condiment = new Condiment('0', name, price, enabled);
-					showConfirmModal("Are you sure to insert condiment");
+					if(language=="ja"){
+						showConfirmModal("コンディメントを追加しますか？");
+					}else{
+						showConfirmModal("Are you sure to insert condiment");
+					}
 					$("#modal-insert").modal('hide');
 				});
 

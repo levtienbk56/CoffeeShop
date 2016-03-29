@@ -201,7 +201,11 @@ $("button#btn-update-event")
 					mEvent = new Event(id, title, start, end, color);
 					console.log(mEvent);
 
-					showConfirmModal("Are you sure to update event?");
+					if(language=="ja"){
+						showConfirmModal("イベントを更新しますか？");
+					}else{
+						showConfirmModal("Are you sure to update event?");
+					}
 					$("#modal-edit").modal('hide');
 				});
 
@@ -212,7 +216,11 @@ $("button#btn-remove-event").click(function() {
 	var id = $("input#id-edit").val();
 	mEvent = new Event(id, '', null, null, '');
 
-	showConfirmModal("Are you sure to delete event?");
+	if(language=="ja"){
+		showConfirmModal("イベントを削除しますか？");
+	}else{
+		showConfirmModal("Are you sure to delete event?");
+	}
 	$("#modal-edit").modal('hide');
 });
 
@@ -251,7 +259,11 @@ $("button#btn-insert-event")
 					mEvent = new Event(0, title, start, end, color);
 					console.log(mEvent);
 
-					showConfirmModal("Are you sure to insert event");
+					if(language=="ja"){
+						showConfirmModal("イベントを追加しますか？");
+					}else{
+						showConfirmModal("Are you sure to insert event?");
+					}
 					$("#modal-insert").modal('hide');
 				});
 

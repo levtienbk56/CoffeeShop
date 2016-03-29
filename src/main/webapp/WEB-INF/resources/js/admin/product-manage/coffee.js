@@ -7,6 +7,7 @@ function Coffee(id, name, price, enabled) {
 
 var confirmAction;
 var coffee;
+var language = getLanguage();
 
 // get value from table, insert into modal
 function editCoffee(element) {
@@ -100,7 +101,11 @@ $("#update-coffee")
 					}
 
 					coffee = new Coffee(id, name, price, enabled);
-					showConfirmModal("Are you sure to update coffee");
+					if(language=="ja"){
+						showConfirmModal("コーヒーを更新しますか？");
+					}else{
+						showConfirmModal("Are you sure to update coffee");
+					}
 					$("#modal-edit").modal('hide');
 				});
 
@@ -140,7 +145,11 @@ $("#insert-coffee")
 					}
 
 					coffee = new Coffee('0', name, price, enabled);
-					showConfirmModal("Are you sure to insert coffee");
+					if(language=="ja"){
+						showConfirmModal("コーヒーを追加しますか？");
+					}else{
+						showConfirmModal("Are you sure to insert coffee");
+					}
 					$("#modal-insert").modal('hide');
 				});
 
