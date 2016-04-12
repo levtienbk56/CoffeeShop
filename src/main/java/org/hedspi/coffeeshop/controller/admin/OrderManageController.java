@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +22,7 @@ import org.hedspi.coffeeshop.dao.OrderDAO;
 import org.hedspi.coffeeshop.model.Coffee;
 import org.hedspi.coffeeshop.model.Condiment;
 import org.hedspi.coffeeshop.model.Cup;
-import org.hedspi.coffeeshop.model.CupWrapper;
 import org.hedspi.coffeeshop.model.Order;
-import org.hedspi.coffeeshop.model.OrderWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,8 +101,12 @@ public class OrderManageController {
 				mday++;
 				String dateInString = year + "-" + month + "-" + mday;
 				java.util.Date date = (java.util.Date) formatter.parse(dateInString);
+
+				// any method of Date is deprecated. Use Calendar instead
+				Calendar ca = Calendar.getInstance();
+				ca.setTime(date);
 				// still in current month
-				if (date.getMonth() + 1 != Integer.parseInt(month)) {
+				if (ca.get(Calendar.MONTH) + 1 != Integer.parseInt(month)) {
 					break;
 				}
 
@@ -122,8 +125,6 @@ public class OrderManageController {
 
 		}
 
-		for (Map<String, Object> map : listReturn) {
-		}
 		return logger.exit(listReturn);
 	}
 
@@ -160,9 +161,11 @@ public class OrderManageController {
 			String dateInString = year + "-" + month + "-" + mdate;
 			try {
 				java.util.Date date = (java.util.Date) formatter.parse(dateInString);
+				Calendar ca = Calendar.getInstance();
+				ca.setTime(date);
 
 				// still in current month
-				if (date.getMonth() + 1 != Integer.parseInt(month)) {
+				if (ca.get(Calendar.MONTH) + 1 != Integer.parseInt(month)) {
 					break;
 				}
 				Map<String, Object> map = new HashMap<String, Object>();
