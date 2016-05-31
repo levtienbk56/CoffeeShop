@@ -1,47 +1,46 @@
 package org.hedspi.coffeeshop.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-public class Order {
-	private int id;
-	private String username;
-	private Timestamp purchaseTime;
+public class Order extends Item {
+	private User user;
+	private Date purchaseTime;
 	private Double total;
+	private List<Cup> cups;
 
 	public Order() {
-
+		cups = new ArrayList<>();
 	}
 
-	public Order(int id, String username, Timestamp timestamp, Double price) {
-		this.id = id;
-		this.username = username;
-		this.purchaseTime = timestamp;
-		this.total = price;
+	public Order(int id, User user, List<Cup> cups, Timestamp purchaseTime, Double total) {
+		super(id);
+		this.user = user;
+		this.cups = cups;
+		this.purchaseTime = purchaseTime;
+		this.total = total;
+	}
+	
+	
+
+	public Order(int id, String username, Date purchaseTime, Double total) {
+		super(id);
+		this.user = new User(username);
+		this.purchaseTime = purchaseTime;
+		this.total = total;
 	}
 
-	public Order(String username, Timestamp timestamp, Double price) {
-		this.username = username;
-		this.purchaseTime = timestamp;
-		this.total = price;
+	public User getUser() {
+		return user;
 	}
 
-	public int getId() {
-		return id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public Timestamp getPurchaseTime() {
+	public Date getPurchaseTime() {
 		return purchaseTime;
 	}
 
@@ -57,19 +56,18 @@ public class Order {
 		this.total = total;
 	}
 
-	@Override
-	public boolean equals(Object other) {
-		if (!(other instanceof Order)) {
-			return false;
-		}
-
-		Order that = (Order) other;
-		return (this.id == that.id) && this.username.equals(that.username)
-				&& this.purchaseTime.equals(that.purchaseTime) && (this.total == that.total);
+	public List<Cup> getCups() {
+		return cups;
 	}
 
-	public String toString() {
-		return "{" + id + "," + username + "," + purchaseTime + "," + total + "}";
+	public void setCups(List<Cup> cups) {
+		this.cups = cups;
+	}
+
+	public void addCup(Cup cup) {
+		if (cup != null) {
+			this.cups.add(cup);
+		}
 	}
 
 }

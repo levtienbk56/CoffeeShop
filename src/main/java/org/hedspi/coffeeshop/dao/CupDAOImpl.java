@@ -24,10 +24,9 @@ public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
 
 	}
 
-	public int insert(Cup cup) {
-		String sql = "INSERT INTO cups(orders_id,coffees_id,size,condiments,price) VALUES(?,?,?,?,?)";
-		Object[] params = new Object[] { cup.getOrderId(), cup.getCoffeeId(), cup.getSize(), cup.getCondiments(),
-				cup.getPrice() };
+	public int insert(int orderID, Cup cup) {
+		String sql = "INSERT INTO cups(orders_id, coffees_id, condiments, size, price) VALUES(?,?,?,?,?)";
+		Object[] params = new Object[] { orderID, cup.getCoffee().getId(), cup.getCondimentsID(), cup.getSize(), cup.getPrice()};
 		try {
 			return this.getJdbcTemplate().update(sql, params);
 		} catch (CannotGetJdbcConnectionException e) {

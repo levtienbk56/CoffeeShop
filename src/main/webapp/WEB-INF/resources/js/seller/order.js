@@ -1,17 +1,3 @@
-var rowCount = 0;
-var coffeeChosen = 0;
-var confirmAction;
-var language = getLanguage();
-
-var ORDER = {
-	totalPrice : 0
-}
-
-/*
- * object list Cup
- */
-var listCup = {};
-
 function Coffee(id, name, price) {
 	this.id = id;
 	this.name = name;
@@ -26,15 +12,21 @@ function Condiment(id, name, price) {
 
 function Cup(id) {
 	this.id = id;
-	this.coffee = new Coffee("0", "", 0);
-	this.cupSize = "NORMAL"; // or BIG
-	this.quantity = 1;
-	this.price = 0;
-	this.condiments = {};
+	this.coffee = new Coffee(0, "", 0);
+	this.size = "NORMAL"; // or BIG
+	this.price = 0.0;
+	this.condiments = [];
 }
 
+var listCup = {}; // request data
+var totalPrice = 0.0; // current price of order
+var rowCount = 0;
+var coffeeChosen = 0;
+var confirmAction;
+var language = getLanguage();
+
 /*
- * remove a cup when click button
+ * remove a cup when click remove button
  */
 function removeCupFunction(element) {
 	var str = element.parent('p').parent('td').parent('tr');
@@ -57,10 +49,11 @@ function removeCupFunction(element) {
 };
 
 /*
- * when click "Add a Cup" button create new empty row, as a cup
+ * when click "Add a Cup" button, create new empty row as a cup, then append to
+ * table
  */
 function addCupFunction() {
-	var cupID = 'cup' + (++rowCount);
+	var cupID = ++rowCount;
 	$("div#row_to_insert table tbody tr").attr("name", cupID);
 	var str = $("div#row_to_insert table tbody").html();
 
@@ -76,7 +69,7 @@ function addCupFunction() {
 }
 
 /*
- * when click a dropdown select coffee name name,id,price of selected coffee
+ * when click a dropdown, select coffee name. name,id,price of selected coffee
  * will show on above <text> then create Coffee object, save into current cup
  */
 function onSelectCoffeeNameFunction(element) {
@@ -116,10 +109,10 @@ function onSelectSizeFunction(element) {
 	console.log("size: " + size);
 	if (size == 'big') {
 		listCup[cupID].cupSize = "BIG";
-		console.log("size: " + listCup[cupID].cupSize);
+		console.log("size: " + listCup[cupID].size);
 	} else {
-		listCup[cupID].cupSize = "NORMAL";
-		console.log("size: " + listCup[cupID].cupSize);
+		listCup[cupID].size = "NORMAL";
+		console.log("size: " + listCup[cupID].size);
 	}
 
 	// update price
@@ -133,7 +126,7 @@ function onSelectCondimentFunction(element) {
 	// ID of current cup
 	var cupID = element.parent('td').parent('tr').attr('name');
 
-	var condiments = {};
+	var condiments = [];
 
 	$("tr[name=" + cupID + "] input[name=coffee-condiment]:checked").each(
 			function() {
@@ -145,7 +138,7 @@ function onSelectCondimentFunction(element) {
 				console.log('condiment: ' + "(" + id + "," + name + "," + price
 						+ ")");
 
-				condiments[id] = condiment;
+				condiments.push(condiment);
 			});
 
 	// update value in object
@@ -156,21 +149,6 @@ function onSelectCondimentFunction(element) {
 }
 
 /*
- * user update quantity
- */
-function onSelectQuantityFunction(element) {
-	var cupID = element.parent('td').parent('tr').attr("name");
-
-	// update value in object
-	var quantity = element.val();
-	console.log("quantity: " + quantity);
-	listCup[cupID].quantity = quantity;
-
-	// update price
-	updatePriceFunction(cupID);
-};
-
-/*
  * this function reload price when each action select
  */
 function updatePriceFunction(cupID) {
@@ -179,7 +157,7 @@ function updatePriceFunction(cupID) {
 
 	// get value from object
 	var coffee = listCup[cupID].coffee;
-	var size = listCup[cupID].cupSize;
+	var size = listCup[cupID].size;
 	var sizeInt = 1;
 	if (size == 'BIG')
 		sizeInt = 1.2;
@@ -187,19 +165,15 @@ function updatePriceFunction(cupID) {
 	// get condiment value
 	var condiments = listCup[cupID].condiments;
 	var condimentPrice = parseFloat(0.0);
-	for (key in condiments) {
-		condimentPrice += parseFloat(condiments[key].price);
+	for (var i = 0; i < condiments.length; i++) {
+		condimentPrice += parseFloat(condiments[i].price);
 	}
 	console.log('condimentPrice:' + condimentPrice);
 
-	var quantity = listCup[cupID].quantity;
-
-	cupPrice += (parseFloat(coffee.price) * parseFloat(sizeInt) + condimentPrice)
-			* parseFloat(quantity);
-	console.log('cupPrice ' + cupID + " :" + cupPrice);
-
-	// update price in Object
+	cupPrice += parseFloat(coffee.price) * parseFloat(sizeInt) + condimentPrice;
 	listCup[cupID].price = cupPrice;
+
+	console.log('cupPrice ' + cupID + " :" + cupPrice);
 
 	// update price on current row
 	$("tr[name=" + cupID + "] text[name=cup-price]").text(cupPrice.toFixed(2));
@@ -209,13 +183,11 @@ function updatePriceFunction(cupID) {
 }
 
 function updateTotalPriceFunction() {
-	var totalPrice = parseFloat(0);
+	totalPrice = parseFloat(0);
 	for (key in listCup) {
 		var p = listCup[key].price;
 		totalPrice += parseFloat(p);
-
 	}
-	ORDER['totalPrice'] = totalPrice;
 
 	// update on html page
 	$("td#total_price h3 strong").text(totalPrice.toFixed(2));
@@ -232,13 +204,12 @@ function updateRefundFunction() {
 	if (pay <= 0) {
 		return;
 	}
-	var total = parseFloat(ORDER.totalPrice);
 	var refund = parseFloat(0);
 
-	console.log("pay: " + pay + ", total: " + total);
+	console.log("pay: " + pay + ", total: " + totalPrice);
 
-	if (pay > total) {
-		refund = pay - total;
+	if (pay > totalPrice) {
+		refund = pay - totalPrice;
 	}
 	$("td#customer_refund h4 strong").text(refund.toFixed(2));
 }
@@ -261,13 +232,42 @@ function disableCheckoutButton(flag) {
 $("button#btn-new-order").click(function() {
 	confirmAction = 'new-order';
 	var msg;
-	if(language == 'ja'){
+	if (language == 'ja') {
 		msg = "当座オーダーを削除して、新しいオーダーを作ります。よろしいですか？";
-	}else{
+	} else if (language == 'en') {
 		msg = "Are you sure to create new order? Current cups'll be deleted.";
 	}
 	showConfirmModal(msg);
 });
+
+
+$("button#btn-test-ajax").click(function() {
+	var condiments = [];
+	var c1, c2, c3;
+	c1 = new Condiment(123, 'capu', 12.22);
+	c2 = new Condiment(111, 'capuzzzzz', 12.22);
+	condiments.push(c1);
+	condiments.push(c2);
+	
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "test",
+		data : JSON.stringify(condiments),
+		dataType : 'json',
+		timeout : 10000,
+		success : function() {
+			alert("test success!");
+		},
+		error : function(e) {
+			console.log("ERROR " + e);
+		},
+		done : function(e) {
+			console.log("DONE " + e);
+		}
+	});
+});
+
 /*
  * checkout button clicked. validate input & open confirm modal
  */
@@ -277,17 +277,17 @@ $("button#btn-checkout").click(function() {
 
 	// validate coffee selected?
 	if (!checkCoffeeSelected()) {
-		if(language == "ja"){
+		if (language == "ja") {
 			showAlertModal('コーヒー種類をご選択ください！');
-		}else{
+		} else {
 			showAlertModal('choose a coffee first');
 		}
 		return;
 	}
 
-	if(language == "ja"){
+	if (language == "ja") {
 		showConfirmModal("オーダーをチェックアウトしますか?");
-	}else{
+	} else if (language == "en") {
 		showConfirmModal("Are you sure to checkout order?");
 	}
 });
@@ -309,33 +309,32 @@ function requestCheckoutOrder() {
 	// disable checkout button
 	disableCheckoutButton(true);
 	getListCupLength();
-	
+	showListCup();
+
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
 		url : "order",
 		data : JSON.stringify(listCup),
 		dataType : 'json',
-		timeout : 100000,
+		timeout : 10000,
 		success : function(data) {
-			// alert("Order success! total=" + data.total);
+			//alert("Order success! total=" + data.total);
 			$('#revieworder-modal').modal('show');
 			for (key in listCup) {
 				var cup = listCup[key];
 				var coffeeName = cup.coffee.name;
-				var cupSize = cup.cupSize;
-				var quantity = cup.quantity;
+				var cupSize = cup.size;
 				var price = cup.price;
 				var condiments = cup.condiments;
 				var condimentStr = '';
-				for (k in condiments) {
+				for (var k = 0; k < condiments.lenght; k++) {
 					condimentStr += condiments[k].name + ', ';
 				}
 
 				var str = "<tr> <td>" + coffeeName
 						+ "</td> <td class='text-center'>" + cupSize
 						+ "</td><td>" + condimentStr
-						+ "</td><td class='text-center'>" + quantity
 						+ "</td><td class='text-center'>" + price
 						+ "</td></tr>";
 				// insert into order-table
@@ -353,6 +352,12 @@ function requestCheckoutOrder() {
 			console.log("DONE " + e);
 		}
 	});
+}
+
+function showListCup() {
+	for (key in listCup) {
+		console.log(listCup[key]);
+	}
 }
 
 function checkCoffeeSelected() {

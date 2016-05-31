@@ -2,8 +2,7 @@ package org.hedspi.coffeeshop.model;
 
 import java.sql.Timestamp;
 
-public class Event {
-	private int id;
+public class Event extends Item {
 	private String title;
 	private Timestamp start;
 	private Timestamp end;
@@ -14,20 +13,11 @@ public class Event {
 	}
 
 	public Event(int id, String title, Timestamp start, Timestamp end, String color) {
-		super();
-		this.id = id;
+		super(id);
 		this.title = title;
 		this.start = start;
 		this.end = end;
 		this.color = color;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTitle() {

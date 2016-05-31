@@ -1,48 +1,32 @@
 package org.hedspi.coffeeshop.model;
 
-public class Cup {
-	private int id;
-	private int coffeeId;
-	private int orderId;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Cup extends Item {
+	private Coffee coffee;
+
+	// TODO: fix enum
 	private String size = "NORMAL"; // NORMAL(default), BIG
-	private String condiments;
-	private double price;
+	private List<Condiment> condiments = new ArrayList<Condiment>();
 
 	public Cup() {
 
 	}
 
-	public Cup(int id, int coffeeId, int orderId, String size, String condiments, double price) {
+	public Cup(int id, Coffee coffee, String size, List<Condiment> condiments) {
 		this.id = id;
-		this.coffeeId = coffeeId;
-		this.orderId = orderId;
+		this.coffee = coffee;
 		this.size = size;
 		this.condiments = condiments;
-		this.price = price;
 	}
 
-	public int getId() {
-		return id;
+	public Coffee getCoffee() {
+		return coffee;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getCoffeeId() {
-		return coffeeId;
-	}
-
-	public void setCoffeeId(int coffeeId) {
-		this.coffeeId = coffeeId;
-	}
-
-	public int getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setCoffee(Coffee coffee) {
+		this.coffee = coffee;
 	}
 
 	public String getSize() {
@@ -53,34 +37,34 @@ public class Cup {
 		this.size = size;
 	}
 
-	public String getCondiments() {
+	public List<Condiment> getCondiments() {
 		return condiments;
 	}
 
-	public void setCondiments(String condiments) {
+	public void setCondiments(List<Condiment> condiments) {
 		this.condiments = condiments;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if (!(other instanceof Cup)) {
-			return false;
+	public void addCondiment(Condiment condiment) {
+		if (condiment != null) {
+			this.condiments.add(condiment);
 		}
-
-		Cup that = (Cup) other;
-		return (this.id == that.id) && (this.coffeeId == that.coffeeId) && (this.orderId == that.orderId)
-				&& this.size.equals(that.size) && this.condiments.equals(that.coffeeId) && (this.price == that.price);
 	}
 
-	public String toString() {
-		return "{" + id + "," + coffeeId + "," + orderId + "," + size + "," + condiments + "," + price + "}";
+	public String getCondimentsID() {
+		String str = "";
+		for (Condiment c : condiments) {
+			str = str + c.getId() + " ";
+		}
+		return str.trim();
+	}
+
+	public double getPrice() {
+		double price = 0.0;
+		price += coffee.getPrice();
+		for (Condiment c : condiments) {
+			price += c.getPrice();
+		}
+		return price;
 	}
 }

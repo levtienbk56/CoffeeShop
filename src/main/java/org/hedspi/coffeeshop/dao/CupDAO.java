@@ -6,7 +6,7 @@ import java.util.Map;
 import org.hedspi.coffeeshop.model.Cup;
 
 public interface CupDAO {
-	int insert(Cup cup);
+	int insert(int orderID, Cup cup);
 
 	List<Map<String, Object>> selectCoffeeCorrelate();
 

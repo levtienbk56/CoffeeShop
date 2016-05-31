@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -226,6 +225,7 @@ public class OrderManageController {
 		List<Coffee> coffees = coffeedao.selectAll();
 		List<Condiment> condiments = condimentdao.selectAll();
 
+		/*
 		for (Cup cup : cups) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			// get coffeeName
@@ -265,6 +265,7 @@ public class OrderManageController {
 			map.put("price", price);
 			list.add(map);
 		}
+		*/
 
 		return logger.exit(list);
 	}

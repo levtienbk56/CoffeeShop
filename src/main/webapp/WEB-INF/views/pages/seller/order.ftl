@@ -22,7 +22,7 @@
 				<div>
 					<button type="button" class="btn btn-primary" id="btn-new-order">
 						 <span class="glyphicon glyphicon-plus"></span> <@spring.message "label.newOrder"/>
-					</button>			
+					</button>		
 				</div>
 				<table id="table_order" class="table table-hover">
 					<thead>
@@ -30,7 +30,6 @@
 							<th class="col-sm-3 col-lg-3 text-center"><@spring.message "label.cfName"/></th>
 							<th class="col-sm-1 col-lg-2"><@spring.message "label.cfSize"/></th>
 							<th class="col-sm-2 col-lg-2"><@spring.message "label.cfCondiment"/></th>
-							<th class="col-sm-2 col-lg-1 text-center"><@spring.message "label.cfQuantity"/></th>
 							<th class="col-sm-1 col-lg-1"></th>
 							<th class="col-sm-1 col-lg-1"><@spring.message "label.cfPrice"/></th>
 							<th class="col-sm-2 col-lg-2 text-right"></th>
@@ -38,31 +37,31 @@
 					</thead>
 					<tbody>					
 	                    <tr id="add_new">
-	    					<td colspan="7" align='center'>
+	    					<td colspan="6" align='center'>
 	                            <button type="button" style="background-color:#fff;" onClick="addCupFunction()">
-	    							<img src="http://www2.psd100.com/ppp/2013/12/1301/Add-the-green-button-1214031005.png_s.jpg" width="40" height="40" /> <@spring.message "label.addCup"/>
+	    							<img src="resources/img/plus-icon.png" width="40" height="40" /> <@spring.message "label.addCup"/>
 								</button>
 							</td>
 						</tr>
 	
 						<tr >
-							<td colspan="5" align="right"><h3><strong><@spring.message "label.total"/><strong></h3></td>
+							<td colspan="4" align="right"><h3><strong><@spring.message "label.total"/><strong></h3></td>
 							<td id="total_price" colspan="2" align="left"><h3>
 									<strong>0</strong>
 								</h3></td>
 						</tr>
 						<tr>
-							<td colspan="5" align="right"><h4><@spring.message "label.customerPay"/></h4></td>
+							<td colspan="4" align="right"><h4><@spring.message "label.customerPay"/></h4></td>
 							<td id="customer_pay" colspan="2" align="left">
 								<input type="number" class="form-control" min="0" step="0.01" onKeyUp="updateRefundFunction()">
 							</td>
 						</tr>
 						<tr>
-							<td colspan="5" align="right"><h4><@spring.message "label.refund"/></h4></td>
+							<td colspan="4" align="right"><h4><@spring.message "label.refund"/></h4></td>
 							<td id="customer_refund" colspan="2" align="left"><h4><strong>0</strong></h4></td>
 						</tr>
 						<tr>
-							<td colspan="7" align="right">
+							<td colspan="4" align="right">
 								<button id="btn-checkout" type="button" class="btn btn-success btn-lg" disabled="true">
 									<@spring.message "label.checkout"/> <span class="glyphicon glyphicon-play"></span>
 								</button>
@@ -73,7 +72,7 @@
 			</div>
 		</div>
 	</div>
-	
+	<!-- modal row as a cup -->
 	<div id="row_to_insert" style="visibility: hidden;">
 		<table>
 			<tbody>
@@ -111,9 +110,6 @@
 							   	
 						 </#list>
 					</td>
-					<td>
-						<input type="number" name="coffee-quantity"  class="form-control" min="1" value="1" onClick="onSelectQuantityFunction($(this))">
-					</td>
 					<td></td>
 					<td>
 						<text name="cup-price">0</text>
@@ -129,7 +125,6 @@
 			</tbody>
 		</table>
 	</div>
-	
 	<!-- modal review order -->
 	<div class="modal fade" id="revieworder-modal" role="dialog">
 		 <div class="modal-dialog">
@@ -169,6 +164,7 @@
 			  </div>
 		 </div>
 	</div> 
+
 </#macro>
 
 <#macro page_footer>
