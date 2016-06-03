@@ -151,7 +151,9 @@
 	      </div><!-- /.modal-content -->
 	    </div><!-- /.modal-dialog -->
 	  </div><!-- /.modal -->
+		
 	
+	<script src="/CoffeeShop/resources/js/model/condimentModel.js"></script>	
 	<script src="/CoffeeShop/resources/js/admin/product-manage/condiment.js"></script>
 </#macro>
 

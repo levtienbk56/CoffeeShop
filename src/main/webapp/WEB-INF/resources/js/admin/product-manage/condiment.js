@@ -1,10 +1,3 @@
-function Condiment(id, name, price, enabled) {
-	this.id = id;
-	this.name = name;
-	this.price = price;
-	this.enabled = enabled;
-}
-
 var condiment;
 var confirmAction;
 var language = getLanguage();
@@ -163,6 +156,9 @@ $("#confirm-modal .btn-success").click(function() {
 
 // request update to server
 function requestUpdateCondiment() {
+	// unable button
+	$("#update-condiment").prop('disabled', true);
+	
 	// show modal
 	$("#modal-edit").modal('show');
 
@@ -204,6 +200,9 @@ function requestUpdateCondiment() {
 
 // request Insert to server
 function requestInsertCondiment(condiment) {
+	// unable button
+	$("#insert-condiment").prop('disabled', true);
+	
 	// show modal
 	$("#modal-insert").modal('show');
 

@@ -73,9 +73,6 @@
 	                                    <th class="col-md-1 text-center"><@spring.message "label.orderTotal"/></th>
 	                                </tr>
 	                            </thead>
-	                            <tbody>
-				                  	
-	                            </tbody>
 	                        </table>
 	                    </div>
 	                    <!-- /.table-responsive -->
@@ -105,9 +102,6 @@
 	                                    <th class="col-md-1 text-center"><@spring.message "label.cfPrice"/></th>
 	                                </tr>
 	                            </thead>
-	                            <tbody>
-				                  	
-	                            </tbody>
 	                        </table>
 	                    </div>
 	                    <!-- /.table-responsive -->

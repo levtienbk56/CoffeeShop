@@ -162,6 +162,7 @@
 	    </div><!-- /.modal-dialog -->
 	  </div><!-- /.modal -->
 	
+	<script src="/CoffeeShop/resources/js/model/userModel.js"></script>
 	<script src="/CoffeeShop/resources/js/admin/user-manage/user.js"></script>
 </#macro>
 

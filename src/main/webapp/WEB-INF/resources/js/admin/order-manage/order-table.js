@@ -77,47 +77,60 @@ function editOrder(element) {
 	return;
 }
 
-// click on order, get list cups
-$('#order-tbl tbody').on(
-		'click',
-		'tr',
-		function() {
-			if ($(this).hasClass('selected')) {
-				$(this).removeClass('selected');
-			} else {
-				table01.$('tr.selected').removeClass('selected');
-				$(this).addClass('selected');
-			}
+$(document)
+		.ready(
+				function() {
+					// click on order, get list cups
+					$('#order-tbl tbody')
+							.on(
+									'click',
+									'tr',
+									function() {
+										if ($(this).hasClass('selected')) {
+											$(this).removeClass('selected');
+										} else {
+											table01.$('tr.selected')
+													.removeClass('selected');
+											$(this).addClass('selected');
+										}
 
-			var data = table01.row(this).data();
-			var orderID = data[0]; // at first row
-			$.ajax({
-				type : "POST",
-				url : "cups",
-				data : {
-					orderId : orderID
-				},
-				timeout : 100000,
-				success : function(data) {
-					// clear cups table
-					table02.clear().draw();
-					if (data != null) {
-						for (i = 0; i < data.length; i++) {
-							table02.row
-									.add(
-											[ data[i].coffeeName, data[i].size,
-													data[i].condimentsName,
-													data[i].price ]).draw();
+										var data = table01.row(this).data();
+										var orderID = data[0]; // at first row
+										$
+												.ajax({
+													type : "POST",
+													url : "cups",
+													data : {
+														orderId : orderID
+													},
+													timeout : 100000,
+													success : function(data) {
+														// clear cups table
+														table02.clear().draw();
+														if (data != null) {
+															for (i = 0; i < data.length; i++) {
+																table02.row
+																		.add(
+																				[
+																						data[i].coffeeName,
+																						data[i].size,
+																						data[i].condimentsName,
+																						data[i].price ])
+																		.draw();
 
-						}
+															}
 
-					}
-				},
-				error : function(e) {
-					console.log("ERROR " + e);
-				},
-				done : function(e) {
-					console.log("DONE " + e);
-				}
-			});
-		});
+														}
+													},
+													error : function(e) {
+														console.log("ERROR "
+																+ e);
+													},
+													done : function(e) {
+														console
+																.log("DONE "
+																		+ e);
+													}
+												});
+									});
+				});

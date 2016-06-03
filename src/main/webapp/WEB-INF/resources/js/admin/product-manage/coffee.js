@@ -1,10 +1,3 @@
-function Coffee(id, name, price, enabled) {
-	this.id = id;
-	this.name = name;
-	this.price = price;
-	this.enabled = enabled;
-}
-
 var confirmAction;
 var coffee;
 var language = getLanguage();
@@ -61,12 +54,12 @@ function removeCoffee(arg) {
 	}
 }
 
-//get new user info and validate before request to server
+// get new user info and validate before request to server
 $("#update-coffee")
 		.click(
 				function() {
 					confirmAction = 'update-coffee';
-					
+
 					// clear notice in modal
 					$(".modal-notice").removeClass(
 							"alert alert-warning alert-success");
@@ -101,20 +94,20 @@ $("#update-coffee")
 					}
 
 					coffee = new Coffee(id, name, price, enabled);
-					if(language=="ja"){
+					if (language == "ja") {
 						showConfirmModal("コーヒーを更新しますか？");
-					}else{
+					} else if(language == "en"){
 						showConfirmModal("Are you sure to update coffee");
 					}
 					$("#modal-edit").modal('hide');
 				});
 
-//get new user info and validate before request to server
+// get new user info and validate before request to server
 $("#insert-coffee")
 		.click(
 				function() {
 					confirmAction = 'insert-coffee';
-					
+
 					// clear notice
 					$(".modal-notice").removeClass(
 							"alert alert-warning alert-success");
@@ -145,9 +138,9 @@ $("#insert-coffee")
 					}
 
 					coffee = new Coffee('0', name, price, enabled);
-					if(language=="ja"){
+					if (language == "ja") {
 						showConfirmModal("コーヒーを追加しますか？");
-					}else{
+					} else if (language == "en") {
 						showConfirmModal("Are you sure to insert coffee");
 					}
 					$("#modal-insert").modal('hide');
@@ -164,9 +157,12 @@ $("#confirm-modal .btn-success").click(function() {
 
 // request update coffee
 function requestUpdateCoffee(coffee) {
+	// unable button
+	$("#update-coffee").prop('disabled', true);
+	
 	// show modal
 	$("#modal-edit").modal('show');
-	
+
 	// clear notice in modal
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
@@ -179,9 +175,6 @@ function requestUpdateCoffee(coffee) {
 		dataType : 'json',
 		timeout : 100000,
 		success : function(data) {
-			// unable button
-			$("#update-coffee").prop('disabled', true);
-
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
 				$(".modal-notice").text(data.message);
@@ -206,9 +199,12 @@ function requestUpdateCoffee(coffee) {
 
 // request insert coffee
 function requestInsertCoffee(coffee) {
+	// unable button
+	$("#insert-coffee").prop('disabled', true);
+	
 	// show modal
 	$("#modal-insert").modal('show');
-	
+
 	// clear notice
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
@@ -221,9 +217,6 @@ function requestInsertCoffee(coffee) {
 		dataType : 'json',
 		timeout : 100000,
 		success : function(data) {
-			// unable button
-			$("#insert-coffee").prop('disabled', true);
-
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
 				$(".modal-notice").text(data.message);

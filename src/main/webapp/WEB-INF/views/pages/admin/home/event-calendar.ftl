@@ -226,6 +226,7 @@
 	<!-- /.modal fade-->
 	
 	<!-- Custom page JavaScript -->
+	<script src="/CoffeeShop/resources/js/model/eventModel.js"></script>
 	<script src="/CoffeeShop/resources/js/admin/home/event_calendar.js"></script>
 </#macro>
 

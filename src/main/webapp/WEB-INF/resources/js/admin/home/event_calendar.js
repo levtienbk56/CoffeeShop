@@ -1,11 +1,3 @@
-function Event(id, title, start, end, color) {
-	this.id = id;
-	this.title = title;
-	this.start = start;
-	this.end = end;
-	this.color = color;
-}
-
 var eventSource = {};
 var confirmAction;
 var mEvent;
@@ -280,8 +272,12 @@ $("#confirm-modal .btn-success").click(function() {
 
 // send request: Add new Event
 function requestInsertEvent(event) {
+	// unable button
+	$("#btn-insert-event").prop('disabled', true);
+	
 	// show modal again
 	$("#modal-insert").modal('show');
+	
 	// clear notice
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
@@ -317,8 +313,14 @@ function requestInsertEvent(event) {
 
 // send request: update EVENT
 function requestUpdateEvent(event) {
+	// unable button
+	$("#btn-update-event").prop('disabled', true);
+	// unable button
+	$("#btn-remove-event").prop('disabled', true);
+	
 	// show modal again
 	$("#modal-edit").modal('show');
+	
 	// clear notice
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
@@ -354,6 +356,11 @@ function requestUpdateEvent(event) {
 
 // send request: remove EVENT
 function requestRemoveEvent(event) {
+	// unable button
+	$("#btn-remove-event").prop('disabled', true);
+	// unable button
+	$("#btn-update-event").prop('disabled', true);
+	
 	// show modal again
 	$("#modal-edit").modal('show');
 	// clear notice

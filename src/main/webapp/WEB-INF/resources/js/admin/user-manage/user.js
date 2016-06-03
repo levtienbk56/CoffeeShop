@@ -1,10 +1,3 @@
-function User(username, password, enabled, role) {
-	this.username = username;
-	this.password = password;
-	this.enabled = enabled;
-	this.role = role;
-}
-
 var confirmAction;
 var user;
 var language = getLanguage();
@@ -118,6 +111,9 @@ $("#confirm-modal .btn-success").click(function() {
 
 // send ajax request to INSERT user
 function requestInsertUser(user) {
+	// unable button
+	$("#insert-user").prop('disabled', true);
+
 	// show modal again
 	$("#modal-insert").modal('show');
 	// clear notice
@@ -156,6 +152,9 @@ function requestInsertUser(user) {
 
 // send request ajax to UPDATE user
 function requestUpdateUser(user) {
+	// unable button
+	$("#update-user").prop('disabled', true);
+	
 	// show modal again
 	$("#modal-edit").modal('show');
 	// clear notice
