@@ -9,6 +9,8 @@
 </#macro>
 	
 <#macro script_custom>
+	<script type="text/javascript" src="/CoffeeShop/resources/js/model/coffeeModel.js" ></script>
+	<script type="text/javascript" src="/CoffeeShop/resources/js/model/condimentModel.js" ></script>
 	<script type="text/javascript" src="/CoffeeShop/resources/js/seller/order.js" ></script>
 </#macro>
 <#macro page_header>
@@ -137,22 +139,21 @@
 				
 				   <div class="modal-body">
 				   		<table id="table-revieworder" class="table table-hover">
-							<thead>
+							<thead style="background-color: blue; color:white;">
 								<tr>
 									<th class="col-sm-3"><@spring.message "label.cfName"/></th>
 									<th class="text-center col-sm-1"><@spring.message "label.cfSize"/></th>
 									<th class=" col-sm-3"><@spring.message "label.cfCondiment"/></th>
-									<th class="text-center col-sm-1"><@spring.message "label.cfQuantity"/></th>
 									<th class="text-center col-sm-2"><@spring.message "label.cfPrice"/></th>
 								</tr>
 							</thead>
 							<tbody>			
 			                    <tr  id='revieworder-total'>
-									<td colspan="4" align="right"><h4><strong><@spring.message "label.total"/><strong></h4></td>
-									<td class="text-left">
-										<h4>
+									<td colspan="3" align="right"><h3><strong><@spring.message "label.total"/><strong></h3></td>
+									<td class="text-center">
+										<h3>
 											<strong class="price">0</strong>
-										</h4>
+										</h3>
 									</td>
 								</tr>
 							</tbody>

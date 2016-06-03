@@ -62,7 +62,7 @@ public class Cup extends Item {
 	public double getPrice() {
 		double price = 0.0;
 		price += coffee.getPrice();
-		if (size.equals("BIG")) {
+		if (size.toUpperCase().equals("BIG")) {
 			price *= 1.2;
 		}
 		for (Condiment c : condiments) {

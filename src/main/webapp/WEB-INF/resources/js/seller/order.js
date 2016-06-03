@@ -1,15 +1,3 @@
-function Coffee(id, name, price) {
-	this.id = id;
-	this.name = name;
-	this.price = price;
-}
-
-function Condiment(id, name, price) {
-	this.id = id;
-	this.name = name;
-	this.price = price;
-}
-
 function Cup(id) {
 	this.id = id;
 	this.coffee = new Coffee(0, "", 0);
@@ -107,12 +95,10 @@ function onSelectSizeFunction(element) {
 	var size = $("tr[name=" + cupID + "] input[name=coffee-size]:checked")
 			.val();
 	console.log("size: " + size);
-	if (size == 'big') {
-		listCup[cupID].cupSize = "BIG";
-		console.log("size: " + listCup[cupID].size);
+	if (size != undefined && size.toUpperCase() == 'BIG') {
+		listCup[cupID].size = "BIG";
 	} else {
 		listCup[cupID].size = "NORMAL";
-		console.log("size: " + listCup[cupID].size);
 	}
 
 	// update price
@@ -153,27 +139,24 @@ function onSelectCondimentFunction(element) {
  */
 function updatePriceFunction(cupID) {
 	var key;
-	var cupPrice = parseFloat(0.0);
 
 	// get value from object
 	var coffee = listCup[cupID].coffee;
+	var cupPrice = parseFloat(coffee.price);
 	var size = listCup[cupID].size;
-	var sizeInt = 1;
-	if (size == 'BIG')
-		sizeInt = 1.2;
+	if (size.toUpperCase() == 'BIG') {
+		cupPrice *= 1.2;
+	}
 
 	// get condiment value
 	var condiments = listCup[cupID].condiments;
-	var condimentPrice = parseFloat(0.0);
 	for (var i = 0; i < condiments.length; i++) {
-		condimentPrice += parseFloat(condiments[i].price);
+		cupPrice += parseFloat(condiments[i].price);
 	}
-	console.log('condimentPrice:' + condimentPrice);
 
-	cupPrice += parseFloat(coffee.price) * parseFloat(sizeInt) + condimentPrice;
 	listCup[cupID].price = cupPrice;
 
-	console.log('cupPrice ' + cupID + " :" + cupPrice);
+	console.log('size:' + size + ', cupPrice ' + cupID + " :" + cupPrice);
 
 	// update price on current row
 	$("tr[name=" + cupID + "] text[name=cup-price]").text(cupPrice.toFixed(2));
@@ -240,7 +223,6 @@ $("button#btn-new-order").click(function() {
 	showConfirmModal(msg);
 });
 
-
 $("button#btn-test-ajax").click(function() {
 	var condiments = [];
 	var c1, c2, c3;
@@ -248,7 +230,7 @@ $("button#btn-test-ajax").click(function() {
 	c2 = new Condiment(111, 'capuzzzzz', 12.22);
 	condiments.push(c1);
 	condiments.push(c2);
-	
+
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
@@ -319,27 +301,31 @@ function requestCheckoutOrder() {
 		dataType : 'json',
 		timeout : 10000,
 		success : function(data) {
-			//alert("Order success! total=" + data.total);
+			// alert("Order success! total=" + data.total);
 			$('#revieworder-modal').modal('show');
-			for (key in listCup) {
-				var cup = listCup[key];
+			// data as order object
+			for (var i = 0; i < data.cups.length; i++) {
+				var cup = data.cups[i];
+
 				var coffeeName = cup.coffee.name;
-				var cupSize = cup.size;
-				var price = cup.price;
+				var price = parseFloat(cup.coffee.price);
+				if (cup.size.toUpperCase() == "BIG")
+					price *= 1.2;
+
 				var condiments = cup.condiments;
 				var condimentStr = '';
-				for (var k = 0; k < condiments.lenght; k++) {
+				for (var k = 0; k < condiments.length; k++) {
 					condimentStr += condiments[k].name + ', ';
+					price += condiments[k].price;
 				}
 
 				var str = "<tr> <td>" + coffeeName
-						+ "</td> <td class='text-center'>" + cupSize
+						+ "</td> <td class='text-center'>" + cup.size
 						+ "</td><td>" + condimentStr
 						+ "</td><td class='text-center'>" + price
 						+ "</td></tr>";
 				// insert into order-table
 				$('#table-revieworder tr#revieworder-total').before(str);
-
 			}
 			$("#revieworder-modal tr#revieworder-total strong.price").text(
 					data.total);

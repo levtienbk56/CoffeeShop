@@ -60,7 +60,7 @@ public class OrderService {
 				}
 
 				// check size
-				if (!cup.getSize().equals("BIG") && !cup.getSize().equals("NORMAL")) {
+				if (!cup.getSize().toUpperCase().equals("BIG") && !cup.getSize().toUpperCase().equals("NORMAL")) {
 					logger.error("order request fail", cup.getSize());
 					continue;
 				}
