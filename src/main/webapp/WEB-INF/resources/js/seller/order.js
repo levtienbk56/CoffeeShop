@@ -1,11 +1,3 @@
-function Cup(id) {
-	this.id = id;
-	this.coffee = new Coffee(0, "", 0);
-	this.size = "NORMAL"; // or BIG
-	this.price = 0.0;
-	this.condiments = [];
-}
-
 var listCup = {}; // request data
 var totalPrice = 0.0; // current price of order
 var rowCount = 0;
@@ -138,29 +130,9 @@ function onSelectCondimentFunction(element) {
  * this function reload price when each action select
  */
 function updatePriceFunction(cupID) {
-	var key;
-
-	// get value from object
-	var coffee = listCup[cupID].coffee;
-	var cupPrice = parseFloat(coffee.price);
-	var size = listCup[cupID].size;
-	if (size.toUpperCase() == 'BIG') {
-		cupPrice *= 1.2;
-	}
-
-	// get condiment value
-	var condiments = listCup[cupID].condiments;
-	for (var i = 0; i < condiments.length; i++) {
-		cupPrice += parseFloat(condiments[i].price);
-	}
-
-	listCup[cupID].price = cupPrice;
-
-	console.log('size:' + size + ', cupPrice ' + cupID + " :" + cupPrice);
-
 	// update price on current row
-	$("tr[name=" + cupID + "] text[name=cup-price]").text(cupPrice.toFixed(2));
-
+	$("tr[name=" + cupID + "] text[name=cup-price]").text(listCup[cupID].getPrice());
+	console.log("update cup "+cupID +", Price: " + listCup[cupID].getPrice());
 	// update total price
 	updateTotalPriceFunction();
 }
@@ -168,8 +140,7 @@ function updatePriceFunction(cupID) {
 function updateTotalPriceFunction() {
 	totalPrice = parseFloat(0);
 	for (key in listCup) {
-		var p = listCup[key].price;
-		totalPrice += parseFloat(p);
+		totalPrice += parseFloat(listCup[key].getPrice());
 	}
 
 	// update on html page
@@ -221,33 +192,6 @@ $("button#btn-new-order").click(function() {
 		msg = "Are you sure to create new order? Current cups'll be deleted.";
 	}
 	showConfirmModal(msg);
-});
-
-$("button#btn-test-ajax").click(function() {
-	var condiments = [];
-	var c1, c2, c3;
-	c1 = new Condiment(123, 'capu', 12.22);
-	c2 = new Condiment(111, 'capuzzzzz', 12.22);
-	condiments.push(c1);
-	condiments.push(c2);
-
-	$.ajax({
-		type : "POST",
-		contentType : "application/json",
-		url : "test",
-		data : JSON.stringify(condiments),
-		dataType : 'json',
-		timeout : 10000,
-		success : function() {
-			alert("test success!");
-		},
-		error : function(e) {
-			console.log("ERROR " + e);
-		},
-		done : function(e) {
-			console.log("DONE " + e);
-		}
-	});
 });
 
 /*
@@ -320,7 +264,7 @@ function requestCheckoutOrder() {
 				}
 
 				var str = "<tr> <td>" + coffeeName
-						+ "</td> <td class='text-center'>" + cup.size
+						+ "</td> <td>" + cup.size
 						+ "</td><td>" + condimentStr
 						+ "</td><td class='text-center'>" + price
 						+ "</td></tr>";

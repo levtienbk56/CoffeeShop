@@ -11,6 +11,7 @@
 <#macro script_custom>
 	<script type="text/javascript" src="/CoffeeShop/resources/js/model/coffeeModel.js" ></script>
 	<script type="text/javascript" src="/CoffeeShop/resources/js/model/condimentModel.js" ></script>
+	<script type="text/javascript" src="/CoffeeShop/resources/js/model/cupModel.js" ></script>
 	<script type="text/javascript" src="/CoffeeShop/resources/js/seller/order.js" ></script>
 </#macro>
 <#macro page_header>
@@ -141,10 +142,10 @@
 				   		<table id="table-revieworder" class="table table-hover">
 							<thead style="background-color: blue; color:white;">
 								<tr>
-									<th class="col-sm-3"><@spring.message "label.cfName"/></th>
-									<th class="text-center col-sm-1"><@spring.message "label.cfSize"/></th>
-									<th class=" col-sm-3"><@spring.message "label.cfCondiment"/></th>
-									<th class="text-center col-sm-2"><@spring.message "label.cfPrice"/></th>
+									<th class="col-lg-2"><@spring.message "label.cfName"/></th>
+									<th class="col-lg-1"><@spring.message "label.cfSize"/></th>
+									<th class=" col-lg-4"><@spring.message "label.cfCondiment"/></th>
+									<th class="text-center col-lg-2"><@spring.message "label.cfPrice"/></th>
 								</tr>
 							</thead>
 							<tbody>			
