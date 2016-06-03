@@ -40,7 +40,7 @@
 											<td class="text-center td-id">${condiment.id}</td>
 		                                    <td class="text-center td-name">${condiment.name}</td>
 		                                    <td class="text-center td-price">${condiment.price}</td>
-		                                    <td class="text-center td-enabled <#if condiment.enabled?c = 'true'>info<#else>danger</#if>">${condiment.enabled?c}</td>
+		                                    <td class="text-center td-enabled <#if condiment.available?c = 'true'>info<#else>danger</#if>">${condiment.available?c}</td>
 		                                    <td class="text-center" style="padding:4px;">
 										        <button value="${condiment.id}" href="#modal-edit"  data-toggle="modal" class="btn btn-sm btn-default" onClick="editCondiment($(this))"  style="margin-right:10px; min-width:90px;">
 										        	<i class="fa fa-pencil"></i> <@spring.message "label.global.edit"/>

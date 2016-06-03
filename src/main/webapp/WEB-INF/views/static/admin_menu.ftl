@@ -21,10 +21,10 @@
                     <a href="#"><i class="fa fa-cubes fa-fw"></i> <@spring.message "menu.item"/><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/CoffeeShop/admin/items/coffees"><i class="fa fa-coffee fa-fw"></i> <@spring.message "menu.itemCf"/></a>
+                            <a href="/CoffeeShop/admin/product/coffees"><i class="fa fa-coffee fa-fw"></i> <@spring.message "menu.itemCf"/></a>
                         </li>
                         <li>
-                            <a href="/CoffeeShop/admin/items/condiments"><i class="fa fa-glass fa-fw"></i> <@spring.message "menu.itemCd"/></a>
+                            <a href="/CoffeeShop/admin/product/condiments"><i class="fa fa-glass fa-fw"></i> <@spring.message "menu.itemCd"/></a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

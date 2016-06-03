@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+	private static final Logger logger = LogManager.getLogger(CustomSuccessHandler.class);
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -24,7 +27,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		String targetUrl = determineTargetUrl(authentication);
 
 		if (response.isCommitted()) {
-			System.out.println("Can't redirect");
+			logger.error("Can't redirect");
 			return;
 		}
 

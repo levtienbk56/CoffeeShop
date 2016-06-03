@@ -22,7 +22,7 @@ $(function() {
 				var to = new Date($("#datetimepicker7").data("DateTimePicker")
 						.date()).getTime();
 				console.log('from:' + from + ', to:' + to);
-				if(from == "" || from == null || to =="" ||to ==null){
+				if (from == "" || from == null || to == "" || to == null) {
 					alert("Input Empty!");
 					return;
 				}
@@ -42,7 +42,7 @@ $(function() {
 								table01.row.add(
 										[
 												data[i].id,
-												data[i].username,
+												data[i].user.username,
 												moment(data[i].purchaseTime)
 														.format('LL'),
 												data[i].total ]).draw();
@@ -50,7 +50,7 @@ $(function() {
 								// show out
 								console.log(data[i].id
 										+ " "
-										+ data[i].username
+										+ data[i].user.username
 										+ " "
 										+ moment(data[i].purchaseTime).format(
 												'LL') + " " + data[i].total);
@@ -106,7 +106,7 @@ $('#order-tbl tbody').on(
 							table02.row
 									.add(
 											[ data[i].coffeeName, data[i].size,
-													data[i].condiments,
+													data[i].condimentsName,
 													data[i].price ]).draw();
 
 						}

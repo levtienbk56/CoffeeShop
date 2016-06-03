@@ -38,7 +38,6 @@ $(document)
 															"New Password is not match");
 											return false;
 										} else {
-											// TODO: request ajax update
 											// password
 											$
 													.ajax({
