@@ -64,7 +64,7 @@
 							<td id="customer_refund" colspan="2" align="left"><h4><strong>0</strong></h4></td>
 						</tr>
 						<tr>
-							<td colspan="4" align="right">
+							<td colspan="6" align="right">
 								<button id="btn-checkout" type="button" class="btn btn-success btn-lg" disabled="true">
 									<@spring.message "label.checkout"/> <span class="glyphicon glyphicon-play"></span>
 								</button>

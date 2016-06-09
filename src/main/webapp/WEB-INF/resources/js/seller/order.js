@@ -131,8 +131,11 @@ function onSelectCondimentFunction(element) {
  */
 function updatePriceFunction(cupID) {
 	// update price on current row
-	$("tr[name=" + cupID + "] text[name=cup-price]").text(listCup[cupID].getPrice());
-	console.log("update cup "+cupID +", Price: " + listCup[cupID].getPrice());
+	$("tr[name=" + cupID + "] text[name=cup-price]").text(
+			listCup[cupID].getPrice());
+	console
+			.log("update cup " + cupID + ", Price: "
+					+ listCup[cupID].getPrice());
 	// update total price
 	updateTotalPriceFunction();
 }
@@ -263,8 +266,7 @@ function requestCheckoutOrder() {
 					price += condiments[k].price;
 				}
 
-				var str = "<tr> <td>" + coffeeName
-						+ "</td> <td>" + cup.size
+				var str = "<tr> <td>" + coffeeName + "</td> <td>" + cup.size
 						+ "</td><td>" + condimentStr
 						+ "</td><td class='text-center'>" + price
 						+ "</td></tr>";
@@ -291,10 +293,9 @@ function showListCup() {
 }
 
 function checkCoffeeSelected() {
-	var p = "0";
 	for (key in listCup) {
-		p = listCup[key].coffee.id;
-		if (p == "0")
+		cf = listCup[key].coffee;
+		if (cf == null || cf.id == 0)
 			return false;
 	}
 	return true;

@@ -1,8 +1,10 @@
 $(function() {
 	$('#datetimepicker6').datetimepicker({
+		locale: language,
 		format : "LL"
 	});
 	$('#datetimepicker7').datetimepicker({
+		locale: language,
 		format : "LL",
 		useCurrent : false
 	// Important! See issue #1075

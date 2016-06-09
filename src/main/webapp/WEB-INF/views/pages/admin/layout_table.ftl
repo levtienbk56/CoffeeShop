@@ -39,23 +39,23 @@
 		var table01;
 		var table02;
 		
-		if(language == 'ja'){
-		langUrl = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Japanese.json";
+		if(language == "ja"){
+			langUrl = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Japanese.json";
 		}else{
 			langUrl = "//cdn.datatables.net/plug-ins/1.10.11/i18n/English.json";
 		}
 		
 		var table = $('.tbl-responsive').DataTable({
 			responsive : true,
-			'language' : {
-				'url' : langUrl
+			"language" : {
+				"url" : langUrl
 			}
 		});
 		var table01 = $('.tbl-responsive-nosearch-order').DataTable({
 			responsive : true,
 			searching : false,
-			'language' : {
-				'url' : langUrl
+			"language" : {
+				"url" : langUrl
 			}
 		});
 		var table02 = $('.tbl-responsive-nosearch-cup').DataTable({
