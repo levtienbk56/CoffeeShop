@@ -1,3 +1,15 @@
+<!-- csrt for log out-->
+<form action="j_spring_security_logout" method="POST" id="logoutForm">
+  	<input type="hidden" 
+		name="${_csrf.parameterName}"
+		value="${_csrf.token}" />
+</form>
+<script>
+	function formSubmit() {
+		document.getElementById("logoutForm").submit();
+	}
+</script>
+
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
@@ -20,7 +32,7 @@
             <ul class="dropdown-menu dropdown-user">
                 <li><a href="#updatepw-modal"  data-toggle="modal"><@spring.message "label.global.changePass"/></a></li>
                 <li class="divider"></li>
-                <li><a href="/CoffeeShop/logout"><i class="fa fa-sign-out fa-fw"></i><@spring.message "label.global.logout"/></a>
+                <li><a href="javascript:formSubmit()"><i class="fa fa-sign-out fa-fw"></i><@spring.message "label.global.logout"/></a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->

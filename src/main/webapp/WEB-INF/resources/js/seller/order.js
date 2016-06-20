@@ -235,6 +235,9 @@ $("#confirm-modal .btn-success").click(function() {
  * send request checkout order to server
  */
 function requestCheckoutOrder() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
 	// disable checkout button
 	disableCheckoutButton(true);
 	getListCupLength();
@@ -247,6 +250,11 @@ function requestCheckoutOrder() {
 		data : JSON.stringify(listCup),
 		dataType : 'json',
 		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader("Accept", "application/json");
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			// alert("Order success! total=" + data.total);
 			$('#revieworder-modal').modal('show');

@@ -193,9 +193,9 @@ $("button#btn-update-event")
 					mEvent = new Event(id, title, start, end, color);
 					console.log(mEvent);
 
-					if(language=="ja"){
+					if (language == "ja") {
 						showConfirmModal("イベントを更新しますか？");
-					}else{
+					} else {
 						showConfirmModal("Are you sure to update event?");
 					}
 					$("#modal-edit").modal('hide');
@@ -208,9 +208,9 @@ $("button#btn-remove-event").click(function() {
 	var id = $("input#id-edit").val();
 	mEvent = new Event(id, '', null, null, '');
 
-	if(language=="ja"){
+	if (language == "ja") {
 		showConfirmModal("イベントを削除しますか？");
-	}else{
+	} else {
 		showConfirmModal("Are you sure to delete event?");
 	}
 	$("#modal-edit").modal('hide');
@@ -238,8 +238,8 @@ $("button#btn-insert-event")
 							+ endTime + endDate + color);
 
 					// validate input
-					if (title == '' || startTime == '' || startDate == ''
-							|| endTime == '' || endDate == '') {
+					if (title == '' || startTime === '' || startDate == ''
+							|| endTime === '' || endDate == '') {
 						$(".modal-notice")
 								.html(
 										"<div class='text-center alert alert-warning'>Input Empty</div>");
@@ -251,9 +251,16 @@ $("button#btn-insert-event")
 					mEvent = new Event(0, title, start, end, color);
 					console.log(mEvent);
 
-					if(language=="ja"){
+					if (start == "Invalid Date" || end == "Invalid Date") {
+						$(".modal-notice")
+								.html(
+										"<div class='text-center alert alert-warning'>Input Error! Invalid Date</div>");
+						return false;
+					}
+
+					if (language == "ja") {
 						showConfirmModal("イベントを追加しますか？");
-					}else{
+					} else {
 						showConfirmModal("Are you sure to insert event?");
 					}
 					$("#modal-insert").modal('hide');
@@ -274,10 +281,10 @@ $("#confirm-modal .btn-success").click(function() {
 function requestInsertEvent(event) {
 	// unable button
 	$("#btn-insert-event").prop('disabled', true);
-	
+
 	// show modal again
 	$("#modal-insert").modal('show');
-	
+
 	// clear notice
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
@@ -317,10 +324,10 @@ function requestUpdateEvent(event) {
 	$("#btn-update-event").prop('disabled', true);
 	// unable button
 	$("#btn-remove-event").prop('disabled', true);
-	
+
 	// show modal again
 	$("#modal-edit").modal('show');
-	
+
 	// clear notice
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
@@ -360,7 +367,7 @@ function requestRemoveEvent(event) {
 	$("#btn-remove-event").prop('disabled', true);
 	// unable button
 	$("#btn-update-event").prop('disabled', true);
-	
+
 	// show modal again
 	$("#modal-edit").modal('show');
 	// clear notice

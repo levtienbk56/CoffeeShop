@@ -1,5 +1,17 @@
 <link href="/CoffeeShop/resources/css/header.css" rel="stylesheet">
 
+<!-- csrt for log out-->
+<form action="j_spring_security_logout" method="POST" id="logoutForm">
+  	<input type="hidden" 
+		name="${_csrf.parameterName}"
+		value="${_csrf.token}" />
+</form>
+<script>
+		function formSubmit() {
+			document.getElementById("logoutForm").submit();
+		}
+	</script>
+	
 <div class="navbar-wrapper" style="margin-bottom:56px">
     <div class="container-fluid">
         <nav class="navbar navbar-fixed-top">
@@ -20,7 +32,7 @@
                                 <li><a href="#updatepw-modal"  data-toggle="modal"><@spring.message "label.global.changePass"/></a></li>
                             </ul>
                         </li>
-                        <li class=""><a href="logout"><@spring.message "label.global.logout"/></a></li>
+                        <li class=""><a href="javascript:formSubmit()"><@spring.message "label.global.logout"/></a></li>
                     </ul>
                 </div>
             </div>

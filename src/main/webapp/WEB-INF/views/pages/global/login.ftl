@@ -22,6 +22,10 @@
 			<button class="btn bn-lg btn-primary btn-block" type="submit">
 				Sign In
 			</button>
+			<!-- enable csrf protection -->
+			<input type="hidden" 
+				name="${_csrf.parameterName}"
+            	value="${_csrf.token}" />
 		</form>
 	</div>
 </#macro>

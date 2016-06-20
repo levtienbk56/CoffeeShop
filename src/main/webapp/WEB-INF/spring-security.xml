@@ -11,8 +11,7 @@
 		<intercept-url pattern="/login" access="isAnonymous()" />
 		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<intercept-url pattern="/" access="isAuthenticated()" />
-		<intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" />
-		
+
 		<access-denied-handler error-page="/403" />
 
 		<form-login login-page='/login' login-processing-url="/j_spring_security_check"
@@ -20,8 +19,10 @@
 			authentication-failure-url="/login?error" username-parameter="username"
 			password-parameter="password" />
 
-		<logout logout-url="/logout" logout-success-url="/login?logout"
-			delete-cookies="JSESSIONID" invalidate-session="true" />
+		<logout logout-success-url="/login?logout" delete-cookies="JSESSIONID"
+			invalidate-session="true" />
+		<!-- enable csrf protection -->
+		<csrf />
 	</http>
 
 
