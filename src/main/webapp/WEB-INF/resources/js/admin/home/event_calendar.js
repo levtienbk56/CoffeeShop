@@ -2,6 +2,8 @@ var eventSource = {};
 var confirmAction;
 var mEvent;
 var language = getLanguage();
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 
 $(document).ready(function() {
 	// init calendar
@@ -88,12 +90,14 @@ function requestEventsForCalendar() {
 		// etc...
 		]
 	};
-
 	$.ajax({
 		type : "POST",
 		url : "/CoffeeShop/admin/calendar/events",
 		data : {},
 		timeout : 100000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			// print out
 			for (var i = 0; i < data.length; i++) {
@@ -296,6 +300,9 @@ function requestInsertEvent(event) {
 		data : JSON.stringify(event),
 		dataType : 'json',
 		timeout : 100000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
@@ -339,6 +346,9 @@ function requestUpdateEvent(event) {
 		data : JSON.stringify(event),
 		dataType : 'json',
 		timeout : 100000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
@@ -381,6 +391,9 @@ function requestRemoveEvent(event) {
 			eventID : event.id
 		},
 		timeout : 100000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");

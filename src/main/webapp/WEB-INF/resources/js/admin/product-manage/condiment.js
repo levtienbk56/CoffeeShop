@@ -1,6 +1,8 @@
 var condiment;
 var confirmAction;
 var language = getLanguage();
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 
 // get value from table, insert into modal
 function editCondiment(element) {
@@ -33,7 +35,10 @@ function removeCondiment(arg) {
 			data : {
 				condimentId : id
 			},
-			timeout : 100000,
+			timeout : 10000,
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(data) {
 				if (data.result == 'success') {
 					console.log(data.message);
@@ -75,9 +80,6 @@ $("#update-condiment")
 					var enabled = $(
 							'table#modal-tbl-edit .td-enabled select option:selected')
 							.val();
-					console
-							.log('update condiment: ' + id + name + price
-									+ enabled);
 
 					// validate name
 					if (id == '' || name == '' || price == '') {
@@ -93,12 +95,13 @@ $("#update-condiment")
 						return false;
 					}
 					condiment = new Condiment(id, name, price, enabled);
-					if(language=="ja"){
+					console.log(condiment);
+					if (language == "ja") {
 						showConfirmModal("コンディメントを更新しますか？");
-					}else{
+					} else {
 						showConfirmModal("Are you sure to update condiment");
 					}
-					
+
 					$("#modal-edit").modal('hide');
 				});
 
@@ -121,7 +124,6 @@ $("#insert-condiment")
 					var enabled = $(
 							'table#modal-tbl-insert .td-enabled select option:selected')
 							.val();
-					console.log('insert condiment: ' + name + price + enabled);
 
 					// validate name
 					if (name == '' || price == '') {
@@ -137,9 +139,10 @@ $("#insert-condiment")
 						return false;
 					}
 					condiment = new Condiment('0', name, price, enabled);
-					if(language=="ja"){
+					console.log(condiment);
+					if (language == "ja") {
 						showConfirmModal("コンディメントを追加しますか？");
-					}else{
+					} else {
 						showConfirmModal("Are you sure to insert condiment");
 					}
 					$("#modal-insert").modal('hide');
@@ -148,17 +151,18 @@ $("#insert-condiment")
 // confirm ok, detect action
 $("#confirm-modal .btn-success").click(function() {
 	if (confirmAction == 'insert-condiment') {
-		requestInsertCondiment(condiment);
+		requestInsertCondiment();
 	} else if (confirmAction == 'update-condiment') {
-		requestUpdateCondiment(condiment);
+		requestUpdateCondiment();
 	}
 });
 
 // request update to server
 function requestUpdateCondiment() {
+	console.log(condiment);
 	// unable button
 	$("#update-condiment").prop('disabled', true);
-	
+
 	// show modal
 	$("#modal-edit").modal('show');
 
@@ -172,7 +176,10 @@ function requestUpdateCondiment() {
 		url : "condiments/edit",
 		data : JSON.stringify(condiment),
 		dataType : 'json',
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			// unable button
 			$("#update-condiment").prop('disabled', true);
@@ -199,10 +206,10 @@ function requestUpdateCondiment() {
 }
 
 // request Insert to server
-function requestInsertCondiment(condiment) {
+function requestInsertCondiment() {
 	// unable button
 	$("#insert-condiment").prop('disabled', true);
-	
+
 	// show modal
 	$("#modal-insert").modal('show');
 
@@ -216,7 +223,10 @@ function requestInsertCondiment(condiment) {
 		url : "condiments/insert",
 		data : JSON.stringify(condiment),
 		dataType : 'json',
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			// unable button
 			$("#insert-condiment").prop('disabled', true);

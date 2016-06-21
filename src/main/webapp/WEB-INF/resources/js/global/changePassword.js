@@ -21,7 +21,7 @@ $("#update-pass")
 								.addClass(
 										"alert col-md-10 col-md-offset-1 alert-warning");
 						$("#changePassNotification").text(
-								"New Password is not match");
+								"New Password is not matching");
 						return false;
 					} else {
 						// password
@@ -33,7 +33,10 @@ $("#update-pass")
 										currentPass : curpass,
 										newPass : newpass
 									},
-									timeout : 100000,
+									timeout : 10000,
+									beforeSend : function(xhr) {
+										xhr.setRequestHeader(header, token);
+									},
 									success : function(data) {
 										console.log("result: " + data.result
 												+ ", message: " + data.message);

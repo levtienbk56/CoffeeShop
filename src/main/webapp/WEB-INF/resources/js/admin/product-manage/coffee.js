@@ -1,6 +1,8 @@
 var confirmAction;
 var coffee;
 var language = getLanguage();
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 
 // get value from table, insert into modal
 function editCoffee(element) {
@@ -33,7 +35,10 @@ function removeCoffee(arg) {
 			data : {
 				coffeeId : id
 			},
-			timeout : 100000,
+			timeout : 10000,
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(data) {
 				if (data.result == 'success') {
 					console.log(data.message);
@@ -75,9 +80,6 @@ $("#update-coffee")
 					var enabled = $(
 							'table#modal-tbl-edit .td-enabled select option:selected')
 							.val();
-					console
-							.log('update coffee: ' + id + name + price
-									+ enabled);
 
 					// validate name
 					if (id == '' || name == '' || price == '') {
@@ -94,9 +96,10 @@ $("#update-coffee")
 					}
 
 					coffee = new Coffee(id, name, price, enabled);
+					console.log(coffee);
 					if (language == "ja") {
 						showConfirmModal("コーヒーを更新しますか？");
-					} else if(language == "en"){
+					} else if (language == "en") {
 						showConfirmModal("Are you sure to update coffee");
 					}
 					$("#modal-edit").modal('hide');
@@ -121,7 +124,6 @@ $("#insert-coffee")
 					var enabled = $(
 							'table#modal-tbl-insert .td-enabled select option:selected')
 							.val();
-					console.log('insert coffee: ' + name + price + enabled);
 
 					// validate name
 					if (name == '' || price == '') {
@@ -138,6 +140,7 @@ $("#insert-coffee")
 					}
 
 					coffee = new Coffee('0', name, price, enabled);
+					console.log(coffee);
 					if (language == "ja") {
 						showConfirmModal("コーヒーを追加しますか？");
 					} else if (language == "en") {
@@ -159,7 +162,7 @@ $("#confirm-modal .btn-success").click(function() {
 function requestUpdateCoffee(coffee) {
 	// unable button
 	$("#update-coffee").prop('disabled', true);
-	
+
 	// show modal
 	$("#modal-edit").modal('show');
 
@@ -173,7 +176,10 @@ function requestUpdateCoffee(coffee) {
 		url : "coffees/edit",
 		data : JSON.stringify(coffee),
 		dataType : 'json',
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
@@ -201,7 +207,7 @@ function requestUpdateCoffee(coffee) {
 function requestInsertCoffee(coffee) {
 	// unable button
 	$("#insert-coffee").prop('disabled', true);
-	
+
 	// show modal
 	$("#modal-insert").modal('show');
 
@@ -215,7 +221,10 @@ function requestInsertCoffee(coffee) {
 		url : "coffees/insert",
 		data : JSON.stringify(coffee),
 		dataType : 'json',
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");

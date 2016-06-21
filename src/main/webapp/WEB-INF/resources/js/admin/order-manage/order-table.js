@@ -1,3 +1,6 @@
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+
 $(function() {
 	$('#datetimepicker6').datetimepicker({
 		locale: language,
@@ -35,7 +38,10 @@ $(function() {
 						dfrom : from,
 						dto : to
 					},
-					timeout : 100000,
+					timeout : 10000,
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},
 					success : function(data) {
 						// clear current table
 						table01.clear().draw();
@@ -105,7 +111,10 @@ $(document)
 													data : {
 														orderId : orderID
 													},
-													timeout : 100000,
+													timeout : 10000,
+													beforeSend : function(xhr) {
+														xhr.setRequestHeader(header, token);
+													},
 													success : function(data) {
 														// clear cups table
 														table02.clear().draw();

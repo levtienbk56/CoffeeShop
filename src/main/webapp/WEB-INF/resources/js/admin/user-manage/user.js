@@ -1,6 +1,8 @@
 var confirmAction;
 var user;
 var language = getLanguage();
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 
 // get value from table, insert into modal
 function editUser(element) {
@@ -127,7 +129,10 @@ function requestInsertUser(user) {
 		url : "users/insert",
 		data : JSON.stringify(user),
 		dataType : 'json',
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
@@ -168,7 +173,10 @@ function requestUpdateUser(user) {
 		url : "users/edit",
 		data : JSON.stringify(user),
 		dataType : 'json',
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");

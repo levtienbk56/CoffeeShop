@@ -1,17 +1,22 @@
-$("#lang-en").click(function(){
+$("#lang-en").click(function() {
 	changeLanguage('en');
 });
 
-$("#lang-jp").click(function(){
+$("#lang-jp").click(function() {
 	changeLanguage('jp');
 });
 
-function changeLanguage(lang){
+function changeLanguage(lang) {
 	$.ajax({
 		type : "POST",
 		url : "/CoffeeShop/change-locale",
-		data : {language: lang},
-		timeout : 100000,
+		data : {
+			language : lang
+		},
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			// reload this page
 			document.body.scrollTop = document.documentElement.scrollTop = 0;

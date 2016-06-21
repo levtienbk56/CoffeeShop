@@ -1,10 +1,11 @@
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+
 // flot stack bar
 function updateStackBarChart(year, month) {
 	/*
-	 * data: 
-	 * [{'label' : label1, 'data' : [[data1, tick_position1], [], ....]}
-	 * ,{'label' : label2, 'data' : [[data2, tick_position2], [], ....]}
-	 * ,{...}] 
+	 * data: [{'label' : label1, 'data' : [[data1, tick_position1], [], ....]}
+	 * ,{'label' : label2, 'data' : [[data2, tick_position2], [], ....]} ,{...}]
 	 */
 	var barOption = {
 		series : {
@@ -35,8 +36,8 @@ function updateStackBarChart(year, month) {
 			}
 		},
 		yaxis : {
-			min:0
-		}, 
+			min : 0
+		},
 		grid : {
 			hoverable : true,
 			color : "#474e54",
@@ -56,7 +57,6 @@ function updateStackBarChart(year, month) {
 		},
 	};
 
-
 	$.ajax({
 		type : "POST",
 		url : "analysis/stack-bar-chart",
@@ -64,7 +64,10 @@ function updateStackBarChart(year, month) {
 			year : year,
 			month : month
 		},
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data != null) {
 				var i = 0, j = 0;
@@ -75,7 +78,7 @@ function updateStackBarChart(year, month) {
 					var arr = [];
 					var arr1 = data[i].data;
 					for (key in arr1) {
-						arr.push([key, arr1[key]]);
+						arr.push([ key, arr1[key] ]);
 					}
 					;
 					var map = {
@@ -116,7 +119,7 @@ function updateBarChart(year, month) {
 			minTickSize : [ 1, "day" ]
 		},
 		grid : {
-			show: true,
+			show : true,
 			hoverable : true
 		},
 		legend : {
@@ -143,7 +146,10 @@ function updateBarChart(year, month) {
 			year : year,
 			month : month
 		},
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data != null) {
 				var i = 0;
@@ -177,7 +183,10 @@ $(function() {
 	$.ajax({
 		type : "POST",
 		url : "analysis/years",
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data != null) {
 				$("#select_year").html("<option>---</option>");
@@ -205,7 +214,10 @@ function loadMonth(year) {
 		data : {
 			year : year
 		},
-		timeout : 100000,
+		timeout : 10000,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success : function(data) {
 			if (data != null) {
 				$("#select_month").html("<option>---</option>");
