@@ -4,6 +4,8 @@ var rowCount = 0;
 var coffeeChosen = 0;
 var confirmAction;
 var language = getLanguage();
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 
 /*
  * remove a cup when click remove button
@@ -235,9 +237,6 @@ $("#confirm-modal .btn-success").click(function() {
  * send request checkout order to server
  */
 function requestCheckoutOrder() {
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-
 	// disable checkout button
 	disableCheckoutButton(true);
 	getListCupLength();
