@@ -70,7 +70,7 @@ function onSelectCoffeeNameFunction(element) {
 	// save coffee in current Cup
 	var cupID = element.parent('div').parent('div').parent('td').parent('tr')
 			.attr('name');
-	var coffee = new Coffee(id, name, price);
+	var coffee = new Coffee(id, name, price, true);
 	listCup[cupID].coffee = coffee;
 
 	// update price:
@@ -114,7 +114,7 @@ function onSelectCondimentFunction(element) {
 				var id = div.children('.id').text();
 				var name = div.children('.name').text();
 				var price = div.children('.price').text();
-				var condiment = new Condiment(id, name, price);
+				var condiment = new Condiment(id, name, price, true);
 				console.log('condiment: ' + "(" + id + "," + name + "," + price
 						+ ")");
 

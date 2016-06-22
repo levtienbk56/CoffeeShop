@@ -42,7 +42,7 @@
 			
 			   <div class="modal-footer">
 				    <button id="update-pass" type="button" class="btn btn-success" data-dismiss="modal">
-				     	<i class="fa fa-check"></i><@spring.message "label.global.yes"/>
+				     	<i class="fa fa-check"></i><@spring.message "label.global.update"/>
 				    </button>
 				    <button id="reject" type="button" class="btn btn-default" data-dismiss="modal"><@spring.message "label.global.close"/></button>
 			   </div>

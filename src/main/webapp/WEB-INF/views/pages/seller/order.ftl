@@ -32,15 +32,14 @@
 						<tr>
 							<th class="col-sm-3 col-lg-3 text-center"><@spring.message "label.cfName"/></th>
 							<th class="col-sm-1 col-lg-2"><@spring.message "label.cfSize"/></th>
-							<th class="col-sm-2 col-lg-2"><@spring.message "label.cfCondiment"/></th>
-							<th class="col-sm-1 col-lg-1"></th>
+							<th class="col-sm-3 col-lg-3"><@spring.message "label.cfCondiment"/></th>
 							<th class="col-sm-1 col-lg-1"><@spring.message "label.cfPrice"/></th>
 							<th class="col-sm-2 col-lg-2 text-right"></th>
 						</tr>
 					</thead>
 					<tbody>					
 	                    <tr id="add_new">
-	    					<td colspan="6" align='center'>
+	    					<td colspan="5" align='center'>
 	                            <button type="button" style="background-color:#fff;" onClick="addCupFunction()">
 	    							<img src="resources/img/plus-icon.png" width="40" height="40" /> <@spring.message "label.addCup"/>
 								</button>
@@ -48,23 +47,23 @@
 						</tr>
 	
 						<tr >
-							<td colspan="4" align="right"><h3><strong><@spring.message "label.total"/><strong></h3></td>
+							<td colspan="3" align="right"><h3><strong><@spring.message "label.total"/><strong></h3></td>
 							<td id="total_price" colspan="2" align="left"><h3>
 									<strong>0</strong>
 								</h3></td>
 						</tr>
 						<tr>
-							<td colspan="4" align="right"><h4><@spring.message "label.customerPay"/></h4></td>
+							<td colspan="3" align="right"><h4><@spring.message "label.customerPay"/></h4></td>
 							<td id="customer_pay" colspan="2" align="left">
 								<input type="number" class="form-control" min="0" step="0.01" onKeyUp="updateRefundFunction()">
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4" align="right"><h4><@spring.message "label.refund"/></h4></td>
+							<td colspan="3" align="right"><h4><@spring.message "label.refund"/></h4></td>
 							<td id="customer_refund" colspan="2" align="left"><h4><strong>0</strong></h4></td>
 						</tr>
 						<tr>
-							<td colspan="6" align="right">
+							<td colspan="5" align="right">
 								<button id="btn-checkout" type="button" class="btn btn-success btn-lg" disabled="true">
 									<@spring.message "label.checkout"/> <span class="glyphicon glyphicon-play"></span>
 								</button>
@@ -113,7 +112,6 @@
 							   	
 						 </#list>
 					</td>
-					<td></td>
 					<td>
 						<text name="cup-price">0</text>
 					</td>

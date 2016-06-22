@@ -304,13 +304,23 @@ function requestInsertEvent(event) {
 			xhr.setRequestHeader(header, token);
 		},
 		success : function(data) {
+			var message = "";
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(data.message);
+				if (language == "ja") {
+					message = "イベントを追加した";
+				} else {
+					message = "Event added successful!";
+				}
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(data.message);
+				if (language == "ja") {
+					message = "イベントを追加するのを失敗した!";
+				} else {
+					message = "Error occurred!";
+				}
 			}
+			$(".modal-notice").text(message);
 			// wait 1.5s then reload page
 			setInterval(function() {
 				location.reload();
@@ -350,12 +360,23 @@ function requestUpdateEvent(event) {
 			xhr.setRequestHeader(header, token);
 		},
 		success : function(data) {
+			var message = "";
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
+				if (language == "ja") {
+					message = "イベントが変更させた";
+				} else {
+					message = "Event updated successful!";
+				}
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
+				if (language == "ja") {
+					message = "イベントを変更するのを失敗した";
+				} else {
+					message = "Error occurred!";
+				}
 			}
-			$(".modal-notice").text(data.message);
+			$(".modal-notice").text(message);
 
 			// wait 1.5s then reload page
 			setInterval(function() {
@@ -395,12 +416,23 @@ function requestRemoveEvent(event) {
 			xhr.setRequestHeader(header, token);
 		},
 		success : function(data) {
+			var message = "";
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
+				if (language == "ja") {
+					message = "イベントが削除させた！";
+				} else {
+					message = "Event deleted successful!";
+				}
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
+				if (language == "ja") {
+					message = "イベントを削除するのを失敗した！";
+				} else {
+					message = "Error occurred!";
+				}
 			}
-			$(".modal-notice").text(data.message);
+			$(".modal-notice").text(message);
 
 			// wait 1.5s then reload page
 			setInterval(function() {
