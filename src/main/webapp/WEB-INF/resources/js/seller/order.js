@@ -3,9 +3,6 @@ var totalPrice = 0.0; // current price of order
 var rowCount = 0;
 var coffeeChosen = 0;
 var confirmAction;
-var language = getLanguage();
-var token = $("meta[name='_csrf']").attr("content");
-var header = $("meta[name='_csrf_header']").attr("content");
 
 /*
  * remove a cup when click remove button
@@ -190,13 +187,7 @@ function disableCheckoutButton(flag) {
 
 $("button#btn-new-order").click(function() {
 	confirmAction = 'new-order';
-	var msg;
-	if (language == 'ja') {
-		msg = "当座オーダーを削除して、新しいオーダーを作ります。よろしいですか？";
-	} else if (language == 'en') {
-		msg = "Are you sure to create new order? Current cups'll be deleted.";
-	}
-	showConfirmModal(msg);
+	showConfirmModal(Message.getString().NEW_ORDER_CONFIRM);
 });
 
 /*
@@ -208,19 +199,11 @@ $("button#btn-checkout").click(function() {
 
 	// validate coffee selected?
 	if (!checkCoffeeSelected()) {
-		if (language == "ja") {
-			showAlertModal('コーヒー種類をご選択ください！');
-		} else {
-			showAlertModal('choose a coffee first');
-		}
+		showAlertModal(Message.getString().NO_COFFEE);
 		return;
 	}
 
-	if (language == "ja") {
-		showConfirmModal("オーダーをチェックアウトしますか?");
-	} else if (language == "en") {
-		showConfirmModal("Are you sure to checkout order?");
-	}
+	showConfirmModal(Message.getString().CHECKOUT_CONFIRM);
 });
 
 // confirm Modal: OK, process to checkout

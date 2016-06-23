@@ -3,11 +3,11 @@ var header = $("meta[name='_csrf_header']").attr("content");
 
 $(function() {
 	$('#datetimepicker6').datetimepicker({
-		locale: language,
+		locale : language,
 		format : "LL"
 	});
 	$('#datetimepicker7').datetimepicker({
-		locale: language,
+		locale : language,
 		format : "LL",
 		useCurrent : false
 	// Important! See issue #1075
@@ -28,7 +28,7 @@ $(function() {
 						.date()).getTime();
 				console.log('from:' + from + ', to:' + to);
 				if (from == "" || from == null || to == "" || to == null) {
-					alert("Input Empty!");
+					showAlertModal(Message.getString().INPUT_EMPTY);
 					return;
 				}
 				$.ajax({
@@ -65,7 +65,7 @@ $(function() {
 							}
 
 							if (i == 0) {
-								alert("No record found");
+								showAlertModal(Message.getString().DATA_EMPTY);
 							}
 						} else {
 							alert('no data');
@@ -113,7 +113,8 @@ $(document)
 													},
 													timeout : 10000,
 													beforeSend : function(xhr) {
-														xhr.setRequestHeader(header, token);
+														xhr.setRequestHeader(
+																header, token);
 													},
 													success : function(data) {
 														// clear cups table

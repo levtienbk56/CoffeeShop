@@ -1,6 +1,5 @@
 var confirmAction;
 var coffee;
-var language = getLanguage();
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -84,24 +83,20 @@ $("#update-coffee")
 					// validate name
 					if (id == '' || name == '' || price == '') {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text("Input Empty!!");
+						$(".modal-notice").text(Message.getString().INPUT_EMPTY);
 						return false;
 					}
 
 					// validate price
 					if (parseFloat(price) < 0) {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text("Invalid Price!");
+						$(".modal-notice").text(
+								Message.getString().INPUT_INVALID_PRICE);
 						return false;
 					}
 
 					coffee = new Coffee(id, name, price, enabled);
-					console.log(coffee);
-					if (language == "ja") {
-						showConfirmModal("コーヒーを更新しますか？");
-					} else if (language == "en") {
-						showConfirmModal("Are you sure to update coffee");
-					}
+					showConfirmModal(Message.getString().COFFEE_UPDATE_CONFIRM);
 					$("#modal-edit").modal('hide');
 				});
 
@@ -140,12 +135,7 @@ $("#insert-coffee")
 					}
 
 					coffee = new Coffee('0', name, price, enabled);
-					console.log(coffee);
-					if (language == "ja") {
-						showConfirmModal("コーヒーを追加しますか？");
-					} else if (language == "en") {
-						showConfirmModal("Are you sure to insert coffee");
-					}
+					showConfirmModal(Message.getString().COFFEE_INSERT_CONFIRM);
 					$("#modal-insert").modal('hide');
 				});
 
@@ -170,36 +160,39 @@ function requestUpdateCoffee(coffee) {
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
 
-	$.ajax({
-		type : "POST",
-		contentType : "application/json",
-		url : "coffees/edit",
-		data : JSON.stringify(coffee),
-		dataType : 'json',
-		timeout : 10000,
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader(header, token);
-		},
-		success : function(data) {
-			if (data.result == 'success') {
-				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(data.message);
-			} else {
-				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(data.message);
-			}
-			// wait 1.5s then reload page
-			setInterval(function() {
-				location.reload();
-			}, 1500);
-		},
-		error : function(e) {
-			console.log("ERROR " + e);
-		},
-		done : function(e) {
-			console.log("DONE " + e);
-		}
-	});
+	$
+			.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "coffees/edit",
+				data : JSON.stringify(coffee),
+				dataType : 'json',
+				timeout : 10000,
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				success : function(data) {
+					if (data.result == 'success') {
+						$(".modal-notice").addClass("alert alert-success");
+						$(".modal-notice").text(
+								Message.getString().COFFEE_UPDATE_SUCCESS);
+					} else {
+						$(".modal-notice").addClass("alert alert-warning");
+						$(".modal-notice").text(
+								Message.getString().COFFEE_UPDATE_FAIL);
+					}
+					// wait 1.5s then reload page
+					setInterval(function() {
+						location.reload();
+					}, 1500);
+				},
+				error : function(e) {
+					console.log("ERROR " + e);
+				},
+				done : function(e) {
+					console.log("DONE " + e);
+				}
+			});
 	return false;
 }
 
@@ -215,35 +208,38 @@ function requestInsertCoffee(coffee) {
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
 
-	$.ajax({
-		type : "POST",
-		contentType : "application/json",
-		url : "coffees/insert",
-		data : JSON.stringify(coffee),
-		dataType : 'json',
-		timeout : 10000,
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader(header, token);
-		},
-		success : function(data) {
-			if (data.result == 'success') {
-				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(data.message);
-			} else {
-				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(data.message);
-			}
-			// wait 1.5s then reload page
-			setInterval(function() {
-				location.reload();
-			}, 1500);
-		},
-		error : function(e) {
-			console.log("ERROR " + e);
-		},
-		done : function(e) {
-			console.log("DONE " + e);
-		}
-	});
+	$
+			.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "coffees/insert",
+				data : JSON.stringify(coffee),
+				dataType : 'json',
+				timeout : 10000,
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				success : function(data) {
+					if (data.result == 'success') {
+						$(".modal-notice").addClass("alert alert-success");
+						$(".modal-notice").text(
+								Message.getString().COFFEE_INSERT_SUCCESS);
+					} else {
+						$(".modal-notice").addClass("alert alert-warning");
+						$(".modal-notice").text(
+								Message.getString().COFFEE_INSERT_FAIL);
+					}
+					// wait 1.5s then reload page
+					setInterval(function() {
+						location.reload();
+					}, 1500);
+				},
+				error : function(e) {
+					console.log("ERROR " + e);
+				},
+				done : function(e) {
+					console.log("DONE " + e);
+				}
+			});
 	return false;
 }

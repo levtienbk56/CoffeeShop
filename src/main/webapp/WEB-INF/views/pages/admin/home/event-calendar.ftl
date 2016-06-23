@@ -133,7 +133,7 @@
 				
 				   <div class="modal-body">
 				   		<!-- notification -->
-				   		<div class="modal-notice">
+				   		<div class="modal-notice text-center">
 					    </div>
 					    
 					    <!-- input name-->

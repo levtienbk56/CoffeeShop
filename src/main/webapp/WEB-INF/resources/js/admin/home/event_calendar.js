@@ -1,14 +1,13 @@
 var eventSource = {};
 var confirmAction;
 var mEvent;
-var language = getLanguage();
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 
 $(document).ready(function() {
 	// init calendar
 	$('#calendar').fullCalendar({
-		lang : language,
+		lang : getLanguage(),
 		header : {
 			left : 'today ',
 			center : 'prev title next',
@@ -186,9 +185,12 @@ $("button#btn-update-event")
 					// validate input
 					if (title == '' || startTime == '' || startDate == ''
 							|| endTime == '' || endDate == '') {
+						// clear notice
+						$(".modal-notice").removeClass(
+								"alert alert-warning alert-success");
+						$(".modal-notice").addClass("alert alert-warning");
 						$(".modal-notice")
-								.html(
-										"<div class='text-center alert alert-warning'>Input Empty</div>");
+								.text(Message.getString().INPUT_EMPTY);
 						return false;
 					}
 
@@ -197,11 +199,7 @@ $("button#btn-update-event")
 					mEvent = new Event(id, title, start, end, color);
 					console.log(mEvent);
 
-					if (language == "ja") {
-						showConfirmModal("イベントを更新しますか？");
-					} else {
-						showConfirmModal("Are you sure to update event?");
-					}
+					showConfirmModal(Message.getString().EVENT_UPDATE_CONFIRM);
 					$("#modal-edit").modal('hide');
 				});
 
@@ -212,11 +210,7 @@ $("button#btn-remove-event").click(function() {
 	var id = $("input#id-edit").val();
 	mEvent = new Event(id, '', null, null, '');
 
-	if (language == "ja") {
-		showConfirmModal("イベントを削除しますか？");
-	} else {
-		showConfirmModal("Are you sure to delete event?");
-	}
+	showConfirmModal(Message.getString().EVENT_DELETE_CONFIRM);
 	$("#modal-edit").modal('hide');
 });
 
@@ -229,7 +223,6 @@ $("button#btn-insert-event")
 					// clear notice
 					$(".modal-notice").removeClass(
 							"alert alert-warning alert-success");
-					$(".modal-notice").text("");
 
 					var title = $("input#title-add").val();
 					var startTime = $("input#start-time-add").val();
@@ -244,9 +237,9 @@ $("button#btn-insert-event")
 					// validate input
 					if (title == '' || startTime === '' || startDate == ''
 							|| endTime === '' || endDate == '') {
+						$(".modal-notice").addClass("alert alert-warning");
 						$(".modal-notice")
-								.html(
-										"<div class='text-center alert alert-warning'>Input Empty</div>");
+								.text(Message.getString().INPUT_EMPTY);
 						return false;
 					}
 
@@ -256,17 +249,13 @@ $("button#btn-insert-event")
 					console.log(mEvent);
 
 					if (start == "Invalid Date" || end == "Invalid Date") {
+						$(".modal-notice").addClass("alert alert-warning");
 						$(".modal-notice")
-								.html(
-										"<div class='text-center alert alert-warning'>Input Error! Invalid Date</div>");
+								.text(Message.getString().INPUT_INVALID_DATE);
 						return false;
 					}
 
-					if (language == "ja") {
-						showConfirmModal("イベントを追加しますか？");
-					} else {
-						showConfirmModal("Are you sure to insert event?");
-					}
+					showConfirmModal(Message.getString().EVENT_INSERT_CONFIRM);
 					$("#modal-insert").modal('hide');
 				});
 
@@ -307,20 +296,13 @@ function requestInsertEvent(event) {
 			var message = "";
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				if (language == "ja") {
-					message = "イベントを追加した";
-				} else {
-					message = "Event added successful!";
-				}
+				$(".modal-notice").text(
+						Message.getString().EVENT_INSERT_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
-				if (language == "ja") {
-					message = "イベントを追加するのを失敗した!";
-				} else {
-					message = "Error occurred!";
-				}
+				$(".modal-notice").text(Message.getString().EVENT_INSERT_FAIL);
 			}
-			$(".modal-notice").text(message);
+
 			// wait 1.5s then reload page
 			setInterval(function() {
 				location.reload();
@@ -363,20 +345,12 @@ function requestUpdateEvent(event) {
 			var message = "";
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				if (language == "ja") {
-					message = "イベントが変更させた";
-				} else {
-					message = "Event updated successful!";
-				}
+				$(".modal-notice").text(
+						Message.getString().EVENT_UPDATE_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
-				if (language == "ja") {
-					message = "イベントを変更するのを失敗した";
-				} else {
-					message = "Error occurred!";
-				}
+				$(".modal-notice").text(Message.getString().EVENT_UPDATE_FAIL);
 			}
-			$(".modal-notice").text(message);
 
 			// wait 1.5s then reload page
 			setInterval(function() {
@@ -416,23 +390,14 @@ function requestRemoveEvent(event) {
 			xhr.setRequestHeader(header, token);
 		},
 		success : function(data) {
-			var message = "";
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				if (language == "ja") {
-					message = "イベントが削除させた！";
-				} else {
-					message = "Event deleted successful!";
-				}
+				$(".modal-notice").text(
+						Message.getString().EVENT_DELETE_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
-				if (language == "ja") {
-					message = "イベントを削除するのを失敗した！";
-				} else {
-					message = "Error occurred!";
-				}
+				$(".modal-notice").text(Message.getString().EVENT_DELETE_FAIL);
 			}
-			$(".modal-notice").text(message);
 
 			// wait 1.5s then reload page
 			setInterval(function() {

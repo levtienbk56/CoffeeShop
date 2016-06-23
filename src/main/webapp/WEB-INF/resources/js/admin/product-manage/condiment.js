@@ -1,6 +1,5 @@
 var condiment;
 var confirmAction;
-var language = getLanguage();
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -84,24 +83,22 @@ $("#update-condiment")
 					// validate name
 					if (id == '' || name == '' || price == '') {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text("Input Empty!");
+						$(".modal-notice")
+								.text(Message.getString().INPUT_EMPTY);
 						return false;
 					}
 
 					// validate price
 					if (parseFloat(price) < 0) {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text("Invalid Price!");
+						$(".modal-notice").text(
+								Message.getString().INPUT_INVALID_PRICE);
 						return false;
 					}
 					condiment = new Condiment(id, name, price, enabled);
 					console.log(condiment);
-					if (language == "ja") {
-						showConfirmModal("コンディメントを更新しますか？");
-					} else {
-						showConfirmModal("Are you sure to update condiment");
-					}
 
+					showConfirmModal(Message.getString().CONDIMENT_UPDATE_CONFIRM);
 					$("#modal-edit").modal('hide');
 				});
 
@@ -128,23 +125,22 @@ $("#insert-condiment")
 					// validate name
 					if (name == '' || price == '') {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text("Input Empty!!");
+						$(".modal-notice")
+								.text(Message.getString().INPUT_EMPTY);
 						return false;
 					}
 
 					// validate price
 					if (parseFloat(price) < 0) {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text("Invalid Price!");
+						$(".modal-notice").text(
+								Message.getString().INPUT_INVALID_PRICE);
 						return false;
 					}
 					condiment = new Condiment('0', name, price, enabled);
 					console.log(condiment);
-					if (language == "ja") {
-						showConfirmModal("コンディメントを追加しますか？");
-					} else {
-						showConfirmModal("Are you sure to insert condiment");
-					}
+
+					showConfirmModal(Message.getString().CONDIMENT_INSERT_CONFIRM);
 					$("#modal-insert").modal('hide');
 				});
 
@@ -186,10 +182,12 @@ function requestUpdateCondiment() {
 
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(data.message);
+				$(".modal-notice").text(
+						Message.getString().CONDIMENT_UPDATE_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(data.message);
+				$(".modal-notice").text(
+						Message.getString().CONDIMENT_UPDATE_FAIL);
 			}
 			// wait 1.5s then reload page
 			setInterval(function() {
@@ -233,10 +231,12 @@ function requestInsertCondiment() {
 
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(data.message);
+				$(".modal-notice").text(
+						Message.getString().CONDIMENT_INSERT_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(data.message);
+				$(".modal-notice").text(
+						Message.getString().CONDIMENT_INSERT_FAIL);
 			}
 			// wait 1.5s then reload page
 			setInterval(function() {

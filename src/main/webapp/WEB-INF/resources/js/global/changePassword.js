@@ -4,32 +4,23 @@ $("#update-pass").click(
 			var curpass = $("#updatepw-modal input#curPass").val();
 			var newpass = $("#updatepw-modal input#newPass").val();
 			var reppass = $("#updatepw-modal input#repPass").val();
-			console.log("currentPass:" + curpass);
-			console.log("newPass:" + newpass);
-			console.log("repeatPass:" + reppass);
 			if (curpass == '' || newpass == '' || reppass == '') {
 				$("#changePassNotification").removeClass();
 				$("#changePassNotification").addClass(
 						"alert col-md-10 col-md-offset-1 alert-warning");
-				
-				if (language == "ja") {
-					$("#changePassNotification").text("入力に記入してください");
-				} else {
-					$("#changePassNotification").text("Input Empty!");
-				}
-				
+
+				$("#changePassNotification").text(
+						Message.getString().INPUT_EMPTY);
+				console.log(Message.getString().INPUT_EMPTY);
 				return false;
 			}
 			if (newpass != reppass) {
 				$("#changePassNotification").removeClass();
 				$("#changePassNotification").addClass(
 						"alert col-md-10 col-md-offset-1 alert-warning");
-				
-				if (language == "ja") {
-					$("#changePassNotification").text("新しいパスワードが一致していません！");
-				} else {
-					$("#changePassNotification").text("New Password is not matching!");
-				}
+
+				$("#changePassNotification").text(
+						Message.getString().PWD_NOT_MATCH);
 				return false;
 			} else {
 				requestChangePass(curpass, newpass);
@@ -54,17 +45,12 @@ function requestChangePass(curpass, newpass) {
 			xhr.setRequestHeader(header, token);
 		},
 		success : function(data) {
-			var message = "";
 			if (data.result == 'fail') {
-				if (language == "ja") {
-					message = "間違ったパスワード!";
-				} else {
-					message = "Wrong password!";
-				}
 				$("#changePassNotification").removeClass();
 				$("#changePassNotification").addClass(
 						"alert col-md-10 col-md-offset-1 alert-warning");
-				$("#changePassNotification").text(message);
+				$("#changePassNotification").text(
+						Message.getString().PWD_INCORECT);
 				// enable button
 				$("#update-pass").prop('disabled', false);
 			} else if (data.result == 'success') {
@@ -72,12 +58,8 @@ function requestChangePass(curpass, newpass) {
 				$("#changePassNotification").addClass(
 						"alert col-md-10 col-md-offset-1 alert-success");
 
-				if (language == "ja") {
-					message = "パスワードが更新された!";
-				} else {
-					message = "Password was changed!";
-				}
-				$("#changePassNotification").text(message);
+				$("#changePassNotification").text(
+						Message.getString().PWD_CHANGED);
 				// wait for 2
 				// second, then
 				// reload

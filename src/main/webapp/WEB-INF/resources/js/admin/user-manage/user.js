@@ -1,6 +1,5 @@
 var confirmAction;
 var user;
-var language = getLanguage();
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -31,76 +30,84 @@ function editUser(element) {
 }
 
 // open confirm insert modal
-$("#insert-user").click(function() {
-	confirmAction = 'insert-user';
-	
-	// clear notice
-	$(".modal-notice").removeClass("alert alert-warning alert-success");
-	$(".modal-notice").text("");
+$("#insert-user")
+		.click(
+				function() {
+					confirmAction = 'insert-user';
 
-	// remove space: .replace(/\s/g, '')
-	var username = $('table#modal-tbl-insert .td-username input').val()
-			.replace(/\s/g, '');
-	var password = $('table#modal-tbl-insert .td-password input').val()
-			.replace(/\s/g, '');
-	var enabled = $('table#modal-tbl-insert .td-enabled select option:selected')
-			.val();
-	var role = $('table#modal-tbl-insert .td-role select option:selected')
-			.val();
+					// clear notice
+					$(".modal-notice").removeClass(
+							"alert alert-warning alert-success");
+					$(".modal-notice").text("");
 
-	console.log('insert ' + username + password + enabled + role);
+					// remove space: .replace(/\s/g, '')
+					var username = $(
+							'table#modal-tbl-insert .td-username input').val()
+							.replace(/\s/g, '');
+					var password = $(
+							'table#modal-tbl-insert .td-password input').val()
+							.replace(/\s/g, '');
+					var enabled = $(
+							'table#modal-tbl-insert .td-enabled select option:selected')
+							.val();
+					var role = $(
+							'table#modal-tbl-insert .td-role select option:selected')
+							.val();
 
-	if (username == '' || password == ''
-			|| (role != 'ADMIN' && role != 'SELLER')) {
-		$(".modal-notice").addClass("alert alert-warning");
-		$(".modal-notice").text("Input Empty!");
-		return false;
-	}
+					console.log('insert ' + username + password + enabled
+							+ role);
 
-	user = new User(username, password, enabled, role);
-	
-	if(language=="ja"){
-		showConfirmModal("ユーザーを追加しますか？");
-	}else{
-		showConfirmModal("Are you sure to insert user");
-	}
-	$("#modal-insert").modal('hide');
-});
+					if (username == '' || password == ''
+							|| (role != 'ADMIN' && role != 'SELLER')) {
+						$(".modal-notice").addClass("alert alert-warning");
+						$(".modal-notice").text("Input Empty!");
+						return false;
+					}
+
+					user = new User(username, password, enabled, role);
+
+					showConfirmModal(Message.getString().USER_INSERT_CONFIRM);
+					$("#modal-insert").modal('hide');
+				});
 
 // open confirm update modal
-$("#update-user").click(function() {
-	confirmAction = 'update-user';
-	
-	// clear notice
-	$(".modal-notice").removeClass("alert alert-warning alert-success");
-	$(".modal-notice").text("");
+$("#update-user")
+		.click(
+				function() {
+					confirmAction = 'update-user';
 
-	// remove space: .replace(/\s/g, '')
-	var username = $('table#modal-tbl-edit .td-username').text().replace(/\s/g,
-			'');
-	var password = $('table#modal-tbl-edit .td-password input').val().replace(
-			/\s/g, '');
-	var enabled = $('table#modal-tbl-edit .td-enabled select option:selected')
-			.val();
-	var role = $('table#modal-tbl-edit .td-role select option:selected').val();
+					// clear notice
+					$(".modal-notice").removeClass(
+							"alert alert-warning alert-success");
+					$(".modal-notice").text("");
 
-	if (username == '' || password == ''
-			|| (role != 'ADMIN' && role != 'SELLER')) {
-		$(".modal-notice").addClass("alert alert-warning");
-		$(".modal-notice").text("Input Empty!");
-		return false;
-	}
-	console.log('update ' + username + password + enabled + role);
+					// remove space: .replace(/\s/g, '')
+					var username = $('table#modal-tbl-edit .td-username')
+							.text().replace(/\s/g, '');
+					var password = $('table#modal-tbl-edit .td-password input')
+							.val().replace(/\s/g, '');
+					var enabled = $(
+							'table#modal-tbl-edit .td-enabled select option:selected')
+							.val();
+					var role = $(
+							'table#modal-tbl-edit .td-role select option:selected')
+							.val();
 
-	user = new User(username, password, enabled, role);
-	
-	if(language == "ja"){
-		showConfirmModal("ユーザーを更新しますか?");
-	}else{
-		showConfirmModal("Are you sure to update user?");
-	}
-	$("#modal-edit").modal('hide');
-});
+					if (username == '' || password == ''
+							|| (role != 'ADMIN' && role != 'SELLER')) {
+						$(".modal-notice").addClass("alert alert-warning");
+						$(".modal-notice")
+								.text(Message.getString().INPUT_EMPTY);
+						return false;
+					}
+					console.log('update ' + username + password + enabled
+							+ role);
+
+					user = new User(username, password, enabled, role);
+
+					showConfirmModal(Message.getString().USER_UPDATE_CONFIRM);
+					$("#modal-edit").modal('hide');
+				});
 
 // confirm ok, detect action
 $("#confirm-modal .btn-success").click(function() {
@@ -121,7 +128,7 @@ function requestInsertUser(user) {
 	// clear notice
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
-	
+
 	// send ajax
 	$.ajax({
 		type : "POST",
@@ -136,10 +143,11 @@ function requestInsertUser(user) {
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(data.message);
+				$(".modal-notice")
+						.text(Message.getString().USER_INSERT_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(data.message);
+				$(".modal-notice").text(Message.getString().USER_INSERT_FAIL);
 			}
 			// wait 1.5s then reload page
 			setInterval(function() {
@@ -159,13 +167,13 @@ function requestInsertUser(user) {
 function requestUpdateUser(user) {
 	// unable button
 	$("#update-user").prop('disabled', true);
-	
+
 	// show modal again
 	$("#modal-edit").modal('show');
 	// clear notice
 	$(".modal-notice").removeClass("alert alert-warning alert-success");
 	$(".modal-notice").text("");
-	
+
 	// send AJAX
 	$.ajax({
 		type : "POST",
@@ -180,10 +188,10 @@ function requestUpdateUser(user) {
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(data.message);
+				$(".modal-notice").text(Message.getString().USER_UPDATE_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(data.message);
+				$(".modal-notice").text(Message.getString().USER_UPDATE_FAIL);
 			}
 			// wait 1.5s then reload page
 			setInterval(function() {
