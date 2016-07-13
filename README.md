@@ -7,4 +7,4 @@ CREATE DATABASE coffeeshop ENCODING = 'UTF8';
 run script: https://github.com/levtienbk56/CoffeeShop/blob/master/prototype/database.txt
 
 ### BUILD SERVER ###
-file war: https://github.com/levtienbk56/CoffeeShop/blob/master/build/CoffeeShop.war
+file war: https://www.dropbox.com/s/3bduaku4fhlesfi/CoffeeShop.war?dl=0

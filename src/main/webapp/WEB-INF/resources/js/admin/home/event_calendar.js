@@ -100,8 +100,7 @@ function requestEventsForCalendar() {
 		success : function(data) {
 			// print out
 			for (var i = 0; i < data.length; i++) {
-				console.log(data[i].id + data[i].title + data[i].start
-						+ data[i].end + data[i].color);
+				console.log(data[i].id + data[i].title + data[i].start + data[i].end + data[i].color);
 			}
 
 			// show on calendar
@@ -161,47 +160,40 @@ function pushEventToEditModal(e) {
 }
 
 // when confirm update event
-$("button#btn-update-event")
-		.click(
-				function() {
-					confirmAction = 'update-event';
+$("button#btn-update-event").click(function() {
+	confirmAction = 'update-event';
 
-					// clear notice
-					$(".modal-notice").removeClass(
-							"alert alert-warning alert-success");
-					$(".modal-notice").text("");
+	// clear notice
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").text("");
 
-					var id = $("input#id-edit").val();
-					var title = $("input#title-edit").val();
-					var startTime = $("input#start-time-edit").val();
-					var startDate = $("input#start-date-edit").val();
-					var endTime = $("input#end-time-edit").val();
-					var endDate = $("input#end-date-edit").val();
-					var color = $('select#colors-edit option:selected').val();
+	var id = $("input#id-edit").val();
+	var title = $("input#title-edit").val();
+	var startTime = $("input#start-time-edit").val();
+	var startDate = $("input#start-date-edit").val();
+	var endTime = $("input#end-time-edit").val();
+	var endDate = $("input#end-date-edit").val();
+	var color = $('select#colors-edit option:selected').val();
 
-					console.log('event: ' + title + startTime + startDate
-							+ endTime + endDate + color);
+	console.log('event: ' + title + startTime + startDate + endTime + endDate + color);
 
-					// validate input
-					if (title == '' || startTime == '' || startDate == ''
-							|| endTime == '' || endDate == '') {
-						// clear notice
-						$(".modal-notice").removeClass(
-								"alert alert-warning alert-success");
-						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice")
-								.text(Message.getString().INPUT_EMPTY);
-						return false;
-					}
+	// validate input
+	if (title == '' || startTime == '' || startDate == '' || endTime == '' || endDate == '') {
+		// clear notice
+		$(".modal-notice").removeClass("alert alert-warning alert-success");
+		$(".modal-notice").addClass("alert alert-warning");
+		$(".modal-notice").text(Message.getString().INPUT_EMPTY);
+		return false;
+	}
 
-					var start = new Date(startDate + ' ' + startTime);
-					var end = new Date(endDate + ' ' + endTime);
-					mEvent = new Event(id, title, start, end, color);
-					console.log(mEvent);
+	var start = new Date(startDate + ' ' + startTime);
+	var end = new Date(endDate + ' ' + endTime);
+	mEvent = new Event(id, title, start, end, color);
+	console.log(mEvent);
 
-					showConfirmModal(Message.getString().EVENT_UPDATE_CONFIRM);
-					$("#modal-edit").modal('hide');
-				});
+	showConfirmModal(Message.getString().EVENT_UPDATE_CONFIRM);
+	$("#modal-edit").modal('hide');
+});
 
 // when confirm remove new event
 $("button#btn-remove-event").click(function() {
@@ -215,49 +207,42 @@ $("button#btn-remove-event").click(function() {
 });
 
 // when confirm add new event
-$("button#btn-insert-event")
-		.click(
-				function() {
-					confirmAction = 'insert-event';
+$("button#btn-insert-event").click(function() {
+	confirmAction = 'insert-event';
 
-					// clear notice
-					$(".modal-notice").removeClass(
-							"alert alert-warning alert-success");
+	// clear notice
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
 
-					var title = $("input#title-add").val();
-					var startTime = $("input#start-time-add").val();
-					var startDate = $("input#start-date-add").val();
-					var endTime = $("input#end-time-add").val();
-					var endDate = $("input#end-date-add").val();
-					var color = $('select#colors-add option:selected').val();
+	var title = $("input#title-add").val();
+	var startTime = $("input#start-time-add").val();
+	var startDate = $("input#start-date-add").val();
+	var endTime = $("input#end-time-add").val();
+	var endDate = $("input#end-date-add").val();
+	var color = $('select#colors-add option:selected').val();
 
-					console.log('event: ' + title + startTime + startDate
-							+ endTime + endDate + color);
+	console.log('event: ' + title + startTime + startDate + endTime + endDate + color);
 
-					// validate input
-					if (title == '' || startTime === '' || startDate == ''
-							|| endTime === '' || endDate == '') {
-						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice")
-								.text(Message.getString().INPUT_EMPTY);
-						return false;
-					}
+	// validate input
+	if (title == '' || startTime === '' || startDate == '' || endTime === '' || endDate == '') {
+		$(".modal-notice").addClass("alert alert-warning");
+		$(".modal-notice").text(Message.getString().INPUT_EMPTY);
+		return false;
+	}
 
-					var start = new Date(startDate + ' ' + startTime);
-					var end = new Date(endDate + ' ' + endTime);
-					mEvent = new Event(0, title, start, end, color);
-					console.log(mEvent);
+	var start = new Date(startDate + ' ' + startTime);
+	var end = new Date(endDate + ' ' + endTime);
+	mEvent = new Event(0, title, start, end, color);
+	console.log(mEvent);
 
-					if (start == "Invalid Date" || end == "Invalid Date") {
-						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice")
-								.text(Message.getString().INPUT_INVALID_DATE);
-						return false;
-					}
+	if (start == "Invalid Date" || end == "Invalid Date") {
+		$(".modal-notice").addClass("alert alert-warning");
+		$(".modal-notice").text(Message.getString().INPUT_INVALID_DATE);
+		return false;
+	}
 
-					showConfirmModal(Message.getString().EVENT_INSERT_CONFIRM);
-					$("#modal-insert").modal('hide');
-				});
+	showConfirmModal(Message.getString().EVENT_INSERT_CONFIRM);
+	$("#modal-insert").modal('hide');
+});
 
 // confirm ok, detect action
 $("#confirm-modal .btn-success").click(function() {
@@ -296,8 +281,7 @@ function requestInsertEvent(event) {
 			var message = "";
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(
-						Message.getString().EVENT_INSERT_SUCCESS);
+				$(".modal-notice").text(Message.getString().EVENT_INSERT_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
 				$(".modal-notice").text(Message.getString().EVENT_INSERT_FAIL);
@@ -345,8 +329,7 @@ function requestUpdateEvent(event) {
 			var message = "";
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(
-						Message.getString().EVENT_UPDATE_SUCCESS);
+				$(".modal-notice").text(Message.getString().EVENT_UPDATE_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
 				$(".modal-notice").text(Message.getString().EVENT_UPDATE_FAIL);
@@ -392,8 +375,7 @@ function requestRemoveEvent(event) {
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(
-						Message.getString().EVENT_DELETE_SUCCESS);
+				$(".modal-notice").text(Message.getString().EVENT_DELETE_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
 				$(".modal-notice").text(Message.getString().EVENT_DELETE_FAIL);
