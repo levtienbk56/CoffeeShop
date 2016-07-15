@@ -58,15 +58,13 @@ function onSelectCoffeeNameFunction(element) {
 	var id = element.children('.id').text();
 
 	// put out coffee name
-	var dest = element.parent('div').parent('div').parent('td').children(
-			'.alert');
+	var dest = element.parent('div').parent('div').parent('td').children('.alert');
 	dest.children('.name').html('<h4><strong>' + name + '</strong></h4>');
 	dest.children('.price').text(price);
 	dest.children('.id').text(id);
 
 	// save coffee in current Cup
-	var cupID = element.parent('div').parent('div').parent('td').parent('tr')
-			.attr('name');
+	var cupID = element.parent('div').parent('div').parent('td').parent('tr').attr('name');
 	var coffee = new Coffee(id, name, price, true);
 	listCup[cupID].coffee = coffee;
 
@@ -83,8 +81,7 @@ function onSelectSizeFunction(element) {
 	var cupID = element.parent('td').parent('tr').attr("name");
 
 	// update value size in object
-	var size = $("tr[name=" + cupID + "] input[name=coffee-size]:checked")
-			.val();
+	var size = $("tr[name=" + cupID + "] input[name=coffee-size]:checked").val();
 	console.log("size: " + size);
 	if (size != undefined && size.toUpperCase() == 'BIG') {
 		listCup[cupID].size = "BIG";
@@ -105,18 +102,16 @@ function onSelectCondimentFunction(element) {
 
 	var condiments = [];
 
-	$("tr[name=" + cupID + "] input[name=coffee-condiment]:checked").each(
-			function() {
-				var div = $(this).next();
-				var id = div.children('.id').text();
-				var name = div.children('.name').text();
-				var price = div.children('.price').text();
-				var condiment = new Condiment(id, name, price, true);
-				console.log('condiment: ' + "(" + id + "," + name + "," + price
-						+ ")");
+	$("tr[name=" + cupID + "] input[name=coffee-condiment]:checked").each(function() {
+		var div = $(this).next();
+		var id = div.children('.id').text();
+		var name = div.children('.name').text();
+		var price = div.children('.price').text();
+		var condiment = new Condiment(id, name, price, true);
+		console.log('condiment: ' + "(" + id + "," + name + "," + price + ")");
 
-				condiments.push(condiment);
-			});
+		condiments.push(condiment);
+	});
 
 	// update value in object
 	listCup[cupID].condiments = condiments;
@@ -130,11 +125,8 @@ function onSelectCondimentFunction(element) {
  */
 function updatePriceFunction(cupID) {
 	// update price on current row
-	$("tr[name=" + cupID + "] text[name=cup-price]").text(
-			listCup[cupID].getPrice());
-	console
-			.log("update cup " + cupID + ", Price: "
-					+ listCup[cupID].getPrice());
+	$("tr[name=" + cupID + "] text[name=cup-price]").text(listCup[cupID].getPrice());
+	console.log("update cup " + cupID + ", Price: " + listCup[cupID].getPrice());
 	// update total price
 	updateTotalPriceFunction();
 }
@@ -233,8 +225,6 @@ function requestCheckoutOrder() {
 		dataType : 'json',
 		timeout : 10000,
 		beforeSend : function(xhr) {
-			xhr.setRequestHeader("Accept", "application/json");
-			xhr.setRequestHeader("Content-Type", "application/json");
 			xhr.setRequestHeader(header, token);
 		},
 		success : function(data) {
@@ -256,15 +246,11 @@ function requestCheckoutOrder() {
 					price += condiments[k].price;
 				}
 
-				var str = "<tr> <td>" + coffeeName + "</td> <td>" + cup.size
-						+ "</td><td>" + condimentStr
-						+ "</td><td class='text-center'>" + price
-						+ "</td></tr>";
+				var str = "<tr> <td>" + coffeeName + "</td> <td>" + cup.size + "</td><td>" + condimentStr + "</td><td class='text-center'>" + price + "</td></tr>";
 				// insert into order-table
 				$('#table-revieworder tr#revieworder-total').before(str);
 			}
-			$("#revieworder-modal tr#revieworder-total strong.price").text(
-					data.total);
+			$("#revieworder-modal tr#revieworder-total strong.price").text(data.total);
 			return false;
 		},
 		error : function(e) {

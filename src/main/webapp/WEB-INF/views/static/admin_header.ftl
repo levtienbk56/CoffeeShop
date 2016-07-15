@@ -5,10 +5,10 @@
 		value="${_csrf.token}" />
 </form>
 <script>
-	function formSubmit() {
-		document.getElementById("logoutForm").submit();
-	}
-</script>
+		function formSubmit() {
+			document.getElementById("logoutForm").submit();
+		}
+	</script>
 
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">

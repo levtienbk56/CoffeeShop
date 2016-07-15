@@ -81,7 +81,7 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<!-- Spring security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -189,26 +189,23 @@
 
 
 	<build>
-		<finalName>SpringMVCTiles</finalName>
+		<finalName>CoffeeShop</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.5.1</version>
 				<!-- Must update Maven Project -->
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<!-- Config: Maven Tomcat Plugin -->
 			<!-- http://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
-				<!-- Config: contextPath and Port (Default - /SpringMVCTiles : 8080) -->
-				<!-- <configuration> <path>/</path> <port>8899</port> </configuration> -->
 			</plugin>
 		</plugins>
 	</build>

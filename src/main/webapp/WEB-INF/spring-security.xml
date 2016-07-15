@@ -30,8 +30,7 @@
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="user" password="12345" authorities="SELLER" />
-				<user name="admin" password="12345" authorities="ADMIN" />
+				<user name="tienlv" password="1111" authorities="ADMIN" />
 			</user-service>
 		</authentication-provider>
 		<authentication-provider>
