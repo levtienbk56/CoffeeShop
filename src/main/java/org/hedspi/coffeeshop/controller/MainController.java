@@ -14,6 +14,7 @@ import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.controller.seller.order.OrderController;
 import org.hedspi.coffeeshop.domain.dao.UserDAO;
 import org.hedspi.coffeeshop.domain.model.User;
+import org.hedspi.coffeeshop.service.CoffeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,6 +36,8 @@ public class MainController {
 	LocaleResolver localeResolver;
 	@Autowired
 	UserDAO userdao;
+	@Autowired
+	CoffeeService coffeeService;
 
 	/**
 	 * @see SpringSecurity
@@ -125,6 +128,9 @@ public class MainController {
 		cookie.setValue("en");
 		cookie.setMaxAge(1000 * 60 * 60 * 24); // 1day
 		response.addCookie(cookie);
+		
+		// [DEBUG] mybatis
+		coffeeService.test();
 
 		return "pages/global/login";
 	}

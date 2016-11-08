@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.domain.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.domain.model.Coffee;
+import org.hedspi.coffeeshop.mapper.CoffeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,8 @@ public class CoffeeService {
 
 	@Autowired
 	private CoffeeDAO coffeeDAO;
+	@Autowired
+	CoffeeMapper coffeeMapper;
 
 	public List<Map<String, Object>> mapDataTable() {
 		List<Map<String, Object>> list = new LinkedList<Map<String, Object>>();
@@ -54,6 +57,12 @@ public class CoffeeService {
 		// update newest price
 		coffee.setPrice(c.getPrice());
 		return true;
+	}
+	
+	public void test (){
+		logger.entry();
+		List<Coffee> list = coffeeMapper.selectAll();
+		logger.debug(list);
 	}
 
 }

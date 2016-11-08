@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- CoffeeMapper.java namespace -->
+<mapper namespace="org.hedspi.coffeeshop.mapper.CoffeeMapper">
+	<!-- Coffee.java namespace -->
+	<resultMap type="org.hedspi.coffeeshop.domain.model.Coffee" id="Coffee">
+		<!-- map table "person"column to class "Person" property -->
+		<id property="id" column="coffees_id"/>
+		<result property="name" column="name"/>
+		<result property="price" column="price"/>
+		<result property="enabled" column="enabled"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="Coffee">
+		SELECT * 
+		FROM coffees
+	</select>
+	
+</mapper>
