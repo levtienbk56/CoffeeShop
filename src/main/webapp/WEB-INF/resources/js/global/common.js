@@ -65,6 +65,7 @@ var Message = (function() {
 		PWD_CHANGED : "Password was changed successful!",
 		NO_COFFEE : "choose a coffee first",
 		CHECKOUT_CONFIRM : "Are you sure to checkout order?",
+		CHECKOUT_FAIL : "Error occurred!",
 		NEW_ORDER_CONFIRM : "Are you sure to create new order? Current cups'll be deleted.",
 		EVENT_DELETE_CONFIRM : "Are you sure to delete event?",
 		EVENT_DELETE_FAIL : "Error occurred!",

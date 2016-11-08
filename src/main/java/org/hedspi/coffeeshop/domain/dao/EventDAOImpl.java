@@ -8,7 +8,6 @@ import org.hedspi.coffeeshop.domain.mapper.EventMapper;
 import org.hedspi.coffeeshop.domain.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,17 +25,17 @@ public class EventDAOImpl extends JdbcDaoSupport implements EventDAO {
 		Object[] params = new Object[] { event.getTitle(), event.getStart(), event.getEnd(), event.getColor() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
-		} catch (CannotGetJdbcConnectionException e) {
-			e.printStackTrace();
-			return -1;
 		} catch (DuplicateKeyException e) {
 			e.printStackTrace();
 			return 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
 		}
 	}
 
 	public int delete(int id) {
-		String sql = "DELETE FROM events WHERE events_id = ?";
+		String sql = "DELETE FROM events WHERE events_id=?";
 		Object[] params = new Object[] { id };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
@@ -51,7 +50,7 @@ public class EventDAOImpl extends JdbcDaoSupport implements EventDAO {
 		EventMapper mapper = new EventMapper();
 		try {
 			return this.getJdbcTemplate().query(sql, mapper);
-		} catch (CannotGetJdbcConnectionException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}

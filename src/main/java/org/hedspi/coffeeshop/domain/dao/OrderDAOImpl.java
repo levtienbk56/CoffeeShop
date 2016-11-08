@@ -31,10 +31,10 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 		Object[] params = new Object[] { order.getUser().getUsername(), order.getPurchaseTime(), order.getTotal() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
-		} catch (CannotGetJdbcConnectionException e) {
-			return -1;
 		} catch (DuplicateKeyException e) {
 			return 0;
+		} catch (Exception e) {
+			return -1;
 		}
 	}
 
@@ -49,10 +49,10 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 		Object[] params = new Object[] { order.getUser().getUsername(), order.getPurchaseTime(), order.getTotal() };
 		try {
 			return this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
-		} catch (CannotGetJdbcConnectionException e) {
-			return -1;
 		} catch (DuplicateKeyException e) {
 			return 0;
+		} catch (Exception e) {
+			return -1;
 		}
 	}
 
@@ -61,10 +61,10 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 		Object[] params = new Object[] { price, id };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
-		} catch (CannotGetJdbcConnectionException e) {
-			return -1;
-		} catch (DuplicateKeyException e) {
+		}  catch (DuplicateKeyException e) {
 			return 0;
+		}catch (Exception e) {
+			return -1;
 		}
 	}
 
@@ -133,7 +133,7 @@ public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
 	}
 
 	public List<Order> selectByRange(Timestamp dfrom, Timestamp dto) {
-		String sql = "SELECT * FROM orders WHERE purchase_time > ? and purchase_time < ?";
+		String sql = "SELECT * FROM orders WHERE purchase_time > ? and purchase_time < ? ";
 		Object[] params = new Object[] { dfrom, dto };
 		OrderMapper mapper = new OrderMapper();
 

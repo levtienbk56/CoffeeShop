@@ -4,11 +4,12 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.domain.mapper.CondimentMapper;
 import org.hedspi.coffeeshop.domain.model.Condiment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
+	private static final Logger logger = LogManager.getLogger(CondimentDAOImpl.class);
 
 	@Autowired
 	public CondimentDAOImpl(DataSource dataSource) {
@@ -27,10 +29,10 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 		Object[] params = new Object[] { condiment.getName(), condiment.getPrice(), condiment.isEnabled() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
-		} catch (CannotGetJdbcConnectionException e) {
-			return -1;
 		} catch (DuplicateKeyException e) {
 			return 0;
+		} catch (Exception e) {
+			return -1;
 		}
 	}
 
@@ -47,7 +49,7 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public int delete(int id) {
-		String sql = "DELETE FROM condiments WHERE condiments_id = ?";
+		String sql = "DELETE FROM condiments WHERE condiments_id=?";
 		Object[] params = new Object[] { id };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
@@ -58,11 +60,16 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 	}
 
 	public Condiment select(int id) {
+		logger.entry(id);
 		String sql = "SELECT * FROM condiments WHERE condiments_id=?";
-		Object[] params = new Object[] { id };
 		CondimentMapper rowMapper = new CondimentMapper();
-		Condiment c = this.getJdbcTemplate().queryForObject(sql, params, rowMapper);
-		return c;
+		Object[] params = new Object[] { id };
+		try {
+			return this.getJdbcTemplate().queryForObject(sql, rowMapper, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<Condiment> selectAll() {
@@ -71,8 +78,12 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 		Object[] params = new Object[] {};
 		CondimentMapper mapper = new CondimentMapper();
 
-		List<Condiment> list = this.getJdbcTemplate().query(sql, params, mapper);
-		return list;
+		try {
+			return this.getJdbcTemplate().query(sql, params, mapper);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<Condiment> selectAllActive() {
@@ -81,8 +92,12 @@ public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
 		Object[] params = new Object[] {};
 		CondimentMapper mapper = new CondimentMapper();
 
-		List<Condiment> list = this.getJdbcTemplate().query(sql, params, mapper);
-		return list;
+		try {
+			return this.getJdbcTemplate().query(sql, params, mapper);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

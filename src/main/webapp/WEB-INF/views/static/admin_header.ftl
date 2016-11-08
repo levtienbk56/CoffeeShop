@@ -1,15 +1,3 @@
-<!-- csrt for log out-->
-<form action="j_spring_security_logout" method="POST" id="logoutForm">
-  	<input type="hidden" 
-		name="${_csrf.parameterName}"
-		value="${_csrf.token}" />
-</form>
-<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
-
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
@@ -41,3 +29,16 @@
     </ul>
     <!-- /.navbar-top-links -->
 </nav>
+
+
+<!-- csrt for log out-->
+<form action="j_spring_security_logout" method="POST" id="logoutForm">
+  	<input type="hidden" 
+		name="${_csrf.parameterName}"
+		value="${_csrf.token}" />
+</form>
+<script>
+		function formSubmit() {
+			document.getElementById("logoutForm").submit();
+		}
+	</script>

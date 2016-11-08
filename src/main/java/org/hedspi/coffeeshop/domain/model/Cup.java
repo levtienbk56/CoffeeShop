@@ -7,11 +7,12 @@ import java.util.List;
 public class Cup extends Item {
 	private Coffee coffee;
 
-	private String size = "NORMAl";
-	private List<Condiment> condiments = new ArrayList<Condiment>();
+	private String size;
+	private List<Condiment> condiments;
 
 	public Cup() {
-
+		this.size  = "NORMAl";
+		this.condiments = new ArrayList<Condiment>();
 	}
 
 	public Cup(int id, Coffee coffee, String size, List<Condiment> condiments) {
@@ -53,7 +54,7 @@ public class Cup extends Item {
 
 	public String getCondimentsID() {
 		String str = "";
-		for (Condiment c : condiments) {
+		for (Condiment c : this.condiments) {
 			str = str + c.getId() + " ";
 		}
 		return str.trim();
@@ -81,5 +82,10 @@ public class Cup extends Item {
 		}
 		return str;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Cup [coffee=" + coffee + ", size=" + size + ", condiments=" + condiments + "]";
+	}
+
 }

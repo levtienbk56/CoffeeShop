@@ -59,6 +59,8 @@ public class OrderController {
 		List<Condiment> listCondiment = condimentdao.selectAllActive();
 		model.addAttribute("listCondiment", listCondiment);
 		model.addAttribute("listCoffee", listCoffee);
+		logger.debug(listCoffee);
+		logger.debug(listCondiment);
 
 		modell.addAttribute("username", MainController.getUserName());
 
@@ -75,7 +77,9 @@ public class OrderController {
 	 */
 	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
 	public @ResponseBody Order checkout(@RequestBody Map<String, Cup> listCup) {
-		logger.entry();
-		return logger.exit(orderService.validAndInsert(listCup));
+		logger.entry(listCup);
+
+		Order order = orderService.validAndInsert(listCup);
+		return logger.exit(order);
 	}
 }

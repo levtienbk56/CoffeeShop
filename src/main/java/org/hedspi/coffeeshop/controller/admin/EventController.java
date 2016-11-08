@@ -28,7 +28,8 @@ public class EventController {
 	@RequestMapping(value = { "" }, method = RequestMethod.GET)
 	public String adminPage() {
 		logger.entry();
-		logger.trace("Enter AdminController! return Admin home page.");
+		logger.trace("TracingEnter AdminController! return Admin home page.");
+		logger.debug("debugging....");
 		return "pages/admin/home/event-calendar";
 	}
 

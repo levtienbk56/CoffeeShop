@@ -9,7 +9,6 @@ import org.hedspi.coffeeshop.domain.mapper.UserMapper;
 import org.hedspi.coffeeshop.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,16 +27,16 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 		Object[] params = new Object[] { user.getUsername(), user.getPassword(), user.isEnabled(), user.getRole() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
-		} catch (CannotGetJdbcConnectionException e) {
-			return -1;
-		} catch (DuplicateKeyException e) {
+		}  catch (DuplicateKeyException e) {
 			return 0;
+		} catch (Exception e) {
+			return -1;
 		}
 
 	}
 
 	public int delete(String username) {
-		String sql = "DELETE FROM users as u WHERE u.username = ?";
+		String sql = "DELETE FROM users as u WHERE u.username=?";
 		Object[] params = new Object[] { username };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
@@ -60,7 +59,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 		UserMapper mapper = new UserMapper();
 		try {
 			return this.getJdbcTemplate().query(sql, mapper);
-		} catch (CannotGetJdbcConnectionException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<User>();
 		}

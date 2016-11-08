@@ -8,7 +8,7 @@ public interface CoffeeDAO {
 	int insert(Coffee coffee);
 	int delete(int id);
 	List<Coffee> selectAll();
-	Coffee selectCoffee(int id);
+	Coffee select(int id);
 	int update(Coffee coffee);
 	List<Coffee> selectAllActive();
 }

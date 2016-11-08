@@ -26,7 +26,6 @@ import org.hedspi.coffeeshop.domain.model.User;
 import org.hedspi.coffeeshop.utils.NumberHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class OrderService {
@@ -44,7 +43,15 @@ public class OrderService {
 	@Autowired
 	private CondimentService condimentService;
 
-	public Order validAndInsert(@RequestBody Map<String, Cup> listCup) {
+	/**
+	 * check valid coffees, size, condiments. if OK insert order information
+	 * into DB.
+	 * 
+	 * @param listCup
+	 * @return Order if OK, null if error is occurred
+	 */
+	public Order validAndInsert(Map<String, Cup> listCup) {
+		logger.entry(listCup);
 		Order order = new Order();
 		if (listCup != null && listCup.size() > 0) {
 
@@ -55,21 +62,22 @@ public class OrderService {
 
 				// check coffee
 				if (!coffeeService.isAvailable(cup.getCoffee())) {
-					logger.error("order request fail", cup.getCoffee());
-					continue; // next cup
+					logger.debug("order request fail", cup.getCoffee());
+					return null; // error
 				}
 
 				// check size
-				if (!cup.getSize().toUpperCase().equals("BIG") && !cup.getSize().toUpperCase().equals("NORMAL")) {
-					logger.error("order request fail", cup.getSize());
-					continue;
+				if (cup.getSize() == null || !(cup.getSize().toUpperCase().equals("BIG")
+						|| cup.getSize().toUpperCase().equals("NORMAL"))) {
+					logger.debug("order request fail", cup.getSize());
+					return null; // error
 				}
 
 				// check condiments
 				for (Condiment cd : cup.getCondiments()) {
 					if (!condimentService.isAvailable(cd)) {
-						logger.error("order request fail", cd);
-						continue;
+						logger.debug("order request fail", cd);
+						return null; // error
 					}
 				}
 
@@ -80,18 +88,24 @@ public class OrderService {
 
 			order.setTotal(NumberHelper.round(total, 2));
 
-			// time to insert into database
+			// get Seller name
 			String username = MainController.getUserName();
-			Timestamp timestamp = new Timestamp(new Date().getTime());
-
 			order.setUser(new User(username));
+			// get Time
+			Timestamp timestamp = new Timestamp(new Date().getTime());
 			order.setPurchaseTime(timestamp);
 
 			int orderId = orderDAO.insertWithReturnId(order);
+			if (orderId <= 0) {
+				return null; // error
+			}
 
+			// everything is OK --> insert Cups in Order
 			for (Cup cup : order.getCups()) {
 				cupDAO.insert(orderId, cup);
 			}
+		} else {
+			return null;
 		}
 		return order;
 	}

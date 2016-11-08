@@ -5,11 +5,12 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.domain.mapper.CupMapper;
 import org.hedspi.coffeeshop.domain.model.Cup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
+	private static final Logger logger = LogManager.getLogger(CupDAOImpl.class);
 
 	@Autowired
 	public CupDAOImpl(DataSource dataSource) {
@@ -25,16 +27,19 @@ public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
 	}
 
 	public int insert(int orderID, Cup cup) {
+		logger.entry(orderID, cup);
+
 		String sql = "INSERT INTO cups(orders_id, coffees_id, condiments, size, price) VALUES(?,?,?,?,?)";
-		Object[] params = new Object[] { orderID, cup.getCoffee().getId(), cup.getCondimentsID(), cup.getSize(), cup.getPrice()};
+		Object[] params = new Object[] { orderID, cup.getCoffee().getId(), cup.getCondimentsID(), cup.getSize(),
+				cup.getPrice() };
 		try {
 			return this.getJdbcTemplate().update(sql, params);
-		} catch (CannotGetJdbcConnectionException e) {
-			e.printStackTrace();
-			return -1;
 		} catch (DuplicateKeyException e) {
 			e.printStackTrace();
 			return 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
 		}
 
 	}
@@ -54,7 +59,12 @@ public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
 		String sql = "SELECT * FROM cups where orders_id=?";
 		Object[] params = new Object[] { orderId };
 		CupMapper map = new CupMapper();
-		return this.getJdbcTemplate().query(sql, params, map);
+		try {
+			return this.getJdbcTemplate().query(sql, params, map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
