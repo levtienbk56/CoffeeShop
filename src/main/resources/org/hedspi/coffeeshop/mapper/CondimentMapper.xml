@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- CondimentMapper.java -->
+<mapper namespace="org.hedspi.coffeeshop.mapper.CondimentMapper">
+	<!-- define shortcut -->
+	<resultMap type="org.hedspi.coffeeshop.domain.model.Condiment"
+		id="Condiment">
+		<id property="id" column="condiments_id" />
+		<result property="name" column="name" />
+		<result property="price" column="price" />
+		<result property="enabled" column="enabled" />
+	</resultMap>
+	<parameterMap type="org.hedspi.coffeeshop.domain.model.Condiment"
+		id="Condiment"></parameterMap>
+
+	<!-- define query sql, id is method's name in Mapper Interface class -->
+	<select id="selectAll" resultMap="Condiment">
+		SELECT *
+		FROM condiments
+	</select>
+	<select id="selectAllActive" resultMap="Condiment">
+		SELECT *
+		FROM condiments
+		WHERE enabled=true
+	</select>
+	<select id="select" parameterType="int" resultMap="Condiment">
+		SELECT *
+		FROM
+		condiments
+		WHERE
+		condiments_id = #{id}
+	</select>
+	<insert id="insert" parameterMap="Condiment">
+		INSERT INTO
+		condiments(name,price,enabled)
+		VALUES(#{name},#{price},#{enabled})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM condiments
+		WHERE
+		condiments_id = #{id}
+	</delete>
+	<update id="update" parameterMap="Condiment">
+		UPDATE
+		condiments
+		SET
+		name = #{name},
+		price = #{price},
+		enabled = #{enabled}
+		WHERE
+		condiments_id = #{id}
+	</update>
+</mapper>

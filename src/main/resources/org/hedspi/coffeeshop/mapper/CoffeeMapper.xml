@@ -1,20 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- CoffeeMapper.java namespace -->
+<!-- CoffeeMapper.java -->
 <mapper namespace="org.hedspi.coffeeshop.mapper.CoffeeMapper">
-	<!-- Coffee.java namespace -->
-	<resultMap type="org.hedspi.coffeeshop.domain.model.Coffee" id="Coffee">
-		<!-- map table "person"column to class "Person" property -->
-		<id property="id" column="coffees_id"/>
-		<result property="name" column="name"/>
-		<result property="price" column="price"/>
-		<result property="enabled" column="enabled"/>
+	<!-- define shortcut -->
+	<resultMap type="org.hedspi.coffeeshop.domain.model.Coffee"
+		id="Coffee">
+		<!-- map table "condiments" column to class "Condiment" property -->
+		<id property="id" column="coffees_id" />
+		<result property="name" column="name" />
+		<result property="price" column="price" />
+		<result property="enabled" column="enabled" />
 	</resultMap>
+	<parameterMap type="org.hedspi.coffeeshop.domain.model.Coffee"
+		id="Coffee"></parameterMap>
 
+	<!-- define query sql, id is method's name in Mapper Interface class -->
 	<select id="selectAll" resultMap="Coffee">
-		SELECT * 
+		SELECT *
 		FROM coffees
 	</select>
-	
+	<select id="selectAllActive" resultMap="Coffee">
+		SELECT *
+		FROM coffees
+		WHERE enabled=true
+	</select>
+	<select id="select" parameterType="int" resultMap="Coffee">
+		SELECT *
+		FROM
+		coffees
+		WHERE
+		coffees_id = #{id}
+	</select>
+	<insert id="insert" parameterMap="Coffee">
+		INSERT INTO
+		coffees(name,price,enabled)
+		VALUES(#{name},#{price},#{enabled})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM coffees
+		WHERE
+		coffees_id = #{id}
+	</delete>
+	<update id="update" parameterMap="Coffee">
+		UPDATE coffees
+		SET
+		name =
+		#{name},
+		price = #{price},
+		enabled = #{enabled}
+		WHERE
+		coffees_id = #{id}
+	</update>
 </mapper>

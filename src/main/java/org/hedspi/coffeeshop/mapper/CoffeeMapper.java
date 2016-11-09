@@ -4,9 +4,16 @@ import java.util.List;
 
 import org.hedspi.coffeeshop.domain.model.Coffee;
 
-public interface CoffeeMapper{
-	public List<Coffee> selectAll();
-//	public List<Coffee> selectAllAvailable();
-//	public Coffee select(int id);
-//	public int insert(Coffee coffee);
+public interface CoffeeMapper {
+	int insert(Coffee coffee);
+
+	int delete(int id);
+
+	List<Coffee> selectAll();
+
+	Coffee select(int id);
+
+	int update(Coffee coffee);
+
+	List<Coffee> selectAllActive();
 }

@@ -12,7 +12,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<commons-dbcp.version>1.2.2</commons-dbcp.version>
-		<postgres.version>9.0-801.jdbc4</postgres.version>
+		<postgres.version>9.1-901.jdbc4</postgres.version>
 		<spring.version>4.2.2.RELEASE</spring.version>
 		<jackson.version>2.4.1</jackson.version>
 		<security.version>3.2.5.RELEASE</security.version>

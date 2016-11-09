@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- EventMapper.java -->
+<mapper namespace="org.hedspi.coffeeshop.mapper.EventMapper">
+	<!-- define shortcut -->
+	<resultMap type="org.hedspi.coffeeshop.domain.model.Event"
+		id="Event">
+		<id property="id" column="events_id" />
+		<result property="title" column="title" />
+		<result property="start" column="start" />
+		<result property="end" column="end" />
+		<result property="color" column="color" />
+	</resultMap>
+	<parameterMap type="org.hedspi.coffeeshop.domain.model.Event"
+		id="Event"></parameterMap>
+
+	<!-- define query sql, id is method's name in Mapper Interface class -->
+	<select id="selectAll" resultMap="Event">
+		SELECT *
+		FROM events
+	</select>
+	<insert id="insert" parameterMap="Event">
+		INSERT INTO
+		events(name,price,enabled)
+		VALUES(#{name},#{price},#{enabled})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM events
+		WHERE
+		events_id = #{id}
+	</delete>
+	<update id="update" parameterMap="Event">
+		UPDATE
+		events
+		SET
+		title = #{name},
+		start = #{start},
+		end = #{end}
+		WHERE
+		events_id = #{id}
+	</update>
+</mapper>

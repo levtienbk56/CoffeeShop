@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- UserMapper.java -->
+<mapper namespace="org.hedspi.coffeeshop.mapper.UserMapper">
+	<!-- define shortcut -->
+	<resultMap type="org.hedspi.coffeeshop.domain.model.User" id="User">
+		<!-- map table "condiments" column to class "Condiment" property -->
+		<id property="username" column="username" />
+		<result property="name" column="name" />
+		<result property="price" column="price" />
+		<result property="enabled" column="enabled" />
+	</resultMap>
+	<parameterMap type="org.hedspi.coffeeshop.domain.model.User"
+		id="User"></parameterMap>
+
+	<!-- define query sql, id is method's name in Mapper Interface class -->
+	<select id="selectAll" resultMap="User">
+		SELECT *
+		FROM users
+		ORDER BY
+		username
+	</select>
+
+	<select id="select" parameterType="String" resultMap="User">
+		SELECT *
+		FROM
+		users
+		WHERE
+		username = #{username}
+	</select>
+
+	<insert id="insert" parameterMap="User">
+		INSERT INTO
+		users(username,password,enabled,role)
+		VALUES(#{username},#{password},#{enabled},#role)
+	</insert>
+	<delete id="delete" parameterType="String">
+		DELETE FROM users
+		WHERE
+		users_id = #{username}
+	</delete>
+	<update id="update" parameterMap="User">
+		UPDATE users
+		SET
+		password =
+		#{password},
+		enabled = #{enabled},
+		role = #{role}
+		WHERE
+		username =
+		#{username}
+	</update>
+</mapper>

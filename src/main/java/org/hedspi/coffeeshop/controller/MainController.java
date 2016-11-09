@@ -15,6 +15,7 @@ import org.hedspi.coffeeshop.controller.seller.order.OrderController;
 import org.hedspi.coffeeshop.domain.dao.UserDAO;
 import org.hedspi.coffeeshop.domain.model.User;
 import org.hedspi.coffeeshop.service.CoffeeService;
+import org.hedspi.coffeeshop.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,7 +38,7 @@ public class MainController {
 	@Autowired
 	UserDAO userdao;
 	@Autowired
-	CoffeeService coffeeService;
+	MainService mainService;
 
 	/**
 	 * @see SpringSecurity
@@ -130,7 +131,7 @@ public class MainController {
 		response.addCookie(cookie);
 		
 		// [DEBUG] mybatis
-		coffeeService.test();
+		mainService.test();
 
 		return "pages/global/login";
 	}
@@ -147,7 +148,7 @@ public class MainController {
 			@RequestParam("newPass") String newPass) {
 		System.out.println("curpass: " + currentPass + ", newpass: " + newPass);
 
-		User user = userdao.selectUser(MainController.getUserName());
+		User user = userdao.select(MainController.getUserName());
 		Map<String, String> map = new HashMap<String, String>();
 		if (user == null) {
 			map.put("result", "fail");
