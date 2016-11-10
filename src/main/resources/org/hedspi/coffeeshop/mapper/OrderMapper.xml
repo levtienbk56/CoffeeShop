@@ -3,5 +3,89 @@
 
 <!-- OrderMapper.java -->
 <mapper namespace="org.hedspi.coffeeshop.mapper.OrderMapper">
-	
+
+	<insert id="insert" parameterType="org.hedspi.coffeeshop.domain.model.Order"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="orders_id">
+		INSERT INTO
+		orders(username,purchase_time,total)
+		VALUES(#{user.username},#{purchaseTime}, #{total})
+	</insert>
+
+	<update id="updatePrice">
+		UPDATE orders
+		SET
+		total = #{price}
+		WHERE
+		orders_id =
+		#{id}
+	</update>
+
+	<select id="selectTotalDateCorrelate" resultType="map">
+		SELECT
+		date(purchase_time) AS label,
+		sum(total) AS data
+		FROM orders
+		WHERE
+		date_part('year', purchase_time) =
+		#{year}
+		and date_part('month',
+		purchase_time) = #{month}
+		GROUP BY label
+		ORDER BY
+		label ASC
+	</select>
+
+	<select id="selectTotalCoffeeCorrelation" resultType="map">
+		SELECT
+		co.name as mname, date_part('day', o.purchase_time) AS mdate,
+		count(co.name) AS mcup
+		FROM orders as o, cups as c, coffees as co
+		WHERE
+		c.orders_id = o.orders_id and c.coffees_id = co.coffees_id and
+		date_part('year', o.purchase_time) = #{year} and date_part('month',
+		o.purchase_time) = #{month}
+		GROUP BY mname, mdate
+		ORDER BY mname, mdate
+	</select>
+
+	<select id="selectYears" resultType="int">
+		SELECT
+		date_part('year',
+		purchase_time) as myear
+		FROM orders
+		GROUP BY myear
+		ORDER BY myear DESC
+	</select>
+
+	<select id="selectMonths" resultType="int">
+		SELECT
+		date_part('month',
+		purchase_time)AS mmonth
+		FROM orders
+		WHERE
+		date_part('year',
+		purchase_time) = #{year}
+		GROUP BY mmonth
+		ORDER BY mmonth ASC
+	</select>
+
+	<select id="selectNumberCupOfCoffeeByDate" resultType="int">
+		SELECT
+		count(co.name)
+		FROM cups as c, coffees as co,
+		orders as o
+		WHERE
+		c.coffees_id=co.coffees_id and c.orders_id =
+		o.orders_id and co.name =
+		#{coffeeName} and
+		date(o.purchase_time) =
+		#{date}
+	</select>
+	<select id="selectByRange" resultType="map">
+		SELECT *
+		FROM orders
+		WHERE
+		purchase_time &gt; #{dfrom} and
+		purchase_time &lt; #{dto}
+	</select>
 </mapper>

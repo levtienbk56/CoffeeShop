@@ -3,14 +3,11 @@
 
 <!-- CupMapper.java -->
 <mapper namespace="org.hedspi.coffeeshop.mapper.CupMapper">
-	<parameterMap type="org.hedspi.coffeeshop.domain.model.Cup"
-		id="Cup"></parameterMap>
-
-	<!-- define query sql, id is method's name in Mapper Interface class -->
-	<insert id="insert" parameterType="map">
+	
+	<insert id="insert">
 		INSERT INTO
 		cups(orders_id,coffees_id,condiments,size,price)
-		VALUES(#{orderId},#{coffeeId},#{condiments},#{size},#{price})
+		VALUES( #{orderId}, #{coffeeId}, #{condiments}, #{size}, #{price})
 	</insert>
 	<select id="selectByOrderId" parameterType="int" resultType="map">
 		SELECT *
