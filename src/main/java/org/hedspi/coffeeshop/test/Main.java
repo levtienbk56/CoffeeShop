@@ -1,25 +1,19 @@
 package org.hedspi.coffeeshop.test;
-import org.hedspi.coffeeshop.domain.model.Coffee;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hedspi.coffeeshop.domain.model.User;
 
 public class Main {
-	String val;
-	Laptop laptop = Laptop.HP;
-	
-	static enum Laptop{
-		HP;
-		public String toString(){
-			return "hp";
-		}
-	}
-	public static void main(String[] args) {
-		Main obj = new Main();
-		obj.val = "aaaaaaa";
-		
 
-	}
-	public static void change(Coffee coffee){
-		coffee.setId(1111);
-		coffee.setName("loli");
+	public static void main(String[] args) {
+		User a = new User("aaa");
+		List<User> list = new ArrayList<>();
+		list.add(a);
+		a.setUsername("bbb");
+		System.out.println(list.get(0).getUsername());
+		
 	}
 
 }

@@ -22,5 +22,6 @@
 
 	<!-- step 3 mapper -->
 	<mybatis:scan base-package="org.hedspi.coffeeshop.mapper"/>
+	
 
 </beans>

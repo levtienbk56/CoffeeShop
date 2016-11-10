@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- CupMapper.java -->
+<mapper namespace="org.hedspi.coffeeshop.mapper.CupMapper">
+	<parameterMap type="org.hedspi.coffeeshop.domain.model.Cup"
+		id="Cup"></parameterMap>
+
+	<!-- define query sql, id is method's name in Mapper Interface class -->
+	<insert id="insert" parameterType="map">
+		INSERT INTO
+		cups(orders_id,coffees_id,condiments,size,price)
+		VALUES(#{orderId},#{coffeeId},#{condiments},#{size},#{price})
+	</insert>
+	<select id="selectByOrderId" parameterType="int" resultType="map">
+		SELECT *
+		FROM cups
+		WHERE orders_id = #{orderId}
+	</select>
+	<select id="selectCoffeeCorrelate" resultType="map">
+		SELECT
+		co.name as label, count(co.name) as data
+		FROM
+		coffees as co, cups as cu
+		WHERE
+		co.coffees_id = cu.coffees_id
+		GROUP BY
+		(co.name)
+	</select>
+
+</mapper>

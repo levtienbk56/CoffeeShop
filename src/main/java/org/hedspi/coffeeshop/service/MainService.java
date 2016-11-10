@@ -41,7 +41,7 @@ public class MainService {
 		
 		logger.debug(userMapper.selectAll());
 		
-		logger.debug(userMapper.select("tienlv"));
+		logger.debug(userMapper.select("quyvd"));
 		
 		logger.debug(eventMapper.selectAll());
 	}
