@@ -55,4 +55,8 @@ public class Event extends Item {
 	public String toString() {
 		return "{" + id + "," + title + "," + start + "," + end + "," + color + "}";
 	}
+
+	enum Color {
+		RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE
+	}
 }

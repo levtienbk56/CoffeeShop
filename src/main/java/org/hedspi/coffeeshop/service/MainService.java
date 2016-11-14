@@ -32,11 +32,11 @@ public class MainService {
 	OrderMapper orderMapper;
 
 	public void test() {
-		logger.debug(orderMapper.insert(new Order(0, "quyvd", new Date(), 25.5)));
-		String condiments = "";
-		String size = "BIG";
-		logger.debug(cupMapper.insert(7, 3, condiments, size, 4.5));
-		logger.debug(cupMapper.selectCoffeeCorrelate());
+//		logger.debug(orderMapper.insert(new Order(0, "quyvd", new Date(), 25.5)));
+//		String condiments = "";
+//		String size = "BIG";
+//		logger.debug(cupMapper.insert(7, 3, condiments, size, 4.5));
+//		logger.debug(cupMapper.selectCoffeeCorrelate());
 	}
 
 }
