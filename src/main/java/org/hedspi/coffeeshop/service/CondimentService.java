@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.domain.dao.CondimentDAO;
 import org.hedspi.coffeeshop.domain.model.Condiment;
+import org.hedspi.coffeeshop.mapper.CondimentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ public class CondimentService {
 
 	@Autowired
 	private CondimentDAO condimentDAO;
+	@Autowired
+	private CondimentMapper condimentMapper;
 
 	public List<Map<String, Object>> mapDataTable() {
 		List<Map<String, Object>> list = new LinkedList<Map<String, Object>>();
@@ -46,5 +49,47 @@ public class CondimentService {
 		// update newest price
 		condiment.setPrice(c.getPrice());
 		return true;
+	}
+
+	public int insert(Condiment condiment) {
+		if (validateBefore(condiment)) {
+			try {
+				return condimentMapper.insert(condiment);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	public Object update(Condiment condiment) {
+		if (validateBefore(condiment)) {
+			try {
+				return condimentMapper.update(condiment);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public int delete(int id) {
+		if (id > 0) {
+			try {
+				return condimentMapper.delete(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	private boolean validateBefore(Condiment condiment) {
+		if (condiment != null && condiment.getName() != null && !condiment.getName().equals("")
+				&& condiment.getPrice() >= 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

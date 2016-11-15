@@ -32,7 +32,8 @@
 		WHERE
 		coffees_id = #{id}
 	</select>
-	<insert id="insert" parameterMap="Coffee">
+	<insert id="insert" parameterType="org.hedspi.coffeeshop.domain.model.Coffee"
+		useGeneratedKeys="true" keyColumn="coffees_id" keyProperty="id">
 		INSERT INTO
 		coffees(name,price,enabled)
 		VALUES(#{name},#{price},#{enabled})
@@ -42,7 +43,7 @@
 		WHERE
 		coffees_id = #{id}
 	</delete>
-	<update id="update" parameterMap="Coffee">
+	<update id="update" parameterType="org.hedspi.coffeeshop.domain.model.Coffee">
 		UPDATE coffees
 		SET
 		name =

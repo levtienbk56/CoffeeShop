@@ -33,12 +33,17 @@
 	<insert id="insert" parameterMap="User">
 		INSERT INTO
 		users(username,password,enabled,role)
-		VALUES(#{username},#{password},#{enabled},#role)
+		VALUES(#{username},#{password},#{enabled},#{role})
 	</insert>
 	<delete id="delete" parameterType="String">
 		DELETE FROM users
 		WHERE
 		users_id = #{username}
+	</delete>
+	<delete id="deleteAll">
+		DELETE FROM 
+		users 
+		where true
 	</delete>
 	<update id="update" parameterMap="User">
 		UPDATE users

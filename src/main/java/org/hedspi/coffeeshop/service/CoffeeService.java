@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.domain.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.domain.model.Coffee;
+import org.hedspi.coffeeshop.mapper.CoffeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,8 @@ public class CoffeeService {
 
 	@Autowired
 	private CoffeeDAO coffeeDAO;
+	@Autowired
+	CoffeeMapper coffeeMapper;
 
 	public List<Map<String, Object>> mapDataTable() {
 		List<Map<String, Object>> list = new LinkedList<Map<String, Object>>();
@@ -54,6 +57,72 @@ public class CoffeeService {
 		// update newest price
 		coffee.setPrice(c.getPrice());
 		return true;
+	}
+
+	public int insert(Coffee coffee) {
+		if (validateBefore(coffee))
+			try {
+				return coffeeMapper.insert(coffee);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return 0; // false
+	}
+
+	int delete(int id) {
+		if (id > 0)
+			try {
+				return coffeeMapper.delete(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return 0; // false
+	}
+	
+	List<Coffee> selectAll() {
+		try {
+			return coffeeMapper.selectAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	Coffee select(int id) {
+		if (id > 0)
+			try {
+				return coffeeMapper.select(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return null;
+	}
+
+	int update(Coffee coffee) {
+		if (validateBefore(coffee))
+			try {
+				return coffeeMapper.update(coffee);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return 0;
+	}
+
+	List<Coffee> selectAllActive() {
+		try {
+			return coffeeMapper.selectAllActive();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private boolean validateBefore(Coffee coffee) {
+		if (coffee != null && coffee.getName() != null && !coffee.equals("") && coffee.getPrice() >= 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

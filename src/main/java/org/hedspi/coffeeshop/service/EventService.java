@@ -16,15 +16,51 @@ public class EventService {
 	public int insertEvent(Event event) {
 		logger.entry(event);
 		// validation
-		if (!validate(event)) {
-			return 0;
+		if (validateBefore(event)) {
+			try {
+				return eventMapper.insert(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	public int updateEvent(Event event) {
+		logger.entry(event);
+
+		if (validateBefore(event)) {
+			try {
+				return eventMapper.update(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	public int deleteEvent(int id) {
+		logger.entry(id);
+
+		if (id > 0) {
+			try {
+				return eventMapper.delete(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
-		return eventMapper.insert(event);
+		return 0;
 	}
 
-	private boolean validate(Event event) {
-		return true;
-	}
+	private boolean validateBefore(Event event) {
+		if (event != null && event.getColor() != null && event.getTitle() != null && event.getStart() != null
+				&& event.getEnd() != null && event.getTitle().length() * event.getColor().length()
+						* event.getStart().getTime() * event.getEnd().getTime() > 0) {
+			// TODO: validate color
 
+			return true;
+		}
+		return false;
+	}
 }

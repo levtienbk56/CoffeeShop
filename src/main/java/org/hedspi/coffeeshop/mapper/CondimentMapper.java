@@ -5,16 +5,16 @@ import java.util.List;
 import org.hedspi.coffeeshop.domain.model.Condiment;
 
 public interface CondimentMapper {
-	int insert(Condiment condiment);
+	int insert(Condiment condiment) throws Exception;
 
-	int update(Condiment condiment);
+	int update(Condiment condiment) throws Exception;
 
-	int delete(int id);
+	int delete(int id) throws Exception;
 
-	Condiment select(int id);
+	Condiment select(int id) throws Exception;
 
-	List<Condiment> selectAll();
+	List<Condiment> selectAll() throws Exception;
 
-	List<Condiment> selectAllActive();
+	List<Condiment> selectAllActive() throws Exception;
 
 }

@@ -3,7 +3,8 @@
 
 <!-- OrderMapper.java -->
 <mapper namespace="org.hedspi.coffeeshop.mapper.OrderMapper">
-
+	
+	<!-- NOTE: this query return ID of record that was inserted -->
 	<insert id="insert" parameterType="org.hedspi.coffeeshop.domain.model.Order"
 		useGeneratedKeys="true" keyProperty="id" keyColumn="orders_id">
 		INSERT INTO

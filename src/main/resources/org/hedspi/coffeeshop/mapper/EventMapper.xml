@@ -3,6 +3,7 @@
 
 <!-- EventMapper.java -->
 <mapper namespace="org.hedspi.coffeeshop.mapper.EventMapper">
+
 	<!-- define shortcut -->
 	<resultMap type="org.hedspi.coffeeshop.domain.model.Event"
 		id="Event">
@@ -12,15 +13,14 @@
 		<result property="end" column="time_end" />
 		<result property="color" column="color" />
 	</resultMap>
-	<parameterMap type="org.hedspi.coffeeshop.domain.model.Event"
-		id="Event"></parameterMap>
 
 	<!-- define query sql, id is method's name in Mapper Interface class -->
 	<select id="selectAll" resultMap="Event">
 		SELECT *
 		FROM events
 	</select>
-	<insert id="insert" parameterMap="Event">
+	<insert id="insert" parameterType="org.hedspi.coffeeshop.domain.model.Event"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="events_id">
 		INSERT INTO
 		events(title,color,time_start,time_end)
 		VALUES(#{title},#{color},#{start},#{end})
@@ -30,11 +30,11 @@
 		WHERE
 		events_id = #{id}
 	</delete>
-	<update id="update" parameterMap="Event">
-		UPDATE
-		events
+	<update id="update" parameterType="org.hedspi.coffeeshop.domain.model.Event">
+		UPDATE events
 		SET
-		title = #{name},
+		title =
+		#{title},
 		time_start = #{start},
 		time_end = #{end},
 		color = #{color}

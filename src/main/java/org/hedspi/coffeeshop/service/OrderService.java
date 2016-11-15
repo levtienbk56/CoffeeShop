@@ -23,6 +23,7 @@ import org.hedspi.coffeeshop.domain.model.Condiment;
 import org.hedspi.coffeeshop.domain.model.Cup;
 import org.hedspi.coffeeshop.domain.model.Order;
 import org.hedspi.coffeeshop.domain.model.User;
+import org.hedspi.coffeeshop.mapper.OrderMapper;
 import org.hedspi.coffeeshop.utils.NumberHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,8 @@ public class OrderService {
 	private CoffeeService coffeeService;
 	@Autowired
 	private CondimentService condimentService;
+	@Autowired
+	OrderMapper orderMapper;
 
 	/**
 	 * check valid coffees, size, condiments. if OK insert order information
@@ -233,4 +236,32 @@ public class OrderService {
 		}
 		return listReturn;
 	}
+
+	public int insertOrder(Order order) {
+		if (validate(order)) {
+			try {
+				return orderMapper.insert(order);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	public int updateOrderPrice(int id, double price) {
+		if (id > 0 && price >= 0) {
+			try {
+				return orderMapper.updatePrice(id, price);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	private boolean validate(Order order) {
+		// TODO: validate order
+		return true;
+	}
+
 }

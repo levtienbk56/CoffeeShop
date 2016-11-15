@@ -11,8 +11,6 @@
 		<result property="price" column="price" />
 		<result property="enabled" column="enabled" />
 	</resultMap>
-	<parameterMap type="org.hedspi.coffeeshop.domain.model.Condiment"
-		id="Condiment"></parameterMap>
 
 	<!-- define query sql, id is method's name in Mapper Interface class -->
 	<select id="selectAll" resultMap="Condiment">
@@ -31,24 +29,27 @@
 		WHERE
 		condiments_id = #{id}
 	</select>
-	<insert id="insert" parameterMap="Condiment">
-		INSERT INTO
-		condiments(name,price,enabled)
-		VALUES(#{name},#{price},#{enabled})
+	<insert id="insert" parameterType="org.hedspi.coffeeshop.domain.model.Condiment"
+	 	useGeneratedKeys="true" keyProperty="id" keyColumn="condiments_id">
+	INSERT INTO
+	condiments(name,price,enabled)
+	VALUES(#{name},#{price},#{enabled})
 	</insert>
 	<delete id="delete" parameterType="int">
 		DELETE FROM condiments
 		WHERE
 		condiments_id = #{id}
 	</delete>
-	<update id="update" parameterMap="Condiment">
+	<update id="update" parameterType="org.hedspi.coffeeshop.domain.model.Condiment">
 		UPDATE
 		condiments
 		SET
-		name = #{name},
+		name =
+		#{name},
 		price = #{price},
 		enabled = #{enabled}
 		WHERE
-		condiments_id = #{id}
+		condiments_id =
+		#{id}
 	</update>
 </mapper>
