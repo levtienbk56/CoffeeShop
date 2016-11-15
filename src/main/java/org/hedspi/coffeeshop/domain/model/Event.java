@@ -12,11 +12,21 @@ public class Event extends Item {
 
 	}
 
-	public Event(int id, String title, Timestamp start, Timestamp end, String color) {
+	public Event(int id, String title, String start, String end, String color) {
 		super(id);
 		this.title = title;
-		this.start = start;
-		this.end = end;
+		try {
+			this.start = Timestamp.valueOf(start);
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.start = null;
+		}
+		try {
+			this.end = Timestamp.valueOf(end);
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.end = null;
+		}
 		this.color = color;
 	}
 

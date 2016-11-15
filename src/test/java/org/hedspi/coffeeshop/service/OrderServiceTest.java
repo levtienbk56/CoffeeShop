@@ -1,16 +1,9 @@
 package org.hedspi.coffeeshop.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Date;
 
 import org.hedspi.coffeeshop.domain.model.Order;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,41 +22,37 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class OrderServiceTest {
 	@Autowired
 	private OrderService orderService;
-	private static Order order;
-	private static int id;
 
-	@BeforeClass
-	public static void setUp() throws Exception {
-		order = new Order(0, "test JUnit", new Date(), 999.9);
-		id = 0;
-		assertNotNull(order);
+	@Before
+	public void test0SetUp() throws Exception {
 	}
 
 	@Test
 	public void test1Insert() {
-		// username not exist
-		assertFalse(orderService.insertOrder(order) > 0);
+		assertEquals(-1, orderService.insertOrder(new Order(0, null, null, null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, null, null, 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, null, "", null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, null, "", 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, null, "2016-11-15 16:05:55", null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, null, "2016-11-15 16:05:55", 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "", null, null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "", null, 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "", "", null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "", "", 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "", "2016-11-15 16:05:55", null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "", "2016-11-15 16:05:55", 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", null, null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", null, 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", "", null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", "", 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", "2016-11-15 16:05:55", null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", "2016-11-15 16:05:55", 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "seller", null, null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "seller", null, 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "seller", "", null)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "seller", "", 10.5)));
+		assertEquals(-1, orderService.insertOrder(new Order(0, "seller", "2016-11-15 16:05:55", null)));
+		assertEquals(1, orderService.insertOrder(new Order(0, "seller", "2016-11-15 16:05:55", 10.5)));
 
-		// username exist
-		order.getUser().setUsername("quyvd");
-		assertTrue(orderService.insertOrder(order) > 0);
-
-		id = order.getId();
 	}
-
-	@Test
-	public void test2Update() {
-		assertEquals(1, orderService.updateOrderPrice(id, 1234.5));
-
-		// validate param false
-		assertFalse(orderService.updateOrderPrice(id, -1234) > 0);
-		assertFalse(orderService.updateOrderPrice(-123, 1234.5) > 0);
-	}
-
-	@AfterClass
-	public static void tearDown() throws Exception {
-		order = null;
-		assertNull(order);
-	}
-
 }

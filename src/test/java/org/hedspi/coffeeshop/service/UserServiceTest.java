@@ -145,13 +145,4 @@ public class UserServiceTest {
 		assertEquals(1, userService.insertUser(new User("testhrs-149", "testhrs131@@", false, "SELLER")));
 	}
 
-	@Test
-	public void test2Update() {
-		System.out.println("test2Update");
-		// assertEquals(1, userService.updateUser(user));
-	}
-
-	public void test3Delete() {
-		System.out.println("test3Delete");
-	}
 }

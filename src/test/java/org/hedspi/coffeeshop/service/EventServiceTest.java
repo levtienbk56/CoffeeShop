@@ -1,14 +1,8 @@
 package org.hedspi.coffeeshop.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.sql.Timestamp;
-import java.util.Date;
 
 import org.hedspi.coffeeshop.domain.model.Event;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -28,50 +22,104 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class EventServiceTest {
 	@Autowired
 	private EventService eventService;
-	private static Event event;
-	private static int id;
-	private static Timestamp start;
-	private static Timestamp end;
 
 	@BeforeClass
 	public static void setUp() throws Exception {
-		start = new Timestamp(new Date().getTime());
-		end = new Timestamp(new Date().getTime() + 1000 * 3600 * 24);
-		event = new Event(0, "test junit", start, end, "red");
-		id = 0;
-
-		assertNotNull(event);
 	}
 
 	@Test
 	public void test1Insert() {
-		assertEquals(1, eventService.insertEvent(event));
-		id = event.getId();
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, "", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, "2016-11-15 22:05:55", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, null, "2016-11-15 22:05:55", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", "", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", "2016-11-15 22:05:55", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "", "2016-11-15 22:05:55", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", "", "green")));
+		assertEquals(-1,
+				eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", "2016-11-15 22:05:55", null)));
+		assertEquals(-1,
+				eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(-1,
+				eventService.insertEvent(new Event(0, null, "2016-11-15 16:05:55", "2016-11-15 22:05:55", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, "", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, "2016-11-15 22:05:55", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", null, "2016-11-15 22:05:55", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", "", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", "2016-11-15 22:05:55", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "", "2016-11-15 22:05:55", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", "", "green")));
+		assertEquals(-1,
+				eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", "2016-11-15 22:05:55", null)));
+		assertEquals(-1,
+				eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(-1,
+				eventService.insertEvent(new Event(0, "", "2016-11-15 16:05:55", "2016-11-15 22:05:55", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, "", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, "2016-11-15 22:05:55", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", null, "2016-11-15 22:05:55", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", "", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", "2016-11-15 22:05:55", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "", "2016-11-15 22:05:55", "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", null, null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", null, "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", null, "green")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", "", null)));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", "", "xyz1234")));
+		assertEquals(-1, eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", "", "green")));
+		assertEquals(-1,
+				eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", "2016-11-15 22:05:55", null)));
+		assertEquals(-1,
+				eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", "2016-11-15 22:05:55", "xyz1234")));
+		assertEquals(1,
+				eventService.insertEvent(new Event(0, "歓迎会", "2016-11-15 16:05:55", "2016-11-15 22:05:55", "green")));
 
-		assertEquals(0, eventService.insertEvent(new Event(0, "", null, null, "")));
-		assertEquals(0, eventService.insertEvent(new Event(0, "test junit", start, end, "")));
-		assertEquals(0, eventService.insertEvent(new Event(0, "", start, end, "test junit")));
-	}
-
-	@Test
-	public void test2Update() {
-		assertEquals(1, eventService.updateEvent(event));
-		assertEquals(0, eventService.updateEvent(new Event(-1, "", null, null, "")));
-		assertEquals(0, eventService.updateEvent(new Event(0, "test junit", start, end, "")));
-		assertEquals(0, eventService.updateEvent(new Event(999999, "", start, end, "test junit")));
-	}
-
-	@Test
-	public void test3Delete() {
-		assertEquals(1, eventService.deleteEvent(id));
-		assertEquals(0, eventService.deleteEvent(0));
-		assertEquals(0, eventService.deleteEvent(1000000));
-	}
-
-	@AfterClass
-	public static void tearDown() throws Exception {
-		event = null;
-		assertNull(event);
 	}
 
 }

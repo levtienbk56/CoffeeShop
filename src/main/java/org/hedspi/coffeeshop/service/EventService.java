@@ -13,6 +13,12 @@ public class EventService {
 	@Autowired
 	EventMapper eventMapper;
 
+	/**
+	 * 
+	 * @param event
+	 * @return 1: success<br>
+	 *         -1: error<br>
+	 */
 	public int insertEvent(Event event) {
 		logger.entry(event);
 		// validation
@@ -23,9 +29,16 @@ public class EventService {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return -1;
 	}
 
+	/**
+	 * 
+	 * @param event
+	 * @return 1: success<br>
+	 *         0: no record found<br>
+	 *         -1: error<br>
+	 */
 	public int updateEvent(Event event) {
 		logger.entry(event);
 
@@ -36,7 +49,7 @@ public class EventService {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return -1;
 	}
 
 	public int deleteEvent(int id) {
@@ -50,16 +63,22 @@ public class EventService {
 			}
 		}
 
-		return 0;
+		return -1;
 	}
 
 	private boolean validateBefore(Event event) {
+		// not null
 		if (event != null && event.getColor() != null && event.getTitle() != null && event.getStart() != null
-				&& event.getEnd() != null && event.getTitle().length() * event.getColor().length()
-						* event.getStart().getTime() * event.getEnd().getTime() > 0) {
-			// TODO: validate color
-
-			return true;
+				&& event.getEnd() != null) {
+			// not empty
+			if (event.getTitle().length() > 0 && event.getColor().length() > 0 && event.getStart().getTime() > 0
+					&& event.getEnd().getTime() > 0) {
+				// validate color
+				String color = event.getColor().toLowerCase();
+				if (color.equals("red") || color.equals("blue") || color.equals("orange") || color.equals("yellow")
+						|| color.equals("green") || color.equals("violet"))
+					return true;
+			}
 		}
 		return false;
 	}

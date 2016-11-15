@@ -1,6 +1,6 @@
 package org.hedspi.coffeeshop.mapper;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,9 @@ import org.hedspi.coffeeshop.domain.model.Order;
 public interface OrderMapper {
 	int insert(Order order);
 
-	int updatePrice(@Param("id")int id,@Param("price") double price);
+	int updatePrice(@Param("id") int id, @Param("price") double price);
+
+	int deleteAll();
 
 	List<Map<String, Object>> selectTotalDateCorrelate(@Param("year") Double year, @Param("month") Double month);
 

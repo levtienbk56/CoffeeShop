@@ -1,6 +1,8 @@
 package org.hedspi.coffeeshop.domain.model;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Order extends Item {
 
 	public Order() {
 		cups = new ArrayList<>();
+		total = (double) 0;
 	}
 
 	public Order(int id, User user, List<Cup> cups, Timestamp purchaseTime, Double total) {
@@ -23,10 +26,46 @@ public class Order extends Item {
 		this.total = total;
 	}
 
-	public Order(int id, String username, Date purchaseTime, Double total) {
+	/**
+	 * if Time parsing error, set time=null
+	 * 
+	 * @param id
+	 * @param user
+	 * @param cups
+	 * @param purchaseTime
+	 * @param total
+	 */
+	public Order(int id, User user, List<Cup> cups, String purchaseTime, Double total) {
+		super(id);
+
+		this.user = user;
+		this.cups = cups;
+		try {
+			this.purchaseTime = Timestamp.valueOf(purchaseTime);
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.purchaseTime = null;
+		}
+		this.total = total;
+	}
+
+	/**
+	 * if Time parsing error, set time=null
+	 * 
+	 * @param id
+	 * @param username
+	 * @param purchaseTime
+	 * @param total
+	 */
+	public Order(int id, String username, String purchaseTime, Double total) {
 		super(id);
 		this.user = new User(username);
-		this.purchaseTime = purchaseTime;
+		try {
+			this.purchaseTime = Timestamp.valueOf(purchaseTime);
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.purchaseTime = null;
+		}
 		this.total = total;
 	}
 

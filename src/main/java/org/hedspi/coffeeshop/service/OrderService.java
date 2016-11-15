@@ -237,17 +237,31 @@ public class OrderService {
 		return listReturn;
 	}
 
+	/**
+	 * 
+	 * @param order
+	 * @return 1: success <br>
+	 *         -1: error<br>
+	 */
 	public int insertOrder(Order order) {
-		if (validate(order)) {
+		if (validateBefore(order)) {
 			try {
 				return orderMapper.insert(order);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return -1;
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param price
+	 * @return 1: success <br>
+	 *         0: no recorded found <br>
+	 *         -1: error<br>
+	 */
 	public int updateOrderPrice(int id, double price) {
 		if (id > 0 && price >= 0) {
 			try {
@@ -256,12 +270,108 @@ public class OrderService {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return -1;
 	}
 
-	private boolean validate(Order order) {
-		// TODO: validate order
-		return true;
+	/**
+	 * 
+	 * @return >1: success <br>
+	 *         0: no record found<br>
+	 *         -1: error <br>
+	 */
+	public int deleteAll() {
+		try {
+			return orderMapper.deleteAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	List<Map<String, Object>> selectTotalDateCorrelate(Double year, Double month) {
+		if (year != null && year > 0 && month != null && month > 0) {
+			try {
+				return orderMapper.selectTotalDateCorrelate(year, month);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	List<Map<String, Object>> selectTotalCoffeeCorrelation(Double year, Double month) {
+		if (year != null && year > 0 && month != null && month > 0) {
+			try {
+				return orderMapper.selectTotalCoffeeCorrelation(year, month);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	List<Integer> selectYears() {
+		try {
+			return orderMapper.selectYears();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	List<Integer> selectMonths(Double year) {
+		if (year != null && year > 0) {
+			try {
+				return orderMapper.selectMonths(year);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param coffeeName
+	 * @param date
+	 * @return -1: error<br>
+	 *         >= 0: success<br>
+	 */
+	int selectNumberCupOfCoffeeByDate(String coffeeName, Date date) {
+		if (coffeeName != null && !coffeeName.equals("")) {
+			if (date != null && date.getTime() > 0) {
+				try {
+					return orderMapper.selectNumberCupOfCoffeeByDate(coffeeName, date);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return -1;
+	}
+
+	List<Order> selectByRange(Timestamp dfrom, Timestamp dto) {
+		if (dfrom != null && dto != null) {
+			try {
+				return orderMapper.selectByRange(dfrom, dto);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	private boolean validateBefore(Order order) {
+		if (order != null)
+			if (order.getUser() != null && order.getUser().getUsername() != null && order.getUser().getUsername() != ""
+					&& order.getTotal() != null && order.getTotal() >= 0) {
+				// TODO: validate user
+				// ...
+				if (order.getPurchaseTime() != null)
+					return true;
+			}
+
+		return false;
 	}
 
 }
