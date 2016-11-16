@@ -59,26 +59,26 @@ public class CoffeeService {
 		return true;
 	}
 
-	public int insert(Coffee coffee) {
+	public int insertCoffee(Coffee coffee) {
 		if (validateBefore(coffee))
 			try {
 				return coffeeMapper.insert(coffee);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		return 0; // false
+		return -1; // false
 	}
 
-	int delete(int id) {
+	int deleteCoffee(int id) {
 		if (id > 0)
 			try {
 				return coffeeMapper.delete(id);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		return 0; // false
+		return -1; // false
 	}
-	
+
 	List<Coffee> selectAll() {
 		try {
 			return coffeeMapper.selectAll();
@@ -98,14 +98,14 @@ public class CoffeeService {
 		return null;
 	}
 
-	int update(Coffee coffee) {
+	int updateCoffee(Coffee coffee) {
 		if (validateBefore(coffee))
 			try {
 				return coffeeMapper.update(coffee);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		return 0;
+		return -1;
 	}
 
 	List<Coffee> selectAllActive() {
@@ -118,7 +118,7 @@ public class CoffeeService {
 	}
 
 	private boolean validateBefore(Coffee coffee) {
-		if (coffee != null && coffee.getName() != null && !coffee.equals("") && coffee.getPrice() >= 0) {
+		if (coffee != null && coffee.getName() != null && !coffee.getName().equals("") && coffee.getPrice() >= 0) {
 			return true;
 		}
 

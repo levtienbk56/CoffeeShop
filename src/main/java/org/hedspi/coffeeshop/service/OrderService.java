@@ -364,7 +364,7 @@ public class OrderService {
 	private boolean validateBefore(Order order) {
 		if (order != null)
 			if (order.getUser() != null && order.getUser().getUsername() != null && order.getUser().getUsername() != ""
-					&& order.getTotal() != null && order.getTotal() >= 0) {
+					&& order.getTotal() >= 0) {
 				// TODO: validate user
 				// ...
 				if (order.getPurchaseTime() != null)

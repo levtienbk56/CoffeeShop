@@ -1,10 +1,8 @@
 package org.hedspi.coffeeshop.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.hedspi.coffeeshop.domain.model.Coffee;
-import org.hedspi.coffeeshop.mapper.CoffeeMapper;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -30,30 +28,18 @@ public class CoffeeServiceTest {
 
 	@BeforeClass
 	public static void setUp() throws Exception {
-		coffee = new Coffee(0, "test junit", 100.5, true);
-		id = 0;
-		assertNotNull(coffee);
 	}
 
 	@Test
 	public void test1Insert() {
-		assertEquals(1, coffeeService.insert(coffee));
-		id = coffee.getId();
+		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, null, 123.6, true)));
+		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, null, 123.7, false)));
+		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, "", 123.8, true)));
+		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, "", 123.9, false)));
+		assertEquals(1, coffeeService.insertCoffee(new Coffee(0, "junit test", 123.10, true)));
+		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, "junit test", 123.11, true)));
+		assertEquals(1, coffeeService.insertCoffee(new Coffee(0, "junit test 2", 123.10, false)));
+		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, "junit test 2", 123.11, false)));
 	}
 
-	@Test
-	public void test2Update() {
-		coffee.setName("test junit update");
-		assertEquals(1, coffeeService.update(coffee));
-	}
-
-	@Test
-	public void test3Delete() {
-		assertEquals(1, coffeeService.delete(id));
-	}
-
-	@AfterClass
-	public static void tearDown() {
-		coffee = null;
-	}
 }

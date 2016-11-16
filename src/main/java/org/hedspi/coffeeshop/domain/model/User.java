@@ -3,7 +3,7 @@ package org.hedspi.coffeeshop.domain.model;
 public class User {
 	private String username;
 	private String password;
-	private Boolean enabled = true;
+	private boolean enabled = true;
 	private String role;
 
 	public User() {
@@ -22,7 +22,7 @@ public class User {
 	 * @param enabled　有効フラグ
 	 * @param role　役割
 	 */
-	public User(String username, String password, Boolean enabled, String role) {
+	public User(String username, String password, boolean enabled, String role) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -53,11 +53,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Boolean isEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(Boolean enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 

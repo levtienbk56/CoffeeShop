@@ -14,7 +14,6 @@ import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.controller.seller.order.OrderController;
 import org.hedspi.coffeeshop.domain.dao.UserDAO;
 import org.hedspi.coffeeshop.domain.model.User;
-import org.hedspi.coffeeshop.service.CoffeeService;
 import org.hedspi.coffeeshop.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

@@ -1,11 +1,9 @@
 package org.hedspi.coffeeshop.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.hedspi.coffeeshop.domain.model.Condiment;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,39 +23,21 @@ public class CondimentServiceTest {
 
 	@Autowired
 	CondimentService condimentService;
-	static Condiment condiment;
-	static int id;
 
-	@BeforeClass
-	public static void setUp() throws Exception {
-		condiment = new Condiment(0, "test junit", 1.5, true);
-		id = 0;
-		assertNotNull(condiment);
+	@Before
+	public void test0SetUp() throws Exception {
 	}
 
 	@Test
 	public void test1Insert() {
-		assertEquals(1, condimentService.insert(condiment));
-		id = condiment.getId();
+		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, null, 123.5, false)));
+		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, null, 123.6, true)));
+		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, "", 123.7, false)));
+		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, "", 123.8, true)));
+		assertEquals(1, condimentService.insertCondiment(new Condiment(0, "Junit test", 123.9, false)));
+		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, "Junit test", 123.10, false)));
+		assertEquals(1, condimentService.insertCondiment(new Condiment(0, "Junit test2", 123.9, true)));
+		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, "Junit test2", 123.10, true)));
 	}
 
-	@Test
-	public void test2Update() {
-		condiment.setName("test junit update");
-		assertEquals(1, condimentService.update(condiment));
-		assertEquals(0, condimentService.update(new Condiment(0, null, 0, false)));
-		assertEquals(0, condimentService.update(new Condiment(1, "Zala", -1 , false)));
-		
-	}
-
-	@Test
-	public void test3Delete() {
-		assertEquals(1, condimentService.delete(id));
-		assertEquals(0, condimentService.delete(0));
-	}
-
-	@AfterClass
-	public static void tearDown() {
-		condiment = null;
-	}
 }

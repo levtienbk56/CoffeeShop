@@ -51,7 +51,7 @@ public class CondimentService {
 		return true;
 	}
 
-	public int insert(Condiment condiment) {
+	public int insertCondiment(Condiment condiment) {
 		if (validateBefore(condiment)) {
 			try {
 				return condimentMapper.insert(condiment);
@@ -59,10 +59,10 @@ public class CondimentService {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return -1;
 	}
 
-	public Object update(Condiment condiment) {
+	public Object updateCondiment(Condiment condiment) {
 		if (validateBefore(condiment)) {
 			try {
 				return condimentMapper.update(condiment);
@@ -73,7 +73,7 @@ public class CondimentService {
 		return null;
 	}
 
-	public int delete(int id) {
+	public int deleteCondiment(int id) {
 		if (id > 0) {
 			try {
 				return condimentMapper.delete(id);
@@ -81,7 +81,7 @@ public class CondimentService {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return -1;
 	}
 
 	private boolean validateBefore(Condiment condiment) {

@@ -1,8 +1,6 @@
 package org.hedspi.coffeeshop.domain.model;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.List;
 public class Order extends Item {
 	private User user;
 	private Date purchaseTime;
-	private Double total;
+	private double total;
 	private List<Cup> cups;
 
 	public Order() {
@@ -18,7 +16,7 @@ public class Order extends Item {
 		total = (double) 0;
 	}
 
-	public Order(int id, User user, List<Cup> cups, Timestamp purchaseTime, Double total) {
+	public Order(int id, User user, List<Cup> cups, Timestamp purchaseTime, double total) {
 		super(id);
 		this.user = user;
 		this.cups = cups;
@@ -35,7 +33,7 @@ public class Order extends Item {
 	 * @param purchaseTime
 	 * @param total
 	 */
-	public Order(int id, User user, List<Cup> cups, String purchaseTime, Double total) {
+	public Order(int id, User user, List<Cup> cups, String purchaseTime, double total) {
 		super(id);
 
 		this.user = user;
@@ -57,7 +55,7 @@ public class Order extends Item {
 	 * @param purchaseTime
 	 * @param total
 	 */
-	public Order(int id, String username, String purchaseTime, Double total) {
+	public Order(int id, String username, String purchaseTime, double total) {
 		super(id);
 		this.user = new User(username);
 		try {
@@ -85,11 +83,11 @@ public class Order extends Item {
 		this.purchaseTime = purchaseTime;
 	}
 
-	public Double getTotal() {
+	public double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Double total) {
+	public void setTotal(double total) {
 		this.total = total;
 	}
 

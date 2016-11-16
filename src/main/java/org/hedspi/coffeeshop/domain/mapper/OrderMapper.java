@@ -2,7 +2,6 @@ package org.hedspi.coffeeshop.domain.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 
 import org.hedspi.coffeeshop.domain.model.Order;
 import org.springframework.jdbc.core.RowMapper;

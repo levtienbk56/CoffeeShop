@@ -1,10 +1,5 @@
 package org.hedspi.coffeeshop.service;
 
-import java.util.Date;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.hedspi.coffeeshop.domain.model.Order;
 import org.hedspi.coffeeshop.mapper.CoffeeMapper;
 import org.hedspi.coffeeshop.mapper.CondimentMapper;
 import org.hedspi.coffeeshop.mapper.CupMapper;
@@ -16,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MainService {
-	private static final Logger logger = LogManager.getLogger(MainService.class);
+//	private static final Logger logger = LogManager.getLogger(MainService.class);
 
 	@Autowired
 	CoffeeMapper coffeeMapper;

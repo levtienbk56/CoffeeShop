@@ -90,7 +90,6 @@ public class UserService {
 
 	private boolean validateBefore(User user) {
 		if (user != null && user.getUsername() != null && user.getPassword() != null && user.getRole() != null
-				&& user.isEnabled() != null
 				&& user.getUsername().length() * user.getPassword().length() * user.getRole().length() > 0) {
 
 			// validate ROLE
