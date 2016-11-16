@@ -73,6 +73,16 @@ public class UserService {
 		return null;
 	}
 
+	public int deleteUser(String username) {
+		if (username != null && !username.equals(""))
+			try {
+				return userMapper.delete(username);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return -1;
+	}
+
 	/**
 	 * 
 	 * @return >0: success <br>

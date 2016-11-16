@@ -30,14 +30,14 @@ public class CondimentServiceTest {
 
 	@Test
 	public void test1Insert() {
-		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, null, 123.5, false)));
-		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, null, 123.6, true)));
-		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, "", 123.7, false)));
-		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, "", 123.8, true)));
-		assertEquals(1, condimentService.insertCondiment(new Condiment(0, "Junit test", 123.9, false)));
-		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, "Junit test", 123.10, false)));
-		assertEquals(1, condimentService.insertCondiment(new Condiment(0, "Junit test2", 123.9, true)));
-		assertEquals(-1, condimentService.insertCondiment(new Condiment(0, "Junit test2", 123.10, true)));
+		assertEquals(-1, condimentService.insert(new Condiment(0, null, 123.5, false)));
+		assertEquals(-1, condimentService.insert(new Condiment(0, null, 123.6, true)));
+		assertEquals(-1, condimentService.insert(new Condiment(0, "", 123.7, false)));
+		assertEquals(-1, condimentService.insert(new Condiment(0, "", 123.8, true)));
+		assertEquals(1, condimentService.insert(new Condiment(0, "Junit test", 123.9, false)));
+		assertEquals(-1, condimentService.insert(new Condiment(0, "Junit test", 123.10, false)));
+		assertEquals(1, condimentService.insert(new Condiment(0, "Junit test2", 123.9, true)));
+		assertEquals(-1, condimentService.insert(new Condiment(0, "Junit test2", 123.10, true)));
 	}
 
 }

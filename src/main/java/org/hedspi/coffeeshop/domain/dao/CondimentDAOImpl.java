@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAO {
+public class CondimentDAOImpl extends JdbcDaoSupport implements CondimentDAOTemp {
 	private static final Logger logger = LogManager.getLogger(CondimentDAOImpl.class);
 
 	@Autowired

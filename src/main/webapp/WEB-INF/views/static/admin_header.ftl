@@ -40,5 +40,6 @@
 <script>
 		function formSubmit() {
 			document.getElementById("logoutForm").submit();
+			document.getElementById("logoutForm").submit();
 		}
 	</script>

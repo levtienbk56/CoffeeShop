@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
-import org.hedspi.coffeeshop.domain.dao.CondimentDAO;
 import org.hedspi.coffeeshop.domain.model.Condiment;
 import org.hedspi.coffeeshop.service.CondimentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/admin/product/condiments")
 public class CondimentController {
 	public static final Logger logger = LogManager.getLogger(CondimentController.class);
-
-	@Autowired
-	CondimentDAO condimentdao;
+	
 	@Autowired
 	private CondimentService condimentService;
 
@@ -43,7 +40,7 @@ public class CondimentController {
 	public @ResponseBody Map<String, String> removeCondiment(@RequestParam("condimentId") String id) {
 		logger.entry(id);
 
-		int code = condimentdao.delete(Integer.parseInt(id));
+		int code = condimentService.delete(Integer.parseInt(id));
 
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
@@ -60,7 +57,7 @@ public class CondimentController {
 	public @ResponseBody Map<String, String> editCondiment(@RequestBody Condiment condiment) {
 		logger.entry(condiment);
 
-		int code = condimentdao.update(condiment);
+		int code = condimentService.update(condiment);
 
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
@@ -77,7 +74,7 @@ public class CondimentController {
 	public @ResponseBody Map<String, String> insertCondiment(@RequestBody Condiment condiment) {
 		logger.entry();
 
-		int code = condimentdao.insert(condiment);
+		int code = condimentService.insert(condiment);
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
 			map.put("result", "success");

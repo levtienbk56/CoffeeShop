@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class EventDAOImpl extends JdbcDaoSupport implements EventDAO {
+public class EventDAOImpl extends JdbcDaoSupport implements EventDAOTemp {
 	@Autowired
 	public EventDAOImpl(DataSource dataSource) {
 		this.setDataSource(dataSource);

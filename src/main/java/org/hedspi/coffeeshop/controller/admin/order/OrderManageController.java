@@ -7,10 +7,6 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hedspi.coffeeshop.domain.dao.CoffeeDAO;
-import org.hedspi.coffeeshop.domain.dao.CondimentDAO;
-import org.hedspi.coffeeshop.domain.dao.CupDAO;
-import org.hedspi.coffeeshop.domain.dao.OrderDAO;
 import org.hedspi.coffeeshop.domain.model.Order;
 import org.hedspi.coffeeshop.service.CupService;
 import org.hedspi.coffeeshop.service.OrderService;
@@ -26,15 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/admin/orders")
 public class OrderManageController {
 	public static final Logger logger = LogManager.getLogger(OrderManageController.class);
-
-	@Autowired
-	OrderDAO orderDao;
-	@Autowired
-	CupDAO cupdao;
-	@Autowired
-	CoffeeDAO coffeedao;
-	@Autowired
-	CondimentDAO condimentdao;
 
 	@Autowired
 	private CupService cupService;
@@ -102,7 +89,7 @@ public class OrderManageController {
 			@RequestParam("dto") String dto) {
 		logger.entry(dfrom, dto);
 
-		List<Order> list = orderDao.selectByRange(new Timestamp(Long.parseLong(dfrom)),
+		List<Order> list = orderService.selectByRange(new Timestamp(Long.parseLong(dfrom)),
 				new Timestamp(Long.parseLong(dto)));
 		return logger.exit(list);
 	}
@@ -128,7 +115,7 @@ public class OrderManageController {
 	@RequestMapping(value = "/analysis/years", method = RequestMethod.POST)
 	public @ResponseBody List<Integer> getYears() {
 		logger.entry();
-		List<Integer> list = orderDao.selectYears();
+		List<Integer> list = orderService.selectYears();
 
 		return logger.exit(list);
 	}
@@ -143,7 +130,7 @@ public class OrderManageController {
 	@RequestMapping(value = "/analysis/months", method = RequestMethod.POST)
 	public @ResponseBody List<Integer> getMonths(@RequestParam("year") String year) {
 		logger.entry(year);
-		List<Integer> list = orderDao.selectMonths(Double.parseDouble(year));
+		List<Integer> list = orderService.selectMonths(Double.parseDouble(year));
 
 		return logger.exit(list);
 

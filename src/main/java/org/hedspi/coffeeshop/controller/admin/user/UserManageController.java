@@ -7,9 +7,8 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
-import org.hedspi.coffeeshop.domain.dao.CoffeeDAO;
-import org.hedspi.coffeeshop.domain.dao.UserDAO;
 import org.hedspi.coffeeshop.domain.model.User;
+import org.hedspi.coffeeshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,15 +25,13 @@ public class UserManageController {
 
 	public static final Logger logger = LogManager.getLogger(UserManageController.class);
 	@Autowired
-	UserDAO userdao;
-	@Autowired
-	CoffeeDAO coffeedao;
+	UserService userService;
 
 	@RequestMapping(value = { "" }, method = RequestMethod.GET)
 	public String manageUsers(@ModelAttribute("model") ModelMap model) {
 		logger.entry();
 
-		List<User> listUser = userdao.selectAll();
+		List<User> listUser = userService.selectAll();
 		model.addAttribute("listUser", listUser);
 		return "pages/admin/user-manage/user";
 	}
@@ -43,7 +40,7 @@ public class UserManageController {
 	public @ResponseBody Map<String, String> removeUser(@RequestParam("username") String username) {
 		logger.entry(username);
 
-		int code = userdao.delete(username.toString().trim());
+		int code = userService.deleteUser(username.toString().trim());
 
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
@@ -61,7 +58,7 @@ public class UserManageController {
 	public @ResponseBody Map<String, String> editUser(@RequestBody User user) {
 		logger.entry(user);
 
-		int code = userdao.update(user);
+		int code = userService.updateUser(user);
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
 			map.put("result", "success");
@@ -78,7 +75,7 @@ public class UserManageController {
 	public @ResponseBody Map<String, String> insertUser(@RequestBody User user) {
 		logger.entry(user);
 
-		int code = userdao.insert(user);
+		int code = userService.insertUser(user);
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
 			map.put("result", "success");

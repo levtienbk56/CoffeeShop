@@ -15,9 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.controller.MainController;
-import org.hedspi.coffeeshop.domain.dao.CoffeeDAO;
-import org.hedspi.coffeeshop.domain.dao.CupDAO;
-import org.hedspi.coffeeshop.domain.dao.OrderDAO;
 import org.hedspi.coffeeshop.domain.model.Coffee;
 import org.hedspi.coffeeshop.domain.model.Condiment;
 import org.hedspi.coffeeshop.domain.model.Cup;
@@ -33,14 +30,9 @@ public class OrderService {
 	private static final Logger logger = LogManager.getLogger(OrderService.class);
 
 	@Autowired
-	private OrderDAO orderDAO;
-	@Autowired
-	private CupDAO cupDAO;
-	@Autowired
-	private CoffeeDAO coffeeDAO;
-
-	@Autowired
 	private CoffeeService coffeeService;
+	@Autowired
+	CupService cupService;
 	@Autowired
 	private CondimentService condimentService;
 	@Autowired
@@ -98,14 +90,13 @@ public class OrderService {
 			Timestamp timestamp = new Timestamp(new Date().getTime());
 			order.setPurchaseTime(timestamp);
 
-			int orderId = orderDAO.insertWithReturnId(order);
-			if (orderId <= 0) {
-				return null; // error
+			if (insert(order) < 1) {
+				return null;
 			}
 
 			// everything is OK --> insert Cups in Order
 			for (Cup cup : order.getCups()) {
-				cupDAO.insert(orderId, cup);
+				cupService.insert(order.getId(), cup);
 			}
 		} else {
 			return null;
@@ -114,8 +105,7 @@ public class OrderService {
 	}
 
 	public List<Map<String, Object>> initBarChartData(String year, String month) {
-		List<Map<String, Object>> list = orderDAO.selectTotalDateCorrelate(Double.parseDouble(year),
-				Double.parseDouble(month));
+		List<Map<String, Object>> list = selectTotalDateCorrelate(Double.parseDouble(year), Double.parseDouble(month));
 
 		// convert date format[yyyy-mm-dd] to long NUMBER
 		for (Map<String, Object> map : list) {
@@ -179,60 +169,62 @@ public class OrderService {
 		/*
 		 * format: [{'mname' : xxx, 'mdate' : xxx, 'mcup' : xxx }, {...}, ...]
 		 */
-		List<Map<String, Object>> listData = orderDAO.selectTotalCoffeeCorrelation(new Double(year), new Double(month));
+		List<Map<String, Object>> listData = selectTotalCoffeeCorrelation(new Double(year), new Double(month));
 
-		List<Coffee> coffees = coffeeDAO.selectAll();
+		List<Coffee> coffees = coffeeService.selectAll();
 
-		// each coffee
-		for (Coffee coffee : coffees) {
-			// is arrdata
-			// format: {'day1' : cupcount1, 'day2' : cupcount2, ... }
-			Map<Double, Object> mapDay = new TreeMap<Double, Object>();
+		if (coffees != null && coffees.size() > 0) {
+			// each coffee
+			for (Coffee coffee : coffees) {
+				// is arrdata
+				// format: {'day1' : cupcount1, 'day2' : cupcount2, ... }
+				Map<Double, Object> mapDay = new TreeMap<Double, Object>();
 
-			// get data by each date
-			for (Map<String, Object> map : listData) {
-				if (map.get("mname").equals(coffee.getName())) {
-					mapDay.put((Double) map.get("mdate"), map.get("mcup"));
+				// get data by each date
+				for (Map<String, Object> map : listData) {
+					if (map.get("mname").equals(coffee.getName())) {
+						mapDay.put((Double) map.get("mdate"), map.get("mcup"));
+					}
 				}
+
+				// cause there is any day in month EMPTY data
+				// need to add ['day': 0]
+				SimpleDateFormat formatter = new SimpleDateFormat(Constant.DATE_SIMPLE_FORMAT);
+				double mday = 0;
+				while (true) {
+					mday++;
+					String dateInString = year + "-" + month + "-" + mday;
+					java.util.Date date;
+					try {
+						date = (java.util.Date) formatter.parse(dateInString);
+					} catch (ParseException e) {
+						logger.error("ParseException", dateInString);
+						e.printStackTrace();
+						date = new Date();
+					}
+
+					// any method of Date is deprecated. Use Calendar instead
+					Calendar ca = Calendar.getInstance();
+					ca.setTime(date);
+					// still in current month
+					if (ca.get(Calendar.MONTH) + 1 != Integer.parseInt(month)) {
+						break;
+					}
+
+					// add ['day': 0] into MAP
+					if (!mapDay.containsKey(mday))
+						mapDay.put((double) mday, 0);
+				}
+
+				// format: {'label' : label1, 'data' : [arrdata1]}
+				Map<String, Object> mapReturn = new HashMap<String, Object>();
+				mapReturn.put("label", coffee.getName());
+				mapReturn.put("data", mapDay);
+
+				// add this map into list coffee
+				listReturn.add(mapReturn);
+
 			}
-
-			// cause there is any day in month EMPTY data
-			// need to add ['day': 0]
-			SimpleDateFormat formatter = new SimpleDateFormat(Constant.DATE_SIMPLE_FORMAT);
-			double mday = 0;
-			while (true) {
-				mday++;
-				String dateInString = year + "-" + month + "-" + mday;
-				java.util.Date date;
-				try {
-					date = (java.util.Date) formatter.parse(dateInString);
-				} catch (ParseException e) {
-					logger.error("ParseException", dateInString);
-					e.printStackTrace();
-					date = new Date();
-				}
-
-				// any method of Date is deprecated. Use Calendar instead
-				Calendar ca = Calendar.getInstance();
-				ca.setTime(date);
-				// still in current month
-				if (ca.get(Calendar.MONTH) + 1 != Integer.parseInt(month)) {
-					break;
-				}
-
-				// add ['day': 0] into MAP
-				if (!mapDay.containsKey(mday))
-					mapDay.put((double) mday, 0);
-			}
-
-			// format: {'label' : label1, 'data' : [arrdata1]}
-			Map<String, Object> mapReturn = new HashMap<String, Object>();
-			mapReturn.put("label", coffee.getName());
-			mapReturn.put("data", mapDay);
-
-			// add this map into list coffee
-			listReturn.add(mapReturn);
-
 		}
 		return listReturn;
 	}
@@ -243,7 +235,7 @@ public class OrderService {
 	 * @return 1: success <br>
 	 *         -1: error<br>
 	 */
-	public int insertOrder(Order order) {
+	public int insert(Order order) {
 		if (validateBefore(order)) {
 			try {
 				return orderMapper.insert(order);
@@ -288,7 +280,7 @@ public class OrderService {
 		return -1;
 	}
 
-	List<Map<String, Object>> selectTotalDateCorrelate(Double year, Double month) {
+	public List<Map<String, Object>> selectTotalDateCorrelate(Double year, Double month) {
 		if (year != null && year > 0 && month != null && month > 0) {
 			try {
 				return orderMapper.selectTotalDateCorrelate(year, month);
@@ -299,7 +291,7 @@ public class OrderService {
 		return null;
 	}
 
-	List<Map<String, Object>> selectTotalCoffeeCorrelation(Double year, Double month) {
+	public List<Map<String, Object>> selectTotalCoffeeCorrelation(Double year, Double month) {
 		if (year != null && year > 0 && month != null && month > 0) {
 			try {
 				return orderMapper.selectTotalCoffeeCorrelation(year, month);
@@ -310,7 +302,7 @@ public class OrderService {
 		return null;
 	}
 
-	List<Integer> selectYears() {
+	public List<Integer> selectYears() {
 		try {
 			return orderMapper.selectYears();
 		} catch (Exception e) {
@@ -319,7 +311,7 @@ public class OrderService {
 		return null;
 	}
 
-	List<Integer> selectMonths(Double year) {
+	public List<Integer> selectMonths(Double year) {
 		if (year != null && year > 0) {
 			try {
 				return orderMapper.selectMonths(year);
@@ -337,7 +329,7 @@ public class OrderService {
 	 * @return -1: error<br>
 	 *         >= 0: success<br>
 	 */
-	int selectNumberCupOfCoffeeByDate(String coffeeName, Date date) {
+	public int selectNumberCupOfCoffeeByDate(String coffeeName, Date date) {
 		if (coffeeName != null && !coffeeName.equals("")) {
 			if (date != null && date.getTime() > 0) {
 				try {
@@ -350,7 +342,7 @@ public class OrderService {
 		return -1;
 	}
 
-	List<Order> selectByRange(Timestamp dfrom, Timestamp dto) {
+	public List<Order> selectByRange(Timestamp dfrom, Timestamp dto) {
 		if (dfrom != null && dto != null) {
 			try {
 				return orderMapper.selectByRange(dfrom, dto);

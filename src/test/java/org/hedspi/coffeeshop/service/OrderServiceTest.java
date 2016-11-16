@@ -29,18 +29,18 @@ public class OrderServiceTest {
 
 	@Test
 	public void test1Insert() {
-		assertEquals(-1, orderService.insertOrder(new Order(0, null, null, 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, null, "", 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, null, "2016-11-15 16:05:55", 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, "", null, 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, "", "", 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, "", "2016-11-15 16:05:55", 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", null, 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", "", 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, "test not exist seller", "2016-11-15 16:05:55", 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, "seller", null, 10.5)));
-		assertEquals(-1, orderService.insertOrder(new Order(0, "seller", "", 10.5)));
-		assertEquals(1, orderService.insertOrder(new Order(0, "seller", "2016-11-15 16:05:55", 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, null, null, 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, null, "", 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, null, "2016-11-15 16:05:55", 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, "", null, 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, "", "", 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, "", "2016-11-15 16:05:55", 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, "test not exist seller", null, 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, "test not exist seller", "", 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, "test not exist seller", "2016-11-15 16:05:55", 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, "seller", null, 10.5)));
+		assertEquals(-1, orderService.insert(new Order(0, "seller", "", 10.5)));
+		assertEquals(1, orderService.insert(new Order(0, "seller", "2016-11-15 16:05:55", 10.5)));
 
 	}
 }

@@ -7,14 +7,12 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.controller.MainController;
-import org.hedspi.coffeeshop.domain.dao.CoffeeDAO;
-import org.hedspi.coffeeshop.domain.dao.CondimentDAO;
-import org.hedspi.coffeeshop.domain.dao.CupDAO;
-import org.hedspi.coffeeshop.domain.dao.OrderDAO;
 import org.hedspi.coffeeshop.domain.model.Coffee;
 import org.hedspi.coffeeshop.domain.model.Condiment;
 import org.hedspi.coffeeshop.domain.model.Cup;
 import org.hedspi.coffeeshop.domain.model.Order;
+import org.hedspi.coffeeshop.service.CoffeeService;
+import org.hedspi.coffeeshop.service.CondimentService;
 import org.hedspi.coffeeshop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,13 +29,9 @@ public class OrderController {
 	private static final Logger logger = LogManager.getLogger(OrderController.class);
 
 	@Autowired
-	CondimentDAO condimentdao;
+	CondimentService condimentService;
 	@Autowired
-	CoffeeDAO coffeedao;
-	@Autowired
-	OrderDAO orderdao;
-	@Autowired
-	CupDAO cupdao;
+	CoffeeService coffeeService;
 
 	@Autowired
 	private OrderService orderService;
@@ -55,8 +49,8 @@ public class OrderController {
 	public String index(Locale locale, @ModelAttribute("model") ModelMap model, Model modell) {
 		logger.entry();
 
-		List<Coffee> listCoffee = coffeedao.selectAllActive();
-		List<Condiment> listCondiment = condimentdao.selectAllActive();
+		List<Coffee> listCoffee = coffeeService.selectAllActive();
+		List<Condiment> listCondiment = condimentService.selectAllActive();
 		model.addAttribute("listCondiment", listCondiment);
 		model.addAttribute("listCoffee", listCoffee);
 		logger.debug(listCoffee);

@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAO {
+public class OrderDAOImpl extends JdbcDaoSupport implements OrderDAORemp {
 
 	@Autowired
 	public OrderDAOImpl(DataSource dataSource) {

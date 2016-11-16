@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hedspi.coffeeshop.domain.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.domain.model.Coffee;
 import org.hedspi.coffeeshop.mapper.CoffeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,12 @@ public class CoffeeService {
 	private static final Logger logger = LogManager.getLogger(CoffeeService.class);
 
 	@Autowired
-	private CoffeeDAO coffeeDAO;
-	@Autowired
 	CoffeeMapper coffeeMapper;
 
 	public List<Map<String, Object>> mapDataTable() {
 		List<Map<String, Object>> list = new LinkedList<Map<String, Object>>();
 
-		List<Coffee> coffees = coffeeDAO.selectAll();
+		List<Coffee> coffees = selectAll();
 		for (Coffee cf : coffees) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", cf.getId());
@@ -50,7 +47,7 @@ public class CoffeeService {
 	 */
 	public boolean isAvailable(Coffee coffee) {
 		logger.entry(coffee);
-		Coffee c = coffeeDAO.select(coffee.getId());
+		Coffee c = select(coffee.getId());
 		if (c == null) {
 			return false;
 		}
@@ -59,7 +56,7 @@ public class CoffeeService {
 		return true;
 	}
 
-	public int insertCoffee(Coffee coffee) {
+	public int insert(Coffee coffee) {
 		if (validateBefore(coffee))
 			try {
 				return coffeeMapper.insert(coffee);
@@ -69,7 +66,7 @@ public class CoffeeService {
 		return -1; // false
 	}
 
-	int deleteCoffee(int id) {
+	public int delete(int id) {
 		if (id > 0)
 			try {
 				return coffeeMapper.delete(id);
@@ -79,7 +76,7 @@ public class CoffeeService {
 		return -1; // false
 	}
 
-	List<Coffee> selectAll() {
+	public List<Coffee> selectAll() {
 		try {
 			return coffeeMapper.selectAll();
 		} catch (Exception e) {
@@ -88,7 +85,7 @@ public class CoffeeService {
 		return null;
 	}
 
-	Coffee select(int id) {
+	public Coffee select(int id) {
 		if (id > 0)
 			try {
 				return coffeeMapper.select(id);
@@ -98,7 +95,7 @@ public class CoffeeService {
 		return null;
 	}
 
-	int updateCoffee(Coffee coffee) {
+	public int update(Coffee coffee) {
 		if (validateBefore(coffee))
 			try {
 				return coffeeMapper.update(coffee);
@@ -108,7 +105,7 @@ public class CoffeeService {
 		return -1;
 	}
 
-	List<Coffee> selectAllActive() {
+	public List<Coffee> selectAllActive() {
 		try {
 			return coffeeMapper.selectAllActive();
 		} catch (Exception e) {

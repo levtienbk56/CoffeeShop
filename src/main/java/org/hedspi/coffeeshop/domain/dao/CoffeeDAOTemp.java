@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hedspi.coffeeshop.domain.model.Coffee;
 
-public interface CoffeeDAO {
+public interface CoffeeDAOTemp {
 	int insert(Coffee coffee);
 	int delete(int id);
 	List<Coffee> selectAll();

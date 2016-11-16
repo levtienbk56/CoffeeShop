@@ -1,5 +1,7 @@
 package org.hedspi.coffeeshop.service;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.domain.model.Event;
@@ -19,7 +21,7 @@ public class EventService {
 	 * @return 1: success<br>
 	 *         -1: error<br>
 	 */
-	public int insertEvent(Event event) {
+	public int insert(Event event) {
 		logger.entry(event);
 		// validation
 		if (validateBefore(event)) {
@@ -39,7 +41,7 @@ public class EventService {
 	 *         0: no record found<br>
 	 *         -1: error<br>
 	 */
-	public int updateEvent(Event event) {
+	public int update(Event event) {
 		logger.entry(event);
 
 		if (validateBefore(event)) {
@@ -52,7 +54,7 @@ public class EventService {
 		return -1;
 	}
 
-	public int deleteEvent(int id) {
+	public int delete(int id) {
 		logger.entry(id);
 
 		if (id > 0) {
@@ -64,6 +66,16 @@ public class EventService {
 		}
 
 		return -1;
+	}
+
+	public List<Event> selectAll() {
+		logger.entry();
+		try {
+			return eventMapper.selectAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private boolean validateBefore(Event event) {

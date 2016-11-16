@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAO {
+public class CoffeeDAOImpl extends JdbcDaoSupport implements CoffeeDAOTemp {
 	private static final Logger logger = LogManager.getLogger(CoffeeDAOImpl.class);
 
 	@Autowired

@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
-import org.hedspi.coffeeshop.domain.dao.CoffeeDAO;
 import org.hedspi.coffeeshop.domain.model.Coffee;
 import org.hedspi.coffeeshop.service.CoffeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ public class CoffeeController {
 	public static final Logger logger = LogManager.getLogger(CoffeeController.class);
 
 	@Autowired
-	CoffeeDAO coffeedao;
-	
-	@Autowired
 	CoffeeService coffeeService;
 
 	@RequestMapping(value = { "" }, method = RequestMethod.GET)
@@ -44,7 +40,7 @@ public class CoffeeController {
 	public @ResponseBody Map<String, String> removeCoffee(@RequestParam("coffeeId") String id) {
 		logger.entry(id);
 
-		int code = coffeedao.delete(Integer.parseInt(id));
+		int code = coffeeService.delete(Integer.parseInt(id));
 
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
@@ -61,7 +57,7 @@ public class CoffeeController {
 	public @ResponseBody Map<String, String> editCoffee(@RequestBody Coffee coffee) {
 		logger.entry(coffee);
 
-		int code = coffeedao.update(coffee);
+		int code = coffeeService.update(coffee);
 
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
@@ -78,7 +74,7 @@ public class CoffeeController {
 	public @ResponseBody Map<String, String> insertCoffee(@RequestBody Coffee coffee) {
 		logger.entry(coffee);
 
-		int code = coffeedao.insert(coffee);
+		int code = coffeeService.insert(coffee);
 		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
 			map.put("result", "success");

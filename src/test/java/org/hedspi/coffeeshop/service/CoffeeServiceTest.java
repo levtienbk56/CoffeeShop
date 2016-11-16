@@ -32,14 +32,14 @@ public class CoffeeServiceTest {
 
 	@Test
 	public void test1Insert() {
-		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, null, 123.6, true)));
-		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, null, 123.7, false)));
-		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, "", 123.8, true)));
-		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, "", 123.9, false)));
-		assertEquals(1, coffeeService.insertCoffee(new Coffee(0, "junit test", 123.10, true)));
-		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, "junit test", 123.11, true)));
-		assertEquals(1, coffeeService.insertCoffee(new Coffee(0, "junit test 2", 123.10, false)));
-		assertEquals(-1, coffeeService.insertCoffee(new Coffee(0, "junit test 2", 123.11, false)));
+		assertEquals(-1, coffeeService.insert(new Coffee(0, null, 123.6, true)));
+		assertEquals(-1, coffeeService.insert(new Coffee(0, null, 123.7, false)));
+		assertEquals(-1, coffeeService.insert(new Coffee(0, "", 123.8, true)));
+		assertEquals(-1, coffeeService.insert(new Coffee(0, "", 123.9, false)));
+		assertEquals(1, coffeeService.insert(new Coffee(0, "junit test", 123.10, true)));
+		assertEquals(-1, coffeeService.insert(new Coffee(0, "junit test", 123.11, true)));
+		assertEquals(1, coffeeService.insert(new Coffee(0, "junit test 2", 123.10, false)));
+		assertEquals(-1, coffeeService.insert(new Coffee(0, "junit test 2", 123.11, false)));
 	}
 
 }

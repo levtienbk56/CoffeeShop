@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hedspi.coffeeshop.domain.model.Event;
 
-public interface EventDAO {
+public interface EventDAOTemp {
 	int insert(Event event);
 
 	int delete(int id);

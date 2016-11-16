@@ -12,9 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
 import org.hedspi.coffeeshop.controller.seller.order.OrderController;
-import org.hedspi.coffeeshop.domain.dao.UserDAO;
 import org.hedspi.coffeeshop.domain.model.User;
 import org.hedspi.coffeeshop.service.MainService;
+import org.hedspi.coffeeshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,7 +35,7 @@ public class MainController {
 	@Autowired
 	LocaleResolver localeResolver;
 	@Autowired
-	UserDAO userdao;
+	UserService userService;
 	@Autowired
 	MainService mainService;
 
@@ -128,7 +128,7 @@ public class MainController {
 		cookie.setValue("en");
 		cookie.setMaxAge(1000 * 60 * 60 * 24); // 1day
 		response.addCookie(cookie);
-		
+
 		// [DEBUG] mybatis
 		mainService.test();
 
@@ -147,7 +147,9 @@ public class MainController {
 			@RequestParam("newPass") String newPass) {
 		System.out.println("curpass: " + currentPass + ", newpass: " + newPass);
 
-		User user = userdao.select(MainController.getUserName());
+		String username = MainController.getUserName();
+		User user = userService.selectUser(username);
+
 		Map<String, String> map = new HashMap<String, String>();
 		if (user == null) {
 			map.put("result", "fail");
@@ -157,7 +159,7 @@ public class MainController {
 			map.put("message", Constant.CHANGE_PASS_WRONG);
 		} else {
 			user.setPassword(newPass);
-			userdao.update(user);
+			userService.updateUser(user);
 			map.put("result", "success");
 			map.put("message", Constant.CHANGE_PASS_SUCCESS);
 		}

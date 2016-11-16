@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hedspi.coffeeshop.domain.model.User;
 
-public interface UserDAO {
+public interface UserDAOTemp {
 	int insert(User user);
 	int delete(String username);
 	User select(String username);

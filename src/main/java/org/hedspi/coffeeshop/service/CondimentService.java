@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hedspi.coffeeshop.domain.dao.CondimentDAO;
 import org.hedspi.coffeeshop.domain.model.Condiment;
 import org.hedspi.coffeeshop.mapper.CondimentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,12 @@ public class CondimentService {
 	private static final Logger logger = LogManager.getLogger(CondimentService.class);
 
 	@Autowired
-	private CondimentDAO condimentDAO;
-	@Autowired
 	private CondimentMapper condimentMapper;
 
 	public List<Map<String, Object>> mapDataTable() {
 		List<Map<String, Object>> list = new LinkedList<Map<String, Object>>();
 
-		List<Condiment> condiments = condimentDAO.selectAll();
+		List<Condiment> condiments = selectAll();
 		for (Condiment cd : condiments) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", cd.getId());
@@ -42,7 +39,7 @@ public class CondimentService {
 	 */
 	public boolean isAvailable(Condiment condiment) {
 		logger.entry(condiment);
-		Condiment c = condimentDAO.select(condiment.getId());
+		Condiment c = select(condiment.getId());
 		if (c == null) {
 			return false;
 		}
@@ -51,7 +48,7 @@ public class CondimentService {
 		return true;
 	}
 
-	public int insertCondiment(Condiment condiment) {
+	public int insert(Condiment condiment) {
 		if (validateBefore(condiment)) {
 			try {
 				return condimentMapper.insert(condiment);
@@ -62,7 +59,7 @@ public class CondimentService {
 		return -1;
 	}
 
-	public Object updateCondiment(Condiment condiment) {
+	public int update(Condiment condiment) {
 		if (validateBefore(condiment)) {
 			try {
 				return condimentMapper.update(condiment);
@@ -70,10 +67,10 @@ public class CondimentService {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return -1;
 	}
 
-	public int deleteCondiment(int id) {
+	public int delete(int id) {
 		if (id > 0) {
 			try {
 				return condimentMapper.delete(id);
@@ -82,6 +79,35 @@ public class CondimentService {
 			}
 		}
 		return -1;
+	}
+
+	public Condiment select(int id) {
+		if (id > 0) {
+			try {
+				return condimentMapper.select(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public List<Condiment> selectAll() {
+		try {
+			return condimentMapper.selectAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<Condiment> selectAllActive() {
+		try {
+			return condimentMapper.selectAllActive();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private boolean validateBefore(Condiment condiment) {

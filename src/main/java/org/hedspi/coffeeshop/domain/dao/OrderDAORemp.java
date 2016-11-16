@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.hedspi.coffeeshop.domain.model.Order;
 
-public interface OrderDAO {
+public interface OrderDAORemp {
 	int insert(Order order);
 	Order selectOrder(int id);
 	int insertWithReturnId(Order order);

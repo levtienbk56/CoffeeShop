@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hedspi.coffeeshop.domain.model.Condiment;
 
-public interface CondimentDAO {
+public interface CondimentDAOTemp {
 	int insert(Condiment condiment);
 
 	int update(Condiment condiment);

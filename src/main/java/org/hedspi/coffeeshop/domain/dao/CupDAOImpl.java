@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CupDAOImpl extends JdbcDaoSupport implements CupDAO {
+public class CupDAOImpl extends JdbcDaoSupport implements CupDAOTemp {
 	private static final Logger logger = LogManager.getLogger(CupDAOImpl.class);
 
 	@Autowired

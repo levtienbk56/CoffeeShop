@@ -15,10 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
+public class UserDAOTempImpl extends JdbcDaoSupport implements UserDAOTemp {
 
 	@Autowired
-	public UserDAOImpl(DataSource dataSource) {
+	public UserDAOTempImpl(DataSource dataSource) {
 		this.setDataSource(dataSource);
 	}
 
