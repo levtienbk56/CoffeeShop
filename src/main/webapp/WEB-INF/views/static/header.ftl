@@ -7,10 +7,10 @@
 		value="${_csrf.token}" />
 </form>
 <script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
+	function formSubmit() {
+		document.getElementById("logoutForm").submit();
+	}
+</script>
 	
 <div class="navbar-wrapper" style="margin-bottom:56px">
     <div class="container-fluid">
