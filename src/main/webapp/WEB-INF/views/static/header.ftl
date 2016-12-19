@@ -1,7 +1,7 @@
 <link href="/CoffeeShop/resources/css/header.css" rel="stylesheet">
 
 <!-- csrt for log out-->
-<form action="j_spring_security_logout" method="POST" id="logoutForm">
+<form action="/CoffeeShop/logout" method="POST" id="logoutForm">
   	<input type="hidden" 
 		name="${_csrf.parameterName}"
 		value="${_csrf.token}" />
