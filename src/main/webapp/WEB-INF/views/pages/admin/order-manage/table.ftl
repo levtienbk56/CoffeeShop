@@ -7,43 +7,34 @@
 
 <#macro page_content>
 	<div id="page-wrapper">
-	    <!-- /.row -->
 	    <div class="row">
-	    	<div class="container">
-			    <div class='col-lg-3'>
-				    <div class="panel-heading">
-	                    <strong><@spring.message "label.orderFrom"/></strong>
-	                </div>
+	    	<!-- search filter -->
+	    	<div>
+			    <div class='col-lg-4'>
 			        <div class="form-group">
 			            <div class='input-group date' id='datetimepicker6'>
-			                <input type='text' class="form-control" />
+			                <input type="text" class="form-control"  placeholder="<@spring.message "label.orderFrom"/>" />
 			                <span class="input-group-addon">
 			                    <span class="glyphicon glyphicon-calendar"></span>
 			                </span>
 			            </div>
 			        </div>
 			    </div>
-			    <!-- /.col-lg-3 -->
+			    <!-- /.col-lg-4 -->
 			    
-			    <div class='col-lg-3'>
-			    	<div class="panel-heading">
-	                    <strong><@spring.message "label.orderTo"/></strong>
-	                </div>
+			    <div class='col-lg-4'>
 			        <div class="form-group">
 			            <div class='input-group date' id='datetimepicker7'>
-			                <input type='text' class="form-control" />
+			                <input type="text" class="form-control" placeholder="<@spring.message "label.orderTo"/>"/>
 			                <span class="input-group-addon">
 			                    <span class="glyphicon glyphicon-calendar"></span>
 			                </span>
 			            </div>
 			        </div>
 			    </div>
-			    <!-- /.col-lg-3 -->
+			    <!-- /.col-lg-4 -->
 			    
 			    <div class='col-lg-3'>
-			    	<div class="panel-heading">
-	                    <strong>&#160</strong>
-	                </div>
 			        <div class="form-group">
 			            <button type="button" class="btn btn-default" id="btn-search-by-range">
 					      	<span class="glyphicon glyphicon-search"></span> <@spring.message "label.global.search"/>
@@ -52,10 +43,10 @@
 			    </div>
 			    <!-- /.col-lg-3 -->
 			</div>
-			<!-- /.container -->
+			<!-- /search filter -->
 			
 	    	<!-- order table -->
-	        <div class="col-lg-6">
+	        <div class="col-lg-12">
 	            <div class="panel panel-default">
 	                <div class="panel-heading">
 	                    <@spring.message "label.orderTable"/>
@@ -85,7 +76,7 @@
 	        
 	        
 	        <!-- cup table -->
-	        <div class="col-lg-6">
+	        <div class="col-lg-12">
 	            <div class="panel panel-default">
 	                <div class="panel-heading">
 	                    <@spring.message "label.orderCups" />

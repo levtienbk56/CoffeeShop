@@ -49,19 +49,14 @@ $(function() {
 							for (i = 0; i < data.length; i++) {
 								table01.row.add(
 										[
-												data[i].id,
-												data[i].user.username,
-												moment(data[i].purchaseTime)
-														.format('LL'),
+												data[i].orders_id,
+												data[i].username,
+												moment(data[i].purchase_time)
+														.format('llll'),
 												data[i].total ]).draw();
 
 								// show out
-								console.log(data[i].id
-										+ " "
-										+ data[i].user.username
-										+ " "
-										+ moment(data[i].purchaseTime).format(
-												'LL') + " " + data[i].total);
+								console.log(data[i]);
 							}
 
 							if (i == 0) {
@@ -124,11 +119,13 @@ $(document)
 																table02.row
 																		.add(
 																				[
-																						data[i].coffeeName,
+																						data[i].name,
 																						data[i].size,
-																						data[i].condimentsName,
+																						data[i].condiments,
 																						data[i].price ])
 																		.draw();
+																console
+																		.log(data[i]);
 
 															}
 

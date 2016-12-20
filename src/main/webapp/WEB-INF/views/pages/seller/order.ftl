@@ -18,7 +18,7 @@
 	<#include "../../static/header.ftl">
 </#macro>
 
-<#macro page_content>
+<#macro page_wrapper>
 	<div class="container">
 	    <div class="row">
 			<div class="col-sm-12 col-md-11 col-md-offset-1">

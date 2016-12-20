@@ -92,7 +92,7 @@
 		SELECT *
 		FROM orders
 		WHERE
-		purchase_time &gt; #{dfrom} and
-		purchase_time &lt; #{dto}
+		purchase_time &gt;= #{dfrom} and
+		purchase_time &lt;= #{dto}
 	</select>
 </mapper>

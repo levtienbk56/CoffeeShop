@@ -46,6 +46,9 @@
 	<#include "../../static/footer.ftl">
 </#macro>
 
-<#macro navbar>
-	<#include "../../static/admin_menu.ftl">
+<#macro page_wrapper>
+	<div class="container">
+		<#include "../../static/admin_menu.ftl">
+		<@page_content/>
+	<div class="row">
 </#macro>

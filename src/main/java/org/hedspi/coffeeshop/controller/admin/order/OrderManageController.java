@@ -104,7 +104,7 @@ public class OrderManageController {
 	public @ResponseBody List<Map<String, Object>> getCupsOfOrder(@RequestParam("orderId") Integer orderId) {
 		logger.entry(orderId);
 
-		return logger.exit(this.cupService.mapDataTable(orderId));
+		return logger.exit(this.cupService.selectByOrderId(orderId));
 	}
 
 	/**

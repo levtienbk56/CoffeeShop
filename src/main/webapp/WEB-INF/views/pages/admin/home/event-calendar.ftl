@@ -1,5 +1,5 @@
 <#ftl encoding='UTF-8'>
-<#include "../layout_home.ftl"> 
+<#include "../layout_admin.ftl"> 
 
 <#macro title>
 	<title><@spring.message "title.adminHome"/></title>

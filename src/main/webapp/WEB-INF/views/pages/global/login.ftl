@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="/CoffeeShop/resources/css/login.css">
 </#macro>
 
-<#macro page_content> 
+<#macro page_wrapper> 
 	<div class="container">
 		<form class="form-signin"  action="j_spring_security_check" method='POST'>
 			<h1 class="form-signin-heading text-muted">Sign In</h1>

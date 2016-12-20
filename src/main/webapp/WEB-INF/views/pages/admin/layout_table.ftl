@@ -1,5 +1,5 @@
 <#ftl encoding='UTF-8'>
-<#include "./layout_home.ftl"> <!-- get navbar, header, footer -->
+<#include "./layout_admin.ftl"> <!-- get navbar, header, footer -->
 
 <#macro css_custom>
 	<!-- MetisMenu CSS -->

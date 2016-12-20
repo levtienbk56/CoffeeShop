@@ -3,20 +3,23 @@
 
 <!-- CupMapper.java -->
 <mapper namespace="org.hedspi.coffeeshop.mapper.CupMapper">
-	
+
 	<insert id="insert">
 		INSERT INTO
 		cups(orders_id,coffees_id,condiments,size,price)
-		VALUES( #{orderId}, #{coffeeId}, #{condiments}, #{size}, #{price})
+		VALUES( #{orderId},
+		#{coffeeId}, #{condiments}, #{size}, #{price})
 	</insert>
 	<select id="selectByOrderId" parameterType="int" resultType="map">
-		SELECT *
-		FROM cups
-		WHERE orders_id = #{orderId}
+		SELECT
+		co.name, c.size, c.condiments, c.price
+		FROM cups c, coffees co
+		WHERE orders_id = #{orderId} and c.coffees_id = co.coffees_id
 	</select>
 	<select id="selectCoffeeCorrelate" resultType="map">
 		SELECT
-		co.name as label, count(co.name) as data
+		co.name as
+		label, count(co.name) as data
 		FROM
 		coffees as co, cups as cu
 		WHERE

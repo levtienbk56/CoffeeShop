@@ -70,8 +70,7 @@
 	<body>
 		<@html_custom/>
 		<@page_header/>
-		<@navbar/>
-		<@page_content/>
+		<@page_wrapper/>
 		<@page_footer/>
 		<@script_custom/>
 	</body>
