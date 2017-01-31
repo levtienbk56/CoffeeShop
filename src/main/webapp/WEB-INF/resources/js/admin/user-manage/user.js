@@ -7,16 +7,13 @@ var header = $("meta[name='_csrf_header']").attr("content");
 function editUser(element) {
 	var username = element.parent('td').parent('tr').children('.td-username')
 			.text();
-	var password = element.parent('td').parent('tr').children('.td-password')
-			.text();
 	var enabled = element.parent('td').parent('tr').children('.td-enabled')
 			.text();
 	var role = element.parent('td').parent('tr').children('.td-role').text();
-	console.log('edit ' + username + password + enabled + role);
+	console.log('edit ' + username + enabled + role);
 
 	$('table#modal-tbl-edit').attr('name', username);
 	$('table#modal-tbl-edit .td-username').text(username);
-	$('table#modal-tbl-edit .td-password input').val(password);
 	if (enabled == 'true') {
 		$('table#modal-tbl-edit .td-enabled select').val('true');
 	} else {
@@ -60,7 +57,15 @@ $("#insert-user")
 					if (username == '' || password == ''
 							|| (role != 'ADMIN' && role != 'SELLER')) {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text("Input Empty!");
+						$(".modal-notice").text(
+								Message.getString().INPUT_EMPTY);
+						return false;
+					}
+
+					if (password.length < 4) {
+						$(".modal-notice").addClass("alert alert-warning");
+						$(".modal-notice").text(
+								Message.getString().PWD_TOO_SHORT);
 						return false;
 					}
 
@@ -84,8 +89,7 @@ $("#update-user")
 					// remove space: .replace(/\s/g, '')
 					var username = $('table#modal-tbl-edit .td-username')
 							.text().replace(/\s/g, '');
-					var password = $('table#modal-tbl-edit .td-password input')
-							.val().replace(/\s/g, '');
+					var password = '';
 					var enabled = $(
 							'table#modal-tbl-edit .td-enabled select option:selected')
 							.val();
@@ -93,8 +97,7 @@ $("#update-user")
 							'table#modal-tbl-edit .td-role select option:selected')
 							.val();
 
-					if (username == '' || password == ''
-							|| (role != 'ADMIN' && role != 'SELLER')) {
+					if (username == '' || (role != 'ADMIN' && role != 'SELLER')) {
 						$(".modal-notice").addClass("alert alert-warning");
 						$(".modal-notice")
 								.text(Message.getString().INPUT_EMPTY);
@@ -188,7 +191,8 @@ function requestUpdateUser(user) {
 		success : function(data) {
 			if (data.result == 'success') {
 				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice").text(Message.getString().USER_UPDATE_SUCCESS);
+				$(".modal-notice")
+						.text(Message.getString().USER_UPDATE_SUCCESS);
 			} else {
 				$(".modal-notice").addClass("alert alert-warning");
 				$(".modal-notice").text(Message.getString().USER_UPDATE_FAIL);

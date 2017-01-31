@@ -27,7 +27,6 @@
 	                            <thead>
 	                                <tr>
 	                                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userName"/></th>
-	                                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userPassword"/></th>
 	                                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userActive"/></th>
 	                                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userRole"/></th>
 	                                    <th class="col-sm-2 col-md-2 text-center"></th>
@@ -37,7 +36,6 @@
 				                  	<#list model['listUser'] as user> 
 										<tr class="odd gradeX" id="tr-${user.username}">
 		                                    <td class="td-username text-center">${user.username}</td>
-		                                    <td class="td-password text-center">${user.password}</td>
 		                                    <td class="td-enabled text-center <#if user.enabled?c = 'true'>info<#else>danger</#if>">${user.enabled?c}</td>
 		                                    <td class="center td-role text-center">${user.role}</td>
 		                                    <td style="padding:4px;" class=" text-center">
@@ -81,7 +79,6 @@
 	            <thead id="tblHead">
 	              <tr>
 	              	<th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userName"/></th>
-                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userPassword"/></th>
                     <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userActive"/></th>
                     <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userRole"/></th>
 	              </tr>
@@ -89,7 +86,6 @@
 	            <tbody>
 	              <tr>
 	              	<td class="text-center td-username"></td>
-	                <td class="text-center td-password"><input type="password" class="form-control"></td>
 	                <td class="text-center td-enabled text-center">
 	                	<select class="form-control">
 						    <option value="true">Active</option>

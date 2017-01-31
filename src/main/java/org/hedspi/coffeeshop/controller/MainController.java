@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.hedspi.coffeeshop.controller.seller.order.OrderController;
 import org.hedspi.coffeeshop.domain.model.User;
 import org.hedspi.coffeeshop.service.MainService;
 import org.hedspi.coffeeshop.service.UserService;
+import org.hedspi.coffeeshop.utils.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -135,6 +137,12 @@ public class MainController {
 		return "pages/global/login";
 	}
 
+	@RequestMapping(value = "/logout")
+	public String logout(HttpServletRequest request) throws ServletException {
+		request.logout();
+		return "redirect:/";
+	}
+
 	/**
 	 * update password for user
 	 * 
@@ -145,7 +153,7 @@ public class MainController {
 	@RequestMapping(value = { "/change-pass" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> changePass(@RequestParam("currentPass") String currentPass,
 			@RequestParam("newPass") String newPass) {
-		System.out.println("curpass: " + currentPass + ", newpass: " + newPass);
+		logger.entry(currentPass, newPass);
 
 		String username = MainController.getUserName();
 		User user = userService.selectUser(username);
@@ -154,14 +162,19 @@ public class MainController {
 		if (user == null) {
 			map.put("result", "fail");
 			map.put("message", Constant.CHANGE_PASS_FAIL);
-		} else if (!user.getPassword().equals(currentPass)) {
+		} else if (!PasswordEncoder.match(currentPass, user.getPassword())) {
 			map.put("result", "fail");
 			map.put("message", Constant.CHANGE_PASS_WRONG);
 		} else {
 			user.setPassword(newPass);
-			userService.updateUser(user);
-			map.put("result", "success");
-			map.put("message", Constant.CHANGE_PASS_SUCCESS);
+			int code = userService.changePassword(user);
+			if (code == 1) {
+				map.put("result", "success");
+				map.put("message", Constant.CHANGE_PASS_SUCCESS);
+			} else {
+				map.put("result", "fail");
+				map.put("message", Constant.CHANGE_PASS_WRONG);
+			}
 		}
 		return map;
 	}

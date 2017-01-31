@@ -1,32 +1,32 @@
 var language = getLanguage();
-$("#update-pass").click(
-		function() {
-			var curpass = $("#updatepw-modal input#curPass").val();
-			var newpass = $("#updatepw-modal input#newPass").val();
-			var reppass = $("#updatepw-modal input#repPass").val();
-			if (curpass == '' || newpass == '' || reppass == '') {
-				$("#changePassNotification").removeClass();
-				$("#changePassNotification").addClass(
-						"alert col-md-10 col-md-offset-1 alert-warning");
+$("#update-pass").click(function() {
+	var curpass = $("#updatepw-modal input#curPass").val();
+	var newpass = $("#updatepw-modal input#newPass").val();
+	var reppass = $("#updatepw-modal input#repPass").val();
+	if (curpass == '' || newpass == '' || reppass == '') {
+		alertWarning();
 
-				$("#changePassNotification").text(
-						Message.getString().INPUT_EMPTY);
-				console.log(Message.getString().INPUT_EMPTY);
-				return false;
-			}
-			if (newpass != reppass) {
-				$("#changePassNotification").removeClass();
-				$("#changePassNotification").addClass(
-						"alert col-md-10 col-md-offset-1 alert-warning");
+		$("#changePassNotification").text(Message.getString().INPUT_EMPTY);
+		console.log(Message.getString().INPUT_EMPTY);
+		return false;
+	}
+	if (newpass.length < 4) {
+		alertWarning();
 
-				$("#changePassNotification").text(
-						Message.getString().PWD_NOT_MATCH);
-				return false;
-			} else {
-				requestChangePass(curpass, newpass);
-				return false;
-			}
-		});
+		$("#changePassNotification").text(Message.getString().PWD_TOO_SHORT);
+		return false;
+	}
+
+	if (newpass != reppass) {
+		alertWarning();
+
+		$("#changePassNotification").text(Message.getString().PWD_NOT_MATCH);
+		return false;
+	} else {
+		requestChangePass(curpass, newpass);
+		return false;
+	}
+});
 
 function requestChangePass(curpass, newpass) {
 	// unable button
@@ -46,23 +46,18 @@ function requestChangePass(curpass, newpass) {
 		},
 		success : function(data) {
 			if (data.result == 'fail') {
-				$("#changePassNotification").removeClass();
-				$("#changePassNotification").addClass(
-						"alert col-md-10 col-md-offset-1 alert-warning");
+				alertWarning();
+
 				$("#changePassNotification").text(
 						Message.getString().PWD_INCORECT);
 				// enable button
 				$("#update-pass").prop('disabled', false);
 			} else if (data.result == 'success') {
-				$("#changePassNotification").removeClass();
-				$("#changePassNotification").addClass(
-						"alert col-md-10 col-md-offset-1 alert-success");
+				alertSuccess();
 
 				$("#changePassNotification").text(
 						Message.getString().PWD_CHANGED);
-				// wait for 2
-				// second, then
-				// reload
+				// wait for 2 second, then reload
 				var myInterval = setInterval(function() {
 					location.reload();
 				}, 1500);
@@ -75,4 +70,16 @@ function requestChangePass(curpass, newpass) {
 			console.log("DONE " + e);
 		}
 	});
+}
+
+function alertWarning() {
+	$("#changePassNotification").removeClass();
+	$("#changePassNotification").addClass(
+			"alert col-md-10 col-md-offset-1 alert-warning");
+}
+
+function alertSuccess() {
+	$("#changePassNotification").removeClass();
+	$("#changePassNotification").addClass(
+			"alert col-md-10 col-md-offset-1 alert-success");
 }

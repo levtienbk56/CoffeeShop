@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.domain.model.User;
 import org.hedspi.coffeeshop.mapper.UserMapper;
+import org.hedspi.coffeeshop.utils.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,14 @@ public class UserService {
 	public int insertUser(User user) {
 		logger.entry(user);
 		if (validateBefore(user)) {
-			try {
-				return userMapper.insert(user);
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (user.getPassword() != null && user.getPassword().length() >= 4) {
+				try {
+					PasswordEncoder encoder = new PasswordEncoder();
+					user.setPassword(encoder.encode(user.getPassword()));
+					return userMapper.insert(user);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return -1;
@@ -51,6 +56,21 @@ public class UserService {
 				e.printStackTrace();
 			}
 		}
+		return -1;
+	}
+
+	public int changePassword(User user) {
+		logger.entry(user);
+		if (user.getUsername() != null && user.getPassword() != null && user.getPassword().length() >= 4) {
+			try {
+				PasswordEncoder encoder = new PasswordEncoder();
+				user.setPassword(encoder.encode(user.getPassword()));
+				return userMapper.changePassword(user);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
 		return -1;
 	}
 
@@ -99,8 +119,8 @@ public class UserService {
 	}
 
 	private boolean validateBefore(User user) {
-		if (user != null && user.getUsername() != null && user.getPassword() != null && user.getRole() != null
-				&& user.getUsername().length() * user.getPassword().length() * user.getRole().length() > 0) {
+		if (user != null && user.getUsername() != null && user.getRole() != null
+				&& user.getUsername().length() * user.getRole().length() > 0) {
 
 			// validate ROLE
 			if (user.getRole().equals("ADMIN") || user.getRole().equals("SELLER"))

@@ -15,5 +15,7 @@ public interface UserMapper {
 
 	int update(User user) throws Exception;
 	
+	int changePassword(User user) throws Exception;
+	
 	int deleteAll() throws Exception;
 }

@@ -25,7 +25,7 @@
 		<csrf />
 
 		<headers>
-			<frame-options />
+			<frame-options policy="DENY" />
 			<xss-protection />
 			<hsts />
 		</headers>
@@ -33,18 +33,25 @@
 
 	<!-- Select users and user_roles from database -->
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="tienlv" password="1111" authorities="ADMIN" />
-			</user-service>
-		</authentication-provider>
+		<!-- <authentication-provider> <user-service> <user name="tienlv" password="1111" 
+			authorities="ADMIN" /> </user-service> </authentication-provider> -->
+
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="postgresDataSource"
 				users-by-username-query="select username,password,enabled from users where username=?"
 				authorities-by-username-query="select username,role from users where username =?  " />
+			<password-encoder hash="bcrypt" />
 		</authentication-provider>
 	</authentication-manager>
 
 	<beans:bean id="customSuccessHandler"
 		class="org.hedspi.coffeeshop.config.CustomSuccessHandler" />
+
+	<!-- パスワード作成の複雑さを設定する -->
+	<beans:bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="11"></beans:constructor-arg>
+
+	</beans:bean>
+
 </beans:beans>

@@ -23,9 +23,9 @@
 	</script>
 </#macro>
 
-<#macro page_content> 
+<#macro page_wrapper> 
 	<div class="text-center mcenter">
-		<h4><b>Error: </b>Page is not found!</h4>
+		<h4><b>Error 404: </b>Page is not found!</h4>
 		<p><a href="/CoffeeShop/">click to go to home page</a></p>
 		<i>(auto redirect in 5 seconds)</i>
 	</div>

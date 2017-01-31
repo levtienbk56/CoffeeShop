@@ -48,10 +48,18 @@
 	<update id="update" parameterMap="User">
 		UPDATE users
 		SET
-		password =
-		#{password},
 		enabled = #{enabled},
 		role = #{role}
+		WHERE
+		username =
+		#{username}
+	</update>
+	
+	<update id="changePassword" parameterMap="User">
+		UPDATE users
+		SET
+		password =
+		#{password}
 		WHERE
 		username =
 		#{username}
