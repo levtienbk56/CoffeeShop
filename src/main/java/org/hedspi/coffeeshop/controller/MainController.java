@@ -151,7 +151,7 @@ public class MainController {
 	 * @return Map{"result" : "aaa", message : "bbb"}
 	 */
 	@RequestMapping(value = { "/change-pass" }, method = RequestMethod.POST)
-	public @ResponseBody Map<String, String> changePass(@RequestParam("currentPass") String currentPass,
+	public @ResponseBody Map<String, String> changePass(HttpServletRequest request, @RequestParam("currentPass") String currentPass,
 			@RequestParam("newPass") String newPass) {
 		logger.entry(currentPass, newPass);
 

@@ -1,6 +1,9 @@
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 
+var URL_LOGOUT = "/CoffeeShop/logout";
+var URL_CHANGEPASS = "/CoffeeShop/change-pass"
+
 $(document).ready(
 		function() {
 			$(".dropdown").hover(

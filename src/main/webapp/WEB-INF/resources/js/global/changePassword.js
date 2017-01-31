@@ -35,7 +35,7 @@ function requestChangePass(curpass, newpass) {
 	// password
 	$.ajax({
 		type : "POST",
-		url : "/CoffeeShop/change-pass",
+		url : URL_CHANGEPASS,
 		data : {
 			currentPass : curpass,
 			newPass : newpass
@@ -57,9 +57,10 @@ function requestChangePass(curpass, newpass) {
 
 				$("#changePassNotification").text(
 						Message.getString().PWD_CHANGED);
-				// wait for 2 second, then reload
+				
+				// wait for 2 second, then logout
 				var myInterval = setInterval(function() {
-					location.reload();
+					window.location = URL_LOGOUT;
 				}, 1500);
 			}
 		},
