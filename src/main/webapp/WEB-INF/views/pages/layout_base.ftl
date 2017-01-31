@@ -68,11 +68,13 @@
 		<@css_custom/>
 	</head>
 	<body>
-		<@html_custom/>
-		<@page_header/>
-		<@page_wrapper/>
-		<@page_footer/>
-		<@script_custom/>
+		<div class="container">
+			<@html_custom/>
+			<@page_header/>
+			<@page_wrapper/>
+			<@page_footer/>
+			<@script_custom/>
+		<div/>
 	</body>
 	</html>
 </#macro>
