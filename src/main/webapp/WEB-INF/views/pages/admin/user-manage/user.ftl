@@ -23,7 +23,7 @@
 	                <!-- /.panel-heading -->
 	                <div class="panel-body">
 	                    <div class="dataTable_wrapper">
-	                        <table class="table table-striped table-bordered table-hover tbl-responsive">
+	                        <table class="table table-striped table-bordered table-hover tbl-responsive" style="overflow:hidden;width: 100%;">
 	                            <thead>
 	                                <tr>
 	                                    <th class="col-sm-2 col-md-2 text-center"><@spring.message "label.userName"/></th>

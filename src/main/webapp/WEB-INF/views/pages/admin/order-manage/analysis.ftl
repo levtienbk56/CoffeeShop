@@ -9,17 +9,16 @@
 	<div id="wrapper">
 		<div id="page-wrapper">
 	            <div class="row">
-	                <div class="col-lg-4 text-center">
-	    	            <div class="page-header">
-		                		<label for="sel1"><@spring.message "label.chartSelectYear"/></label>
-		                    	<select class="form-control" id="select_year"></select>
-					      		<label for="sel1"><@spring.message "label.chartSelectMonth"/></label>
-						      	<select class="form-control col-lg-3" id="select_month"></select>
-						      	<div><h1></h1></div>
+	            	<div id="wrapper" style="text-align: center">    
+	    	            <div class="page-header" style="display: inline-block;">
+	                		<label for="sel1"><@spring.message "label.chartSelectYear"/></label>
+	                    	<select class="form-control" id="select_year"></select>
+				      		<label for="sel1"><@spring.message "label.chartSelectMonth"/></label>
+					      	<select class="form-control col-lg-3" id="select_month"></select>
+					      	<div><h1></h1></div>
 				      	</div>
 		                <!-- /.page-header -->
-	                </div>
-	            	<!-- /.col-lg-12 -->
+					</div>
 	            </div>
 	            <!-- /.row -->
 	            <div class="row">
