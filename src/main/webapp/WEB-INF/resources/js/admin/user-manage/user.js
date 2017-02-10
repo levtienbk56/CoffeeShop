@@ -57,8 +57,8 @@ $("#insert-user")
 					if (username == '' || password == ''
 							|| (role != 'ADMIN' && role != 'SELLER')) {
 						$(".modal-notice").addClass("alert alert-warning");
-						$(".modal-notice").text(
-								Message.getString().INPUT_EMPTY);
+						$(".modal-notice")
+								.text(Message.getString().INPUT_EMPTY);
 						return false;
 					}
 
@@ -128,9 +128,6 @@ function requestInsertUser(user) {
 
 	// show modal again
 	$("#modal-insert").modal('show');
-	// clear notice
-	$(".modal-notice").removeClass("alert alert-warning alert-success");
-	$(".modal-notice").text("");
 
 	// send ajax
 	$.ajax({
@@ -145,12 +142,9 @@ function requestInsertUser(user) {
 		},
 		success : function(data) {
 			if (data.result == 'success') {
-				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice")
-						.text(Message.getString().USER_INSERT_SUCCESS);
+				alertSuccess(Message.getString().USER_INSERT_SUCCESS);
 			} else {
-				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(Message.getString().USER_INSERT_FAIL);
+				alertWarning(Message.getString().USER_INSERT_FAIL);
 			}
 			// wait 1.5s then reload page
 			setInterval(function() {
@@ -173,9 +167,6 @@ function requestUpdateUser(user) {
 
 	// show modal again
 	$("#modal-edit").modal('show');
-	// clear notice
-	$(".modal-notice").removeClass("alert alert-warning alert-success");
-	$(".modal-notice").text("");
 
 	// send AJAX
 	$.ajax({
@@ -190,12 +181,11 @@ function requestUpdateUser(user) {
 		},
 		success : function(data) {
 			if (data.result == 'success') {
-				$(".modal-notice").addClass("alert alert-success");
-				$(".modal-notice")
-						.text(Message.getString().USER_UPDATE_SUCCESS);
+				alertSuccess(Message.getString().USER_UPDATE_SUCCESS);
+			} else if (data.result == 'nopermission') {
+				alertWarning(Message.getString().PERMISSION_DENIED);
 			} else {
-				$(".modal-notice").addClass("alert alert-warning");
-				$(".modal-notice").text(Message.getString().USER_UPDATE_FAIL);
+				alertWarning(Message.getString().USER_UPDATE_FAIL);
 			}
 			// wait 1.5s then reload page
 			setInterval(function() {
@@ -209,4 +199,16 @@ function requestUpdateUser(user) {
 			console.log("DONE " + e);
 		}
 	});
+}
+
+function alertWarning(msg) {
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").addClass("alert alert-warning");
+	$(".modal-notice").text(msg);
+}
+
+function alertSuccess(msg) {
+	$(".modal-notice").removeClass("alert alert-warning alert-success");
+	$(".modal-notice").addClass("alert alert-success");
+	$(".modal-notice").text(msg);
 }

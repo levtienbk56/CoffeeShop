@@ -59,6 +59,7 @@ function getLanguage() {
 // define message modul
 var Message = (function() {
 	var string = {
+		PERMISSION_DENIED : "Permission denied! Contact to Supervisor.",
 		INPUT_EMPTY : "Input Empty!",
 		INPUT_INVALID_DATE : "Invalid date　time!",
 		INPUT_INVALID_PRICE : "Invalid price!",
@@ -101,6 +102,7 @@ var Message = (function() {
 	};
 	if (getLanguage() == 'ja') {
 		string = {
+			PERMISSION_DENIED : "アクセス拒否! スーパーバイザーに連絡ください.",
 			INPUT_EMPTY : "入力に記入してください!",
 			INPUT_INVALID_DATE : "日時をチェックしてください！",
 			INPUT_INVALID_PRICE : "価格入力をチェックしてください！",

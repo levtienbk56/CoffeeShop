@@ -3,6 +3,7 @@ package org.hedspi.coffeeshop.common;
 public final class Constant {
 	public static String DATE_SIMPLE_FORMAT = "yyyy-MM-dd";
 
+	public static String SUPERVISOR = "tienlv";
 	public static String ROLE_ADMIN = "ADMIN";
 	public static String ROLE_SELLER = "SELLER";
 	public static String LOGIN_FAIL = "Invalid username and password!";

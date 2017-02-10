@@ -1,5 +1,6 @@
 package org.hedspi.coffeeshop.controller.admin.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hedspi.coffeeshop.common.Constant;
+import org.hedspi.coffeeshop.controller.MainController;
 import org.hedspi.coffeeshop.domain.model.User;
 import org.hedspi.coffeeshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,21 @@ public class UserManageController {
 	@Autowired
 	UserService userService;
 
+	/**
+	 * 全てユーザーをリストする。
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = { "" }, method = RequestMethod.GET)
 	public String manageUsers(@ModelAttribute("model") ModelMap model) {
 		logger.entry();
 
-		List<User> listUser = userService.selectAll();
-		model.addAttribute("listUser", listUser);
+		List<User> users = userService.selectAll();
+		if (users == null) {
+			users = new ArrayList<>();
+		}
+		model.addAttribute("listUser", users);
 		return "pages/admin/user-manage/user";
 	}
 
@@ -57,12 +68,14 @@ public class UserManageController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> editUser(@RequestBody User user) {
 		logger.entry(user);
+		Map<String, String> map = new HashMap<String, String>();
 
 		int code = userService.updateUser(user);
-		Map<String, String> map = new HashMap<String, String>();
 		if (code == 1) {
 			map.put("result", "success");
 			map.put("message", Constant.QUERY_UPDATE_SUCCESS);
+		} else if (code == 999) {
+			map.put("result", "nopermission");
 		} else {
 			logger.error("Query fail!");
 			map.put("result", "fail");

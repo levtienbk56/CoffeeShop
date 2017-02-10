@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hedspi.coffeeshop.common.Constant;
+import org.hedspi.coffeeshop.controller.MainController;
 import org.hedspi.coffeeshop.domain.model.User;
 import org.hedspi.coffeeshop.mapper.UserMapper;
 import org.hedspi.coffeeshop.utils.PasswordEncoder;
@@ -40,18 +42,44 @@ public class UserService {
 	}
 
 	/**
+	 * 更新されるユーザーは「ROLE_ADMIN」の場合は、SUPERVISORだけ更新できます。
+	 * または、SUPERVISORを更新できない。
 	 * 
-	 * @param user
-	 * @return 1: success<br>
-	 *         0: no record updated<br>
-	 *         -1: error<br>
+	 * @param user 更新されるユーザー
+	 * @return 1: 成功<br>
+	 *         0: ユーザーが見つかない<br>
+	 *         -1: エラー発生<br>
 	 */
 	public int updateUser(User user) {
 		logger.entry(user);
 
 		if (validateBefore(user)) {
 			try {
-				return userMapper.update(user);
+				boolean updatable = false;
+
+				// 当座ユーザーを取り込む
+				String username = MainController.getUserName();
+				User currentAdmin = selectUser(username);
+				// 更新したいユーザーを取り込む
+				User updateUser = selectUser(user.getUsername());
+				if (updateUser == null || currentAdmin == null) {
+					return -1;
+				}
+
+				// 更新されるユーザーはAdminの場合：
+				if (updateUser.getRole().equals(Constant.ROLE_ADMIN)) {
+					if (currentAdmin.getUsername().equals(Constant.SUPERVISOR) && !updateUser.getUsername().equals(Constant.SUPERVISOR)) {
+						updatable = true;
+					} else {
+						return 999;
+					}
+				} else if (updateUser.getRole().equals(Constant.ROLE_SELLER)) {
+					updatable = true;
+				}
+
+				if (updatable) {
+					return userMapper.update(user);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -84,9 +112,20 @@ public class UserService {
 		return null;
 	}
 
+	/**
+	 * パスワードは空にする。
+	 * empty password before response to client
+	 * 
+	 * @return all user
+	 */
 	public List<User> selectAll() {
 		try {
-			return userMapper.selectAll();
+			List<User> users = userMapper.selectAll();
+			for (User user : users) {
+				user.setPassword("");
+			}
+
+			return users;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

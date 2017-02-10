@@ -29,7 +29,6 @@ public class EventController {
 	public String adminPage() {
 		logger.entry();
 		logger.trace("TracingEnter AdminController! return Admin home page.");
-		logger.debug("debugging....");
 		return "pages/admin/home/event-calendar";
 	}
 
@@ -41,6 +40,12 @@ public class EventController {
 		return logger.exit(list);
 	}
 
+	/**
+	 * アポ・イベントを追加
+	 * 
+	 * @param event
+	 * @return
+	 */
 	@RequestMapping(value = { "/calendar/insert-event" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> addEvent(@RequestBody Event event) {
 		logger.entry(event);
@@ -58,6 +63,13 @@ public class EventController {
 		}
 		return logger.exit(map);
 	}
+
+	/**
+	 * アポ・イベントを更新
+	 * 
+	 * @param event
+	 * @return
+	 */
 
 	@RequestMapping(value = { "/calendar/update-event" }, method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> updateEvent(@RequestBody Event event) {

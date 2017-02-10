@@ -92,6 +92,7 @@ public class MainController {
 	}
 
 	/**
+	 * ログイン機能。既定の国語は英語である。
 	 * login function use Spring security with notification message. also set
 	 * language to default (='en')
 	 * 
@@ -137,6 +138,14 @@ public class MainController {
 		return "pages/global/login";
 	}
 
+	/**
+	 * ログアウト機能。
+	 * ログアウトした後、ホームページに移動させる
+	 * 
+	 * @param request
+	 * @return
+	 * @throws ServletException
+	 */
 	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest request) throws ServletException {
 		request.logout();
@@ -144,7 +153,8 @@ public class MainController {
 	}
 
 	/**
-	 * update password for user
+	 * パスワード更新。
+	 * update password for user.
 	 * 
 	 * @param currentPass
 	 * @param newPass
@@ -180,7 +190,8 @@ public class MainController {
 	}
 
 	/**
-	 * get current username of user
+	 * 当座ユーザーの名を取り込む
+	 * get username of current user。
 	 * 
 	 * @return username as String
 	 */
@@ -192,6 +203,7 @@ public class MainController {
 	}
 
 	/**
+	 * 国語を更新する。その値が cookie & localeResolverに書き込む。
 	 * request to change language. Save language into cookie & localeResolver
 	 * 
 	 * @param request
